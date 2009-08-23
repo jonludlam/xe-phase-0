@@ -10,7 +10,7 @@ CARBON_DISTFILES ?= /usr/groups/linux/distfiles
 	@touch $@
 endif
 
-COMPONENTS=ocaml findlib annot omake xmlm osqlite3 getopt
+COMPONENTS=ocaml findlib annot omake xmlm getopt
 PREFIX=/opt/xensource
 REPO=$(call hg_loc,dist-ocaml)
 
