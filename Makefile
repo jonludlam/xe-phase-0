@@ -1,8 +1,11 @@
 ifdef B_BASE
 include $(B_BASE)/common.mk
+REPO=$(call hg_loc,dist-ocaml)
 else
 MY_OUTPUT_DIR ?= $(CURDIR)/output
 MY_OBJ_DIR ?= $(CURDIR)/obj
+REPO ?= $(CURDIR)
+
 CARBON_DISTFILES ?= /usr/groups/linux/distfiles
 
 %/.dirstamp:
@@ -12,7 +15,6 @@ endif
 
 COMPONENTS=ocaml findlib annot omake xmlm getopt
 PREFIX=/opt/xensource
-REPO=$(call hg_loc,dist-ocaml)
 
 .PHONY: build
 build: $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz $(MY_SOURCES)/MANIFEST
@@ -37,6 +39,7 @@ $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP) $(MY_OUTPUT_DIR)/ocaml-libs.tar.g
 define comp_template
 
 $(1)_BUILT=$(MY_OBJ_DIR)/$(1)/.built
+$(1)_DOWNLOADED=$(MY_OBJ_DIR)/$(1)/.downloaded
 $(1)_EXTRACTED=$(MY_OBJ_DIR)/$(1)/.extracted
 $(1)_CONFIGURED=$(MY_OBJ_DIR)/$(1)/.configured
 $(1)_PATCHED=$(MY_OBJ_DIR)/$(1)/.patched
@@ -48,11 +51,15 @@ $(1)-%:
 	@mkdir -p $(MY_OBJ_DIR)/$(1)
 	@$(MAKE) -f $(1).mk MAKEFILES=common.mk OBJDIR=$(MY_OBJ_DIR)/$(1) \
 		DESTDIR=$(MY_OBJ_DIR)/$(1)-staging \
-		COMPONENT=$(1) \
+		COMPONENT=$(1) SRC_DIR=$(CURDIR)/distfiles/$(1) \
 		DISTFILES=$(CARBON_DISTFILES)/ocaml PREFIX=$(PREFIX) \
 		BUILT=$$($(1)_BUILT) FAKED=$$($(1)_FAKED) PATCHED=$$($(1)_PATCHED) \
-		EXTRACTED=$$($(1)_EXTRACTED) CONFIGURED=$$($(1)_CONFIGURED) \
+		DOWNLOADED=$$($(1)_DOWNLOADED) EXTRACTED=$$($(1)_EXTRACTED) CONFIGURED=$$($(1)_CONFIGURED) \
 		SOURCES=$$($(1)_SOURCES) $$*
+
+$(MY_OBJ_DIR)/$(1)/.downloaded:
+	$(MAKE) $(1)-download
+	@touch $$@
 
 $(MY_OBJ_DIR)/$(1)/.built:
 	rm -rf $(MY_OBJ_DIR)/$(1)
@@ -79,7 +86,9 @@ $(foreach c,$(COMPONENTS),$(eval $(call comp_template,$(c))))
 
 .PHONY: patchlist
 patchlist:
+	echo REPO=$(REPO)
 	@$(call mkdir_clean,$(MY_OUTPUT_DIR)/patches)
+	@mkdir -p $(MY_OUTPUT_DIR)/patches
 	@for c in $(COMPONENTS); do \
 	  for p in `$(MAKE) --no-print-directory $$c-patchlist`; do \
 	    echo $$c gpl file $(MY_OUTPUT_DIR)/patches/$$p; \

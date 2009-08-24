@@ -1,13 +1,22 @@
 V=0.9.0
 
-SRC=$(OBJDIR)/xmlm-$(V)
 PATCHES=xmlm-install
 
-XML_DISTFILE=$(DISTFILES)/xmlm-$(V).tbz
+NAME=xmlm-$(V)
+PACKAGE=$(NAME).tbz
+URL=http://erratique.ch/software/xmlm/releases/$(PACKAGE)
 
-$(EXTRACTED):
+SRC=$(OBJDIR)/$(NAME)
+
+$(DOWNLOADED):
+	echo $(SRC_DIR)
+	@mkdir -p $(SRC_DIR)
+	bash -c 'if [ ! -e $(SRC_DIR)/$(PACKAGE) ]; then if [ -e $(DISTFILES)/$(PACKAGE) ]; then cp $(DISTFILES)/$(PACKAGE) $(SRC_DIR); else wget $(URL) --output-document=$(SRC_DIR)/$(PACKAGE); fi; fi'
+	@touch $@
+
+$(EXTRACTED): $(DOWNLOADED)
 	rm -rf $(SRC)
-	cd $(OBJDIR) && tar -jxvf $(XML_DISTFILE)
+	cd $(OBJDIR) && tar -jxvf $(SRC_DIR)/$(PACKAGE)
 	@touch $@
 
 $(CONFIGURED): $(PATCHED)
@@ -22,7 +31,7 @@ $(FAKED): $(BUILT)
 	@touch $@
 
 $(SOURCES):
-	echo ocaml bsd file $(XML_DISTFILE) > $@
+	echo ocaml bsd file $(DISTFILES)/$(PACKAGE) > $@
 
 clean::
 	rm -rf $(SRC)

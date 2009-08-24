@@ -1,11 +1,22 @@
 V=0.9.6.9
 SUBV=1
 
-SRC=$(OBJDIR)/omake-$(V)
 PATCHES=omake-64bit-build-fixes omake-no-sync
 
-$(EXTRACTED):
-	cd $(OBJDIR) && tar -zxf $(DISTFILES)/omake-$(V)-$(SUBV).tar.gz
+NAME=omake-$(V)
+PACKAGE=$(NAME)-$(SUBV).tar.gz
+URL=http://omake.metaprl.org/downloads/$(PACKAGE)
+
+SRC=$(OBJDIR)/$(NAME)
+
+$(DOWNLOADED):
+	echo $(SRC_DIR)
+	@mkdir -p $(SRC_DIR)
+	bash -c 'if [ ! -e $(SRC_DIR)/$(PACKAGE) ]; then if [ -e $(DISTFILES)/$(PACKAGE) ]; then cp $(DISTFILES)/$(PACKAGE) $(SRC_DIR); else wget $(URL) --output-document=$(SRC_DIR)/$(PACKAGE); fi; fi'
+	@touch $@
+
+$(EXTRACTED): $(DOWNLOADED)
+	cd $(OBJDIR) && tar -zxf $(SRC_DIR)/$(PACKAGE)
 	@touch $@
 
 $(CONFIGURED): $(PATCHED)

@@ -1,12 +1,19 @@
 V=3.11.0
 
-SRC=$(OBJDIR)/ocaml-$(V)
-#PATCHES=ocaml-get-backtrace
+NAME=ocaml-$(V)
+PACKAGE=$(NAME).tar.bz2
+URL=http://caml.inria.fr/pub/distrib/ocaml-3.11/$(PACKAGE)
 
-OCAML_DISTFILE=$(DISTFILES)/ocaml-$(V).tar.bz2
+SRC=$(OBJDIR)/$(NAME)
 
-$(EXTRACTED):
-	cd $(OBJDIR) && tar -jxf $(OCAML_DISTFILE)
+$(DOWNLOADED):
+	echo $(SRC_DIR)
+	@mkdir -p $(SRC_DIR)
+	bash -c 'if [ ! -e $(SRC_DIR)/$(PACKAGE) ]; then if [ -e $(DISTFILES)/$(PACKAGE) ]; then cp $(DISTFILES)/$(PACKAGE) $(SRC_DIR); else wget $(URL) --output-document=$(SRC_DIR)/$(PACKAGE); fi; fi'
+	@touch $@
+
+$(EXTRACTED): $(DOWNLOADED)
+	cd $(OBJDIR) && tar -jxf $(SRC_DIR)/$(PACKAGE)
 	@touch $@
 
 $(CONFIGURED): $(PATCHED)
@@ -22,7 +29,7 @@ $(FAKED): $(BUILT)
 	@touch $@
 
 $(SOURCES):
-	echo ocaml gpl file $(OCAML_DISTFILE) > $@
+	echo ocaml gpl file $(DISTFILES)$(PACKAGE) > $@
 
 clean::
 	rm -rf $(SRC)

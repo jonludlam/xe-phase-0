@@ -1,9 +1,19 @@
 V=1.1.2pl1
 
-SRC=$(OBJDIR)/findlib-$(V)
+NAME=findlib-$(V)
+PACKAGE=$(NAME).tar.gz
+URL=http://www.ocaml-programming.de/packages/$(PACKAGE)
 
-$(EXTRACTED):
-	cd $(OBJDIR) && tar -zxf $(DISTFILES)/findlib-$(V).tar.gz
+SRC=$(OBJDIR)/$(NAME)
+
+$(DOWNLOADED):
+	echo $(SRC_DIR)
+	@mkdir -p $(SRC_DIR)
+	bash -c 'if [ ! -e $(SRC_DIR)/$(PACKAGE) ]; then if [ -e $(DISTFILES)/$(PACKAGE) ]; then cp $(DISTFILES)/$(PACKAGE) $(SRC_DIR); else wget $(URL) --output-document=$(SRC_DIR)/$(PACKAGE); fi; fi'
+	@touch $@
+
+$(EXTRACTED): $(DOWNLOADED)
+	cd $(OBJDIR) && tar -zxf $(SRC_DIR)/$(PACKAGE)
 	@touch $@
 
 $(CONFIGURED): $(PATCHED)
