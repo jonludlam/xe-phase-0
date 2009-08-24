@@ -13,7 +13,7 @@ CARBON_DISTFILES ?= /usr/groups/linux/distfiles
 	@touch $@
 endif
 
-COMPONENTS=ocaml findlib annot omake xmlm getopt
+COMPONENTS=ocaml findlib omake xmlm getopt
 PREFIX=/opt/xensource
 
 .PHONY: build
