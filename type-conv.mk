@@ -1,8 +1,9 @@
 V=1.6.8
 
 NAME=type-conv-release-$(V)
-PACKAGE=release-$(V).tar.bz2
-URL=http://hg.ocaml.info/release/type-conv/archive/$(PACKAGE)
+ARCHIVE=release-$(V).tar.bz2
+PACKAGE=$(NAME).tar.bz2
+URL=http://hg.ocaml.info/release/type-conv/archive/$(ARCHIVE)
 
 SRC=$(OBJDIR)/$(NAME)
 
