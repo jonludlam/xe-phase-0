@@ -1,0 +1,8 @@
+diff -r b6415f24f044 xml-light/META
+--- /dev/null   Thu Jan 01 00:00:00 1970 +0000
++++ b/META      Wed Jun 14 15:52:54 2006 +0100
+@@ -0,0 +1,4 @@
++version="2.2"
++archive(byte)="xml-light.cma"
++archive(native)="xml-light.cmxa"
++           

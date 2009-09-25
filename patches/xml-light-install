@@ -1,0 +1,31 @@
+--- xml-light/Makefile.orig	2003-10-12 11:16:12.000000000 -0400
++++ xml-light/Makefile	2006-10-18 11:58:20.000000000 -0400
+@@ -2,7 +2,6 @@
+ # http://tech.motion-twin.com
+ .SUFFIXES : .ml .mli .cmo .cmx .cmi .mll .mly
+ 
+-INSTALLDIR=`ocamlc -where`
+ CFLAGS=
+ LFLAGS= -a
+ LIBS=
+@@ -11,8 +10,10 @@
+ 
+ opt: xml-light.cmxa test_opt.exe
+ 
++install: SITELIB=$(shell ocamlfind printconf destdir)
+ install: all opt
+-	cp xml-light.cmxa xml-light.a xml-light.cma xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi xml.cmx dtd.cmx xmlParser.cmx $(INSTALLDIR)
++	mkdir -p $(DESTDIR)$(SITELIB)
++	ocamlfind install -destdir $(DESTDIR)$(SITELIB) xml-light META xml.mli xmlParser.mli dtd.mli xml.cmi xmlParser.cmi dtd.cmi xml-light.cma xml-light.cmxa xml-light.a
+ 
+ doc:
+ 	mkdir doc
+@@ -30,6 +31,8 @@
+ xml-light.cmxa: xml_parser.cmx xml_lexer.cmx dtd.cmx xmlParser.cmx xml.cmx 
+ 	ocamlopt -o xml-light.cmxa $(LFLAGS) $(LIBS) xml_parser.cmx xml_lexer.cmx dtd.cmx xmlParser.cmx xml.cmx
+ 
++xml_parser.cmi: xml_parser.mli
++
+ dtd.cmo: xml.cmi xml_lexer.cmi dtd.cmi
+ 
+ dtd.cmx: xml.cmi xml_lexer.cmi dtd.cmi

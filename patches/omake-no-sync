@@ -1,0 +1,11 @@
+--- a/src/exec/omake_exec.ml	2006-12-08 22:52:01.000000000 +0000
++++ b/src/exec/omake_exec.ml	2008-12-05 20:12:17.000000000 +0000
+@@ -42,8 +42,6 @@
+ open Omake_options_type
+ open Omake_command_type
+ 
+-external sync : unit -> unit = "caml_sync"
+-
+ module Exec =
+ struct
+    (*

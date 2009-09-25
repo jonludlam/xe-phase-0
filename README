@@ -1,0 +1,26 @@
+For every component, you can do:
+
+comp-extract
+comp-configure
+comp-build
+comp-fake
+comp-clean
+
+...or just a top-level 'build' or 'clean' to do them all.
+
+To add a new component:
+
+- add entry into Makefile
+
+- create a component.mk file
+
+This has the following variables: DISTFILES (to find sources), OBJDIR
+(for building), DESTDIR (for installing into), and PREFIX (in main
+file-system).
+
+This file uses a few stamps which are self-explanatory: EXTRACTED,
+PATCHED, BUILT, and CONFIGURED.  FAKE is the final one which should
+install the package into DESTDIR/PREFIX so that it can be tarred up.
+
+A makefile can set PATCHES= which applies the files (found in patches/)
+after extraction.

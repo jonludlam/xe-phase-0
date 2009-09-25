@@ -1,0 +1,42 @@
+--- omake-0.9.6.9/src/libmojave-external/cutil/lm_heap.c~64	2006-04-03 18:31:06.000000000 -0400
++++ omake-0.9.6.9/src/libmojave-external/cutil/lm_heap.c	2007-10-12 05:31:10.000000000 -0400
+@@ -83,15 +83,15 @@
+     ptr = caml_young_ptr;
+     end = caml_young_end;
+ 
+-    fprintf(stderr, "AAA: %s: [0x%08lx, 0x%08lx, 0x%08lx, 0x%08lx] (%d/%d/%d bytes)\n",
++    fprintf(stderr, "AAA: %s: [0x%08lx, 0x%08lx, 0x%08lx, 0x%08lx] (%ld/%ld/%ld bytes)\n",
+             name,
+             (unsigned long) caml_young_start,
+             (unsigned long) caml_young_ptr,
+             (unsigned long) caml_young_limit,
+             (unsigned long) caml_young_end, 
+-            caml_young_end - caml_young_ptr,
+-            caml_young_end - caml_young_limit,
+-            caml_young_end - caml_young_start);
++            (unsigned long)(caml_young_end - caml_young_ptr),
++            (unsigned long)(caml_young_end - caml_young_limit),
++            (unsigned long)(caml_young_end - caml_young_start));
+     fflush(stderr);
+ 
+     /*
+@@ -167,15 +167,15 @@
+     ptr = caml_young_ptr;
+     end = caml_young_end;
+ 
+-    fprintf(stderr, "AAA: %s: [0x%08lx, 0x%08lx, 0x%08lx, 0x%08lx] (%d/%d/%d bytes)\n",
++    fprintf(stderr, "AAA: %s: [0x%08lx, 0x%08lx, 0x%08lx, 0x%08lx] (%ld/%ld/%ld bytes)\n",
+             name,
+             (unsigned long) caml_young_start,
+             (unsigned long) caml_young_ptr,
+             (unsigned long) caml_young_limit,
+             (unsigned long) caml_young_end, 
+-            caml_young_end - caml_young_ptr,
+-            caml_young_end - caml_young_limit,
+-            caml_young_end - caml_young_start);
++            (unsigned long)(caml_young_end - caml_young_ptr),
++            (unsigned long)(caml_young_end - caml_young_limit),
++            (unsigned long)(caml_young_end - caml_young_start));
+     fflush(stderr);
+ 
+     /*

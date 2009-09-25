@@ -1,0 +1,197 @@
+diff -ur ocaml-3.10.0/asmrun/backtrace.c ocaml-3.10.0-modified/asmrun/backtrace.c
+--- ocaml-3.10.0/asmrun/backtrace.c	2007-01-29 12:10:52.000000000 +0000
++++ ocaml-3.10.0-modified/asmrun/backtrace.c	2007-05-31 14:50:33.000000000 +0100
+@@ -97,16 +97,17 @@
+ 
+ /* Print a backtrace */
+ 
+-static void print_location(int index, frame_descr * d)
++static int print_location(int index, frame_descr * d, char *buffer, size_t bufsize)
+ {
+   uintnat infoptr;
+   uint32 info1, info2, k, n, l, a, b;
+   char * kind;
++  int ret=0;
+ 
+   /* If no debugging information available, print nothing.
+      When everything is compiled with -g, this corresponds to 
+      compiler-inserted re-raise operations. */
+-  if ((d->frame_size & 1) == 0) return;
++  if ((d->frame_size & 1) == 0) return -1;
+   /* Recover debugging info */
+   infoptr = ((uintnat) d +
+              sizeof(char *) + sizeof(short) + sizeof(short) +
+@@ -136,14 +137,42 @@
+   else
+     kind = "Called from";
+ 
+-  fprintf(stderr, "%s file \"%s\", line %d, characters %d-%d\n",
+-          kind, ((char *) infoptr) + n, l, a, b);
++  ret=snprintf(buffer, bufsize, "%s file \"%s\", line %d, characters %d-%d\n",
++	       kind, ((char *) infoptr) + n, l, a, b);
++  if(ret>bufsize) 
++    ret=bufsize;
++
++  return ret;
+ }
+ 
+-void caml_print_exception_backtrace(void)
++CAMLexport size_t caml_get_exception_backtrace(char *buffer, size_t length)
+ {
+   int i;
++  size_t n=length;
++  int ret;
++  
++  char *pos=buffer;
++  
++  for(i=0; i<caml_backtrace_pos; i++)
++    {
++      ret = print_location(i, (frame_descr *) caml_backtrace_buffer[i], pos, n);
++      if(ret>0)
++	{
++	  pos += ret;
++	  n -= ret;
++	}
++    }
++
++  /* Reset the backtrace buffer now */
++
++  caml_backtrace_last_exn=Val_unit;
++  
++  return(size_t)(pos - buffer);
++}
+ 
+-  for (i = 0; i < caml_backtrace_pos; i++)
+-    print_location(i, (frame_descr *) caml_backtrace_buffer[i]);
++void caml_print_exception_backtrace(void)
++{
++  char backtracebuffer[1000];
++  caml_get_exception_backtrace(backtracebuffer,sizeof(backtracebuffer));
++  fprintf(stderr,"%s",backtracebuffer);
+ }
+diff -ur ocaml-3.10.0/byterun/alloc.h ocaml-3.10.0-modified/byterun/alloc.h
+--- ocaml-3.10.0/byterun/alloc.h	2005-09-22 15:21:50.000000000 +0100
++++ ocaml-3.10.0-modified/byterun/alloc.h	2007-05-31 10:55:33.000000000 +0100
+@@ -16,6 +16,8 @@
+ #ifndef CAML_ALLOC_H
+ #define CAML_ALLOC_H
+ 
++#define CAML_GOT_GET_BACKTRACE 1
++
+ 
+ #ifndef CAML_NAME_SPACE
+ #include "compatibility.h"
+diff -ur ocaml-3.10.0/byterun/backtrace.c ocaml-3.10.0-modified/byterun/backtrace.c
+--- ocaml-3.10.0/byterun/backtrace.c	2007-01-29 12:11:15.000000000 +0000
++++ ocaml-3.10.0-modified/byterun/backtrace.c	2007-05-31 14:50:11.000000000 +0100
+@@ -97,6 +97,7 @@
+   }
+ }
+ 
++
+ /* Read the debugging info contained in the current bytecode executable.
+    Return a Caml array of Caml lists of debug_event records in "events",
+    or Val_false on failure. */
+@@ -168,16 +169,17 @@
+ 
+ /* Print the location corresponding to the given PC */
+ 
+-static void print_location(value events, int index)
++static int print_location(value events, int index, char *buffer, size_t bufsize)
+ {
+    code_t pc = caml_backtrace_buffer[index];
+   char * info;
+   value ev;
++  int ret;
+ 
+   ev = event_for_location(events, pc);
+   if (caml_is_instruction(*pc, RAISE)) {
+     /* Ignore compiler-inserted raise */
+-    if (ev == Val_false) return;
++    if (ev == Val_false) return -1;
+     /* Initial raise if index == 0, re-raise otherwise */
+     if (index == 0)
+       info = "Raised at";
+@@ -190,7 +192,7 @@
+       info = "Called from";
+   }
+   if (ev == Val_false) {
+-    fprintf(stderr, "%s unknown location\n", info);
++    ret = snprintf(buffer,bufsize, "%s unknown location\n", info);
+   } else {
+     value ev_start = Field (Field (ev, EV_LOC), LOC_START);
+     char *fname = String_val (Field (ev_start, POS_FNAME));
+@@ -199,24 +201,62 @@
+                    - Int_val (Field (ev_start, POS_BOL));
+     int endchr = Int_val (Field (Field (Field (ev, EV_LOC), LOC_END), POS_CNUM))
+                  - Int_val (Field (ev_start, POS_BOL));
+-    fprintf (stderr, "%s file \"%s\", line %d, characters %d-%d\n", info, fname,
+-             lnum, startchr, endchr);
++    ret = snprintf (buffer,bufsize, "%s file \"%s\", line %d, characters %d-%d\n", info, fname,
++		    lnum, startchr, endchr);
+   }
++  if (ret>bufsize)
++    ret=bufsize;
++
++  return ret;
+ }
+ 
+ /* Print a backtrace */
+ 
+-CAMLexport void caml_print_exception_backtrace(void)
++CAMLexport size_t caml_get_exception_backtrace(char *buffer, size_t length)
+ {
+-  value events;
+-  int i;
++  static value events=0;
++  char *pos;
++  int n,i,ret;
++
++  if(events==0)
++    events = read_debug_info();
+ 
+-  events = read_debug_info();
+   if (events == Val_false) {
+-    fprintf(stderr,
+-            "(Program not linked with -g, cannot print stack backtrace)\n");
+-    return;
+-  }
++    n=snprintf(buffer,length,
++	       "(Program not linked with -g, cannot print stack backtrace)\n");
++    if(n<0)
++      return 0;
++
++    if(n>length)
++      return length;
++
++    return n;
++  }
++  
++  pos=buffer;
++  n=length;
++
+   for (i = 0; i < caml_backtrace_pos; i++)
+-    print_location(events, i);
++    {
++      ret = print_location(events, i, pos, n);
++
++      if(ret>0)
++	{
++	  pos+=ret;
++	  n-=ret;
++	}
++    }
++
++  /* Reset the backtrace buffer now */
++
++  caml_backtrace_last_exn=Val_unit;
++
++  return (size_t)(pos-buffer);
++}
++
++void caml_print_exception_backtrace(void)
++{
++  char backtracebuffer[1000];
++  caml_get_exception_backtrace(backtracebuffer,sizeof(backtracebuffer));
++  fprintf(stderr,"%s",backtracebuffer);
+ }
