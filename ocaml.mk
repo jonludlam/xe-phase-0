@@ -29,7 +29,7 @@ $(FAKED): $(BUILT)
 	@touch $@
 
 $(SOURCES):
-	echo ocaml gpl file $(DISTFILES)$(PACKAGE) > $@
+	echo ocaml gpl file $(DISTFILES)/$(PACKAGE) > $@
 
 clean::
 	rm -rf $(SRC)
