@@ -1,6 +1,6 @@
 V=1.6.8
 
-NAME=type-conv-release-$(V)
+NAME=type-conv-$(V)
 ARCHIVE=release-$(V).tar.bz2
 PACKAGE=$(NAME).tar.bz2
 URL=http://hg.ocaml.info/release/type-conv/archive/$(ARCHIVE)
