@@ -1,6 +1,6 @@
 ifdef B_BASE
 include $(B_BASE)/common.mk
-REPO=$(call hg_loc,dist-ocaml)
+REPO=$(call hg_loc,xen-dist-ocaml)
 else
 MY_OUTPUT_DIR ?= $(CURDIR)/output
 MY_OBJ_DIR ?= $(CURDIR)/obj
