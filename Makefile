@@ -86,7 +86,6 @@ $(foreach c,$(COMPONENTS),$(eval $(call comp_template,$(c))))
 
 .PHONY: patchlist
 patchlist:
-	echo REPO=$(REPO)
 	@$(call mkdir_clean,$(MY_OUTPUT_DIR)/patches)
 	@mkdir -p $(MY_OUTPUT_DIR)/patches
 	@for c in $(COMPONENTS); do \
