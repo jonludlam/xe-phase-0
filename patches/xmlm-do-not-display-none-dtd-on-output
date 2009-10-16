@@ -1,0 +1,16 @@
+diff -r 39032711af9a src/xmlm.ml
+--- a/src/xmlm.ml	Mon Oct 12 15:51:22 2009 +0100
++++ b/src/xmlm.ml	Mon Oct 12 15:53:50 2009 +0100
+@@ -1043,9 +1043,10 @@
+     if o.depth = -1 then 
+       begin match s with
+       | `Dtd d ->
++	  begin match d with 
++	  | Some dtd ->
+ 	  outs o "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+-	  begin match d with 
+-	  | Some dtd -> out_utf_8 o dtd; o.outc '\n' 
++	  out_utf_8 o dtd; o.outc '\n' 
+ 	  | None -> ()
+ 	  end;
+ 	  o.depth <- 0

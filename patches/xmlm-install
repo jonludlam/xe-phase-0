@@ -1,47 +1,22 @@
-diff -Naur xmlm-0.9.0/Makefile xmlm-0.9.0-install/Makefile
---- xmlm-0.9.0/Makefile	2007-02-27 00:13:59.000000000 +0000
-+++ xmlm-0.9.0/Makefile	2007-11-06 13:31:39.000000000 +0000
-@@ -14,7 +14,7 @@
- exec = test/xmltrip
- sources = $(lib).ml $(exec).ml
- 
--default: $(lib).cmi $(lib).cmo $(lib).cmx
-+default: $(lib).cmi $(lib).cma $(lib).cmxa
- 
- test: $(exec) $(exec).opt
- 
-@@ -24,10 +24,9 @@
- $(exec).opt: $(sources:.ml=.cmx)
- 	$(OCAMLOPT) $(OCAMLOPTFLAGS) -o $@ $+
- 
--install:
--	$(MKDIR) -p $(INSTALLDIR)
--	$(CP) $(lib).mli $(lib).ml $(lib).cmi $(lib).cmo $(lib).cmx \
--	$(lib).o $(INSTALLDIR)/
-+install: $(lib).cmxa $(lib).cma $(lib).cmi
-+	mkdir -p $(DESTDIR)$(shell ocamlfind printconf destdir)
-+	ocamlfind install -destdir $(DESTDIR)$(shell ocamlfind printconf destdir) -ldconf ignore xmlm src/META $(lib).cmi $(lib).cma $(lib).cmxa $(lib).cmx $(lib).cmo $(lib).o $(lib).a $(lib).mli
- 
- doc: $(lib).cmi
- 	$(OCAMLDOC) -I . -html -colorize-code -d $(HTMLDOCDIR) $(lib).mli
-@@ -89,6 +87,12 @@
- FIND = find
- 
- # pattern rules
-+%.cma : %.cmo
-+	$(OCAMLC) $(OCAMLCFLAGS) -a -o $@ $<
+diff -r 6eb981048934 Makefile
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/Makefile	Mon Oct 12 15:56:53 2009 +0100
+@@ -0,0 +1,10 @@
++lib=_build/src/xmlm
++SITELIB=$(shell ocamlfind printconf destdir)
 +
-+%.cmxa : %.cmx
-+	$(OCAMLOPT) $(OCAMLOPTFLAGS) -a -o $@ $<
++default:
++	./build
 +
- %.cmo : %.ml
- 	$(OCAMLC) $(OCAMLCFLAGS) -c $<
- 
-diff -Naur xmlm-0.9.0/src/META xmlm-0.9.0-install/src/META
---- xmlm-0.9.0/src/META	1970-01-01 01:00:00.000000000 +0100
-+++ xmlm-0.9.0/src/META	2007-11-06 13:33:20.000000000 +0000
-@@ -0,0 +1,4 @@
-+version="0.9.0"
-+description="xmlm"
-+archive(byte) = "xmlm.cma"
-+archive(native) = "xmlm.cmxa"
++install:
++	mkdir -p $(DESTDIR)$(SITELIB)
++	ocamlfind install -destdir $(DESTDIR)$(SITELIB) -ldconf ignore xmlm src/META $(lib).cmi $(lib).cmx $(lib).cmo $(lib).o
++ 
+diff -r 6eb981048934 src/META
+--- a/src/META	Mon Oct 12 15:55:38 2009 +0100
++++ b/src/META	Mon Oct 12 15:56:53 2009 +0100
+@@ -2,4 +2,3 @@
+ description = "Streaming XML input/output for OCaml"
+ archive(byte) = "xmlm.cmo"
+ archive(native) = "xmlm.cmx"
+-directory = "+xmlm"

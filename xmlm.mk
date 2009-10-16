@@ -1,6 +1,6 @@
-V=0.9.0
+V=1.0.1
 
-PATCHES=xmlm-install
+PATCHES=xmlm-install xmlm-do-not-display-none-dtd-on-output
 
 NAME=xmlm-$(V)
 PACKAGE=$(NAME).tbz
