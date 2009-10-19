@@ -1,5 +1,7 @@
 V=1.6.8
 
+PATCHES=type-conv-install
+
 NAME=type-conv-$(V)
 FILENAME=type-conv-release-$(V)
 ARCHIVE=release-$(V).tar.bz2
