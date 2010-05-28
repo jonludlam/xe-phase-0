@@ -1,14 +1,17 @@
+%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
+
 %define index 3
 Version: 0.9.8.5
-Release: %{index}%{?dist}
+Release: %{XEN_RELEASE}
 Summary: The omake build system.
 Name: omake
 URL: http://omake.metaprl.org/
 Source0: %{name}-%{version}-%{index}.tar.gz
+Patch0: omake-no-sync
 License: GPL
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
-BuildRequires: ocaml >= 3.09.2, make, fam-devel, readline-devel, ncurses-devel
+BuildRequires: ocaml >= 3.09.2, make, ncurses-devel
 
 %define debug_package %{nil}
 
@@ -28,6 +31,7 @@ features, including:
 
 %prep
 %setup -q
+%patch0 -p1 -b ~omake-no-sync
 
 %build
 INSTALL_ROOT=$RPM_BUILD_ROOT\
@@ -60,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/omake
 
 %changelog
+* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
+- Customise for XCP
+
 * Thu Dec 11 2006 Aleksey Nogin <rpm@nogin.org> [0.9.8-1]
 - Updated for the new doc file list and the lack of the man pages.
 

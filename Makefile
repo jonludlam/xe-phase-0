@@ -27,13 +27,17 @@ build: $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz $(MY_SOURCES)/MANIFEST
 
 OCAML_VERSION=3.11.0
 FINDLIB_VERSION=1.1.2pl1
+OMAKE_VERSION=0.9.8.5-3
 
 .PHONY: srpm
 srpm:
 	cp $(CARBON_DISTFILES)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCEDIR)/
 	cp $(CARBON_DISTFILES)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCEDIR)/
+	cp $(CARBON_DISTFILES)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCEDIR)/
+	cp patches/omake-no-sync $(RPM_SOURCEDIR)/
 	rpmbuild -bs ocaml.spec
 	rpmbuild --nodeps -bs findlib.spec
+	rpmbuild --nodeps -bs omake.spec
 
 $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz: $(MY_OUTPUT_DIR)/.dirstamp
 	$(MAKE) $(foreach c,$(COMPONENTS),install-$(c))
