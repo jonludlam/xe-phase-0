@@ -1,11 +1,14 @@
+%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
+
 Name:           ocaml-xmlm
 Version:        1.0.2
-Release:        %mkrel 1
+Release:        %{XEN_RELEASE}
 Summary:        Streaming XML input/output for OCaml
 License:        new-BSD
 Group:          Development/Other
 URL:            http://erratique.ch/software/xmlm
 Source0:        http://erratique.ch/software/xmlm/releases/xmlm-%{version}.tbz
+Patch0: xmlm-do-not-display-none-dtd-on-output
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml
 Requires:       ocaml
@@ -29,6 +32,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n xmlm-%{version}
+%patch0 -p1 -b ~xmlm-do-not-display-none-dtd-on-output
 
 %build
 ./build module
@@ -60,6 +64,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
+- Customised for XCP
+
 * Wed Mar 17 2010 Florent Monnier <blue_prawn@mandriva.org> 1.0.2-1mdv2010.1
 + Revision: 522813
 - update to new version 1.0.2
