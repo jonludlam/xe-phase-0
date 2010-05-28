@@ -1,9 +1,11 @@
+%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
+
 %define opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
 %define debug_package %{nil}
 
 Name:           ocaml-findlib
-Version:        1.2.1
-Release:        5%{?dist}
+Version:        1.1.2pl1
+Release:        %{XEN_RELEASE}
 Summary:        Objective CAML package manager and build helper
 
 Group:          Development/Libraries
@@ -12,10 +14,8 @@ URL:            http://projects.camlcity.org/projects/findlib.html
 Source0:        http://download.camlcity.org/download/findlib-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  ocaml >= 3.09.2
-BuildRequires:  camlp4
-BuildRequires:  labltk
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml
+BuildRequires:  ocaml-camlp4
 BuildRequires:  m4, ncurses-devel
 BuildRequires:  gawk
 
@@ -83,8 +83,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %exclude %{_libdir}/ocaml/findlib/*.mli
 %exclude %{_libdir}/ocaml/findlib/Makefile.config
-%exclude %{_libdir}/ocaml/findlib/make_wizard
-%exclude %{_libdir}/ocaml/findlib/make_wizard.pattern
 %{_libdir}/ocaml/num-top
 
 
@@ -97,11 +95,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_libdir}/ocaml/findlib/*.mli
 %{_libdir}/ocaml/findlib/Makefile.config
-%{_libdir}/ocaml/findlib/make_wizard
-%{_libdir}/ocaml/findlib/make_wizard.pattern
 
 
 %changelog
+* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
+- Customised for XCP
+
 * Thu Apr 24 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-5
 - Removed dependency generation for EL-4.
 - ocaml-camlp4 -> camlp4, ocaml-labltk -> labltk for this ancient
@@ -162,4 +161,3 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri May 18 2007 Richard W.M. Jones <rjones@redhat.com> - 1.1.2pl1-1
 - Initial RPM release.
-
