@@ -30,6 +30,7 @@ FINDLIB_VERSION=1.1.2pl1
 OMAKE_VERSION=0.9.8.5-3
 XMLM_VERSION=1.0.2
 GETOPT_VERSION=20040811
+TYPECONV_VERSION=1.6.8
 
 .PHONY: srpm
 srpm:
@@ -45,6 +46,7 @@ srpm:
 	rpmbuild --nodeps -bs omake.spec
 	rpmbuild --nodeps -bs xmlm.spec
 	rpmbuild --nodeps -bs getopt.spec
+	rpmbuild --nodeps -bs type-conv.spec
 
 $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz: $(MY_OUTPUT_DIR)/.dirstamp
 	$(MAKE) $(foreach c,$(COMPONENTS),install-$(c))
