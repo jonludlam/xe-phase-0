@@ -1,6 +1,8 @@
+%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
+
 Name:           ocaml-getopt
 Version:        20040811
-Release:        %mkrel 1
+Release:        %{XEN_RELEASE}
 Summary:        Command line parsing a la GNU getopt
 License:        MIT-like
 Group:          Development/Other
@@ -68,6 +70,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
+- Customise for XCP
+
 * Fri Sep 11 2009 Florent Monnier <blue_prawn@mandriva.org> 20040811-1mdv2010.0
 + Revision: 438504
 - import ocaml-getopt
