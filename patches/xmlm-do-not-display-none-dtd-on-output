@@ -1,3 +1,12 @@
+# User Thomas Gazagnaire <thomas.gazagnaire@citrix.com>
+# Date 1255700631 -3600
+# Node ID c60d3a4a2932b4fac9fa0a19b150109dd98b949f
+# Parent  71e3b904f24b71a82b3a6e6b61362b2e237549d7
+[xmlm] upgrade to version 1.0.1
+
+need to download http://erratique.ch/software/xmlm/releases/xmlm-1.0.1.tbz into /usr/groups/linux/distfiles/ocaml/.
+
+Signed-off-by: Thomas Gazagnaire <thomas.gazagnaire@citrix.com>
 diff -r 39032711af9a src/xmlm.ml
 --- a/src/xmlm.ml	Mon Oct 12 15:51:22 2009 +0100
 +++ b/src/xmlm.ml	Mon Oct 12 15:53:50 2009 +0100
