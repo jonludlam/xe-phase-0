@@ -6,7 +6,12 @@ MY_OUTPUT_DIR ?= $(CURDIR)/output
 MY_OBJ_DIR ?= $(CURDIR)/obj
 REPO ?= $(CURDIR)
 
-CARBON_DISTFILES ?= /usr/groups/linux/distfiles
+RPM_SPECSDIR?=/usr/src/redhat/SPECS
+RPM_SRPMSDIR?=/usr/src/redhat/SRPMS
+RPM_SOURCEDIR?=/usr/src/redhat/SOURCES
+XEN_RELEASE?=unknown
+
+CARBON_DISTFILES ?= /data
 
 %/.dirstamp:
 	@mkdir -p $*
@@ -19,6 +24,14 @@ PREFIX=/opt/xensource
 .PHONY: build
 build: $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz $(MY_SOURCES)/MANIFEST
 	@ :
+
+OCAML_VERSION=3.11.0
+
+.PHONY: srpm
+srpm:
+	cp $(CARBON_DISTFILES)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCEDIR)/
+	rpmbuild -bs ocaml.spec
+
 
 $(MY_OUTPUT_DIR)/ocaml-libs.tar.gz: $(MY_OUTPUT_DIR)/.dirstamp
 	$(MAKE) $(foreach c,$(COMPONENTS),install-$(c))
