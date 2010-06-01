@@ -38,17 +38,18 @@ RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
 .PHONY: build
 build: srpm $(MY_SOURCES)/MANIFEST
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb ocaml.spec
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml.spec
 	$(RPM) -ihv $(RPM_BINDIR)/{ocaml-3*.rpm,ocaml-camlp4*.rpm} || echo ocaml is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb findlib.spec
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/findlib.spec
 	$(RPM) -ihv $(RPM_BINDIR)/ocaml-findlib*.rpm || echo ocaml-findlib is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb omake.spec
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/omake.spec
 	$(RPM) -ihv $(RPM_BINDIR)/omake* || echo omake is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb xmlm.spec getopt.spec type-conv.spec
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/xmlm.spec $(RPM_SPECSDIR)/getopt.spec $(RPM_SPECSDIR)/type-conv.spec
 
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
+	install -g root -o root {ocaml,findlib,omake,xmlm,getopt,type-conv}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
@@ -56,13 +57,13 @@ srpm:
 	cp $(DIST)/xmlm-${XMLM_VERSION}.tbz $(RPM_SOURCESDIR)/
 	cp $(DIST)/getopt-${GETOPT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/type-conv-${TYPECONV_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
-	$(RPMBUILD) -bs ocaml.spec
+	$(RPMBUILD) -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
-	$(RPMBUILD) --nodeps -bs findlib.spec
-	$(RPMBUILD) --nodeps -bs omake.spec
-	$(RPMBUILD) --nodeps -bs xmlm.spec
-	$(RPMBUILD) --nodeps -bs getopt.spec
-	$(RPMBUILD) --nodeps -bs type-conv.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/omake.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/xmlm.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/getopt.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/type-conv.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	rm -f $@
