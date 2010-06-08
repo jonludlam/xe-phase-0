@@ -8,6 +8,7 @@ Name: omake
 URL: http://omake.metaprl.org/
 Source0: %{name}-%{version}-%{index}.tar.gz
 Patch0: omake-no-sync
+Patch1: omake-stdin-stdout
 License: GPL
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -32,6 +33,7 @@ features, including:
 %prep
 %setup -q
 %patch0 -p1 -b ~omake-no-sync
+%patch1 -p1 -b ~omake-stdin-stdout
 
 %build
 INSTALL_ROOT=$RPM_BUILD_ROOT\
