@@ -8,10 +8,10 @@ MY_OUTPUT_DIR ?= $(CURDIR)/output
 MY_OBJ_DIR ?= $(CURDIR)/obj
 REPO ?= $(CURDIR)
 
-RPM_SPECSDIR?=/usr/src/redhat/SPECS
-RPM_SRPMSDIR?=/usr/src/redhat/SRPMS
-RPM_RPMSDIR?=/usr/src/redhat/RPMS
-RPM_SOURCESDIR?=/usr/src/redhat/SOURCES
+RPM_SPECSDIR?=$(shell rpm --eval='%_specdir')
+RPM_SRPMSDIR?=$(shell rpm --eval='%_srcrpmdir')
+RPM_RPMSDIR?=$(shell rpm --eval='%_rpmdir')
+RPM_SOURCESDIR?=$(shell rpm --eval='%_sourcedir')
 RPMBUILD?=rpmbuild
 
 DIST?=/data
