@@ -46,6 +46,10 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/omake.spec
 	$(RPM) -ihv $(RPM_BINDIR)/omake* || echo omake is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/xmlm.spec $(RPM_SPECSDIR)/getopt.spec $(RPM_SPECSDIR)/type-conv.spec
+	$(RPM) -ivh $(RPM_BINDIR)/ocaml-xmlm*.rpm || echo ocaml-xmlm is already installed
+	$(RPM) -ivh $(RPM_BINDIR)/ocaml-getopt*.rpm || echo ocaml-getopt is already installed
+	$(RPM) -ivh $(RPM_BINDIR)/ocaml-type-conv*.rpm || echo ocaml-type-conv is already installed
+
 
 .PHONY: srpm
 srpm:
