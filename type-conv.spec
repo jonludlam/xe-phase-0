@@ -1,7 +1,7 @@
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
 Name:           ocaml-type-conv
-Version:        1.6.8
+Version:        2.0.1
 Release:        %{XEN_RELEASE}
 Summary:        OCaml base library for type conversion
 
@@ -47,6 +47,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
+- Updated to version 2.0.1 for compatability with OCaml 3.12.0
+
 * Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
 - Customised for XCP
 

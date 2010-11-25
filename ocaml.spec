@@ -1,7 +1,7 @@
 
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
-%define major 3.11
+%define major 3.12
 
 Summary: Objective Caml
 Name: ocaml
@@ -75,6 +75,9 @@ file and printing some result on standard output.
 %{_libdir}/ocaml/camlp4/
 
 %changelog
+* Wed Nov 24 2010 Mike McClurg <mike.mcclurg@citrix.com>
+- Updated to release 3.12.0.
+
 * Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
 - Customise for use in XCP build
 

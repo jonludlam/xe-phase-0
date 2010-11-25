@@ -1,14 +1,12 @@
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
-%define index 3
-Version: 0.9.8.5
+%define index r13252
+Version: 0.9.8.6
 Release: %{XEN_RELEASE}
 Summary: The omake build system.
 Name: omake
 URL: http://omake.metaprl.org/
 Source0: %{name}-%{version}-%{index}.tar.gz
-Patch0: omake-no-sync
-Patch1: omake-stdin-stdout
 License: GPL
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -32,8 +30,6 @@ features, including:
 
 %prep
 %setup -q
-%patch0 -p1 -b ~omake-no-sync
-%patch1 -p1 -b ~omake-stdin-stdout
 
 %build
 INSTALL_ROOT=$RPM_BUILD_ROOT\
@@ -60,12 +56,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc LICENSE LICENSE.OMake doc/txt/omake-doc.txt doc/ps/omake-doc.ps doc/ps/omake-doc.pdf doc/html CHANGELOG.txt ocamldep/LICENSE.ocamldep-omake
+%doc LICENSE LICENSE.OMake doc/txt/omake-doc.txt doc/ps/omake-doc.ps doc/ps/omake-doc.pdf doc/webpage CHANGELOG.txt
 
 %attr(555,root,root) %{_bindir}/*
 %{_libdir}/omake
 
 %changelog
+* Thu Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
+- Updated to 0.9.8.6 (revision 13252) to support OCaml 3.12.0.
+
 * Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
 - Customise for XCP
 
