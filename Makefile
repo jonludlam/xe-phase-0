@@ -27,7 +27,7 @@ COMPONENTS=ocaml findlib omake xmlm getopt type-conv
 PREFIX=/opt/xensource
 XEN_RELEASE?=unknown
 
-OCAML_VERSION=3.12.0
+OCAML_VERSION=3.12.0.ocamlspotter
 FINDLIB_VERSION=1.1.2pl1
 OMAKE_VERSION=0.9.8.6-r13252
 XMLM_VERSION=1.0.2

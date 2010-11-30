@@ -5,7 +5,7 @@
 
 Summary: Objective Caml
 Name: ocaml
-Version: %{major}.0
+Version: %{major}.0.ocamlspotter
 Release: %{XEN_RELEASE}
 License: QPL/LGPL
 Group: Development/Languages
@@ -49,7 +49,10 @@ file and printing some result on standard output.
     -prefix "%{_prefix}" \
     -verbose \
     -with-pthread
-%{__make} world bootstrap opt opt.opt
+%{__make} core coreboot
+./build/mixed-boot.sh
+cp boot/myocamlbuild boot/myocamlbuild.boot
+%{__make} world opt opt.opt
 
 %install
 %{__rm} -rf %{buildroot}
@@ -75,6 +78,9 @@ file and printing some result on standard output.
 %{_libdir}/ocaml/camlp4/
 
 %changelog
+* Sat Nov 27 2010 Mike McClurg <mike.mcclurg@citrix.com>
+- Updated to OCaml Spotter, a patched 3.12.0 OCaml compiler that provides enhanced typing annotation files.
+
 * Wed Nov 24 2010 Mike McClurg <mike.mcclurg@citrix.com>
 - Updated to release 3.12.0.
 
