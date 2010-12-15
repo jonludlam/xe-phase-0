@@ -79,4 +79,4 @@ $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 
 .PHONY: clean
 clean::
-	rm -rf *.rpm
+	rm -rf $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
