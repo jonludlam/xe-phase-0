@@ -4,7 +4,7 @@
 %define debug_package %{nil}
 
 Name:           ocaml-findlib
-Version:        1.1.2pl1
+Version:        1.2.6
 Release:        %{XEN_RELEASE}
 Summary:        Objective CAML package manager and build helper
 
