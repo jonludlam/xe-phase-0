@@ -36,6 +36,7 @@ GETOPT_VERSION=20040811
 TYPECONV_VERSION=3.0.1
 OCAML_OUNIT_VERSION=1.1.0
 LIBEV_VERSION=4.04
+REACT_VERSION=0.9.2
 
 RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
@@ -55,11 +56,13 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-ounit-*.rpm || echo ocaml-ounit is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/libev.spec
 	$(RPM) -ivh $(RPM_BINDIR)/libev*.rpm || echo libev is already installed
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-react.spec
+	$(RPM) -ivh $(RPM_BINDIR)/ocaml-react*.rpm || echo ocaml-react is already installed
 
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev}.spec $(RPM_SPECSDIR)
+	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
@@ -68,6 +71,7 @@ srpm:
 	cp $(DIST)/type-conv-${TYPECONV_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/ounit-${OCAML_OUNIT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/libev-${LIBEV_VERSION}.tar.gz libev.pc.in $(RPM_SOURCESDIR)/
+	cp $(DIST)/react-${REACT_VERSION}.tbz react-LICENSE $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
@@ -77,6 +81,7 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/type-conv.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-ounit.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/libev.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-react.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	rm -f $@
