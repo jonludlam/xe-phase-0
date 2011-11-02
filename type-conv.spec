@@ -1,7 +1,7 @@
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
 Name:           ocaml-type-conv
-Version:        2.0.1
+Version:        3.0.1
 Release:        %{XEN_RELEASE}
 Summary:        OCaml base library for type conversion
 
