@@ -5,7 +5,7 @@
 
 Summary: Objective Caml
 Name: ocaml
-Version: %{major}.0.ocamlspotter
+Version: %{major}.1.ocamlspotter
 Release: %{XEN_RELEASE}
 License: QPL/LGPL
 Group: Development/Languages
@@ -78,6 +78,9 @@ cp boot/myocamlbuild boot/myocamlbuild.boot
 %{_libdir}/ocaml/camlp4/
 
 %changelog
+* Tue Sep 27 2011 David Scott <dave.scott@eu.citrix.com>
+- Updated to 3.12.1
+
 * Sat Nov 27 2010 Mike McClurg <mike.mcclurg@citrix.com>
 - Updated to OCaml Spotter, a patched 3.12.0 OCaml compiler that provides enhanced typing annotation files.
 
