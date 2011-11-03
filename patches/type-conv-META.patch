@@ -1,0 +1,25 @@
+--- type-conv-release-3.0.1.orig/lib/META	2011-11-03 09:22:52.401253110 -0400
++++ type-conv-release-3.0.1/lib/META	2011-11-03 09:23:47.549253029 -0400
+@@ -1,11 +1,16 @@
+ version = "3.0.1"
+ description = "support library for preprocessor type conversions"
+ 
++requires = "camlp4"
++archive(syntax, preprocessor) = "pa_type_conv.cmo"
++archive(syntax, toploop) = "pa_type_conv.cmo"
++exists_if = "pa_type_conv.cmo"
++
+ package "syntax" (
+-  version = "3.0.1"
+-  requires = "camlp4"
+-  description = "Syntax extension for type-conv"
+-  archive(syntax, preprocessor) = "pa_type_conv.cmo"
+-  archive(syntax, toploop) = "pa_type_conv.cmo"
+-  exists_if = "pa_type_conv.cmo"
++    version = "3.0.1"
++    description = "support library for preprocessor type conversions"
++    requires = "camlp4"
++    archive(syntax, preprocessor) = "pa_type_conv.cmo"
++    archive(syntax, toploop) = "pa_type_conv.cmo"
++    exists_if = "pa_type_conv.cmo"
+ )

@@ -49,6 +49,7 @@ iconv -f iso-8859-1 -t utf-8 < README.old > README
 
 %build
 export C_INCLUDE_PATH=/usr/include/libev
+./configure --enable-react
 make
 
 

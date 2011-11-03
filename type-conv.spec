@@ -9,6 +9,7 @@ Group:          Development/Other
 License:        LGPLv2+ with exceptions and BSD
 URL:            http://www.ocaml.info/home/ocaml_sources.html#type-conv
 Source0:        http://hg.ocaml.info/release/type-conv/archive/type-conv-%{version}.tar.bz2
+Patch0:         type-conv-META.patch
 # curl http://hg.ocaml.info/release/type-conv/archive/release-%{version}.tar.bz2 > type-conv-release-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 
@@ -24,6 +25,7 @@ ability to use these preprocessors simultaneously.
 
 %prep
 %setup -q -n type-conv-release-%{version}
+%patch0 -p1
 #dos2unix LICENSE.Tywith
 
 %build

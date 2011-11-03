@@ -38,6 +38,7 @@ OCAML_OUNIT_VERSION=1.1.0
 LIBEV_VERSION=4.04
 REACT_VERSION=0.9.2
 LWT_VERSION=2.3.1
+OBUS_VERSION=1.1.3
 
 RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
@@ -61,21 +62,24 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-react*.rpm || echo ocaml-react is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-lwt.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-lwt*.rpm || echo ocaml-lwt is already installed
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-obus.spec
+	$(RPM) -ivh $(RPM_BINDIR)/ocaml-obus*.rpm || echo ocaml-obus is already installed
 
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-lwt}.spec $(RPM_SPECSDIR)
+	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-lwt,ocaml-obus}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/xmlm-${XMLM_VERSION}.tbz $(RPM_SOURCESDIR)/
 	cp $(DIST)/getopt-${GETOPT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/type-conv-${TYPECONV_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
+	cp $(DIST)/type-conv-${TYPECONV_VERSION}.tar.bz2 patches/type-conv-META.patch $(RPM_SOURCESDIR)/
 	cp $(DIST)/ounit-${OCAML_OUNIT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/libev-${LIBEV_VERSION}.tar.gz libev.pc.in $(RPM_SOURCESDIR)/
 	cp $(DIST)/react-${REACT_VERSION}.tbz react-LICENSE $(RPM_SOURCESDIR)/
 	cp $(DIST)/lwt-${LWT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
+	cp $(DIST)/obus-${OBUS_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
@@ -87,6 +91,7 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/libev.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-react.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-lwt.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-obus.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	rm -f $@
