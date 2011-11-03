@@ -58,6 +58,12 @@ cp boot/myocamlbuild boot/myocamlbuild.boot
 %{__rm} -rf %{buildroot}
 %{__make} install BINDIR="%{buildroot}%{_bindir}" LIBDIR="%{buildroot}%{_libdir}/ocaml" MANDIR="%{buildroot}%{_mandir}"
 %{__perl} -pi.orig -e 's|^%{buildroot}||' %{buildroot}%{_libdir}/ocaml/ld.conf
+mkdir -p %{buildroot}%{_libdir}/ocaml/compiler-libs/utils
+cp -r utils/*.{cmo,cmi,spit,spot} %{buildroot}%{_libdir}/ocaml/compiler-libs/utils/
+mkdir -p %{buildroot}%{_libdir}/ocaml/compiler-libs/typing
+cp -r typing/*.{cmo,cmi,spit,spot} %{buildroot}%{_libdir}/ocaml/compiler-libs/typing/
+mkdir -p %{buildroot}%{_libdir}/ocaml/compiler-libs/parsing
+cp -r parsing/*.{cmo,cmi,spit,spot} %{buildroot}%{_libdir}/ocaml/compiler-libs/parsing/
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -69,6 +75,7 @@ cp boot/myocamlbuild boot/myocamlbuild.boot
 %doc %{_mandir}/man3/*.3*
 %{_bindir}/*
 %{_libdir}/ocaml/
+%{_libdir}/ocaml/compiler-libs/
 
 %files camlp4
 %defattr(-, root, root, 0755)
