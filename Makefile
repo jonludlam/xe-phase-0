@@ -24,7 +24,7 @@ DOMAIN0_ARCH_OPTIMIZED?=i686
 	@touch $@
 endif
 
-COMPONENTS=ocaml findlib omake xmlm getopt type-conv ocaml-ounit
+COMPONENTS=yajl ocaml findlib omake xmlm getopt type-conv ocaml-ounit
 PREFIX=/opt/xensource
 XEN_RELEASE?=unknown
 
@@ -40,6 +40,7 @@ REACT_VERSION=0.9.2
 LWT_VERSION=2.3.1
 OBUS_VERSION=1.1.3
 TEXT_VERSION=0.5
+YAJL_VERSION=1.0.12-0-g17b1790
 
 RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
@@ -67,11 +68,13 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-lwt*.rpm || echo ocaml-lwt is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-obus.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-obus*.rpm || echo ocaml-obus is already installed
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/yajl.spec
+	$(RPM) -ivh $(RPM_BINDIR)/yajl*.rpm || echo yajl is already installed
 
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus}.spec $(RPM_SPECSDIR)
+	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,yajl}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
@@ -84,6 +87,7 @@ srpm:
 	cp $(DIST)/ocaml-text-${TEXT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/lwt-${LWT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/obus-${OBUS_VERSION}.tar.gz $(RPM_SOURCESDIR)/
+	cp $(DIST)/yajl-${YAJL_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
@@ -97,6 +101,7 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-text.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-lwt.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-obus.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/yajl.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	rm -f $@
