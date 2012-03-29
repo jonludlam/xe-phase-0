@@ -40,6 +40,7 @@ REACT_VERSION=0.9.2
 LWT_VERSION=2.3.1
 OBUS_VERSION=1.1.3
 TEXT_VERSION=0.5
+YAJL_VERSION=1.0.12-0-g17b1790
 BITSTRING_VERSION=2.0.3
 
 RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
@@ -68,6 +69,8 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-lwt*.rpm || echo ocaml-lwt is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-obus.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-obus*.rpm || echo ocaml-obus is already installed
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/yajl.spec
+	$(RPM) -ivh $(RPM_BINDIR)/yajl*.rpm || echo yajl is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-bitstring.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-bitstring*.rpm || echo ocaml-bitstring is already installed
 
@@ -87,6 +90,7 @@ srpm:
 	cp $(DIST)/ocaml-text-${TEXT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/lwt-${LWT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/obus-${OBUS_VERSION}.tar.gz $(RPM_SOURCESDIR)/
+	cp $(DIST)/yajl-${YAJL_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/ocaml-bitstring-${BITSTRING_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
@@ -101,6 +105,7 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-text.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-lwt.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-obus.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/yajl.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-bitstring.spec
 
 
