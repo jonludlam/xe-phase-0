@@ -77,7 +77,7 @@ build: srpm $(MY_SOURCES)/MANIFEST
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,ocaml-bitstring}.spec $(RPM_SPECSDIR)
+	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,yajl,ocaml-bitstring}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
