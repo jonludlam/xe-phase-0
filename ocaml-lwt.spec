@@ -59,6 +59,8 @@ export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 make install
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+install _build/src/top/lwt-toplevel $RPM_BUILD_ROOT%{_bindir}/lwt-toplevel
 
 strip $OCAMLFIND_DESTDIR/stublibs/dll*.so
 #chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
@@ -80,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/ocaml/lwt/*.mli
 %{_libdir}/ocaml/stublibs/*.so
 %{_libdir}/ocaml/stublibs/*.so.owner
+%{_bindir}/lwt-toplevel
 
 
 %files devel
