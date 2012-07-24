@@ -108,12 +108,13 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/yajl.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-bitstring.spec
 
-
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	rm -f $@
-	@for srpm in "$(/bin/ls -1 ${MY_OUTPUT_DIR})"; do \
-		path=$(MY_OUTPUT_DIR)/SRPMS/${srpm}; \
-		echo "$(${RPM} --qf "%{name}" -qp ${path}) $(${RPM} --qf "%{License}" -qp ${path}) ${path}" >>$@; \
+	@for i in $(shell /bin/ls -1 ${RPM_SRPMSDIR}); do \
+		path=$(MY_OUTPUT_DIR)/SRPMS/$${i}; \
+		echo -n "ocaml " >> $@; \
+		$(RPM) --qf %{License} -qp $${path} | sed -e 's/ /_/g' >> $@; \
+		echo " file $${path}" >> $@; \
 	done
 
 
