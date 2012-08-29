@@ -109,14 +109,13 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-bitstring.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
-	rm -f $@
 	@for i in $(shell /bin/ls -1 ${RPM_SRPMSDIR}); do \
 		path=$(MY_OUTPUT_DIR)/SRPMS/$${i}; \
-		echo -n "ocaml " >> $@; \
-		$(RPM) --qf %{License} -qp $${path} | sed -e 's/ /_/g' >> $@; \
-		echo " file $${path}" >> $@; \
-	done
-
+		echo -n "ocaml "; \
+		$(RPM) --qf %{License} -qp $${path} | sed -e 's/ /_/g'; \
+		echo " file $${path}"; \
+	done > $@.tmp
+	mv -f $@.tmp $@
 
 .PHONY: clean
 clean::
