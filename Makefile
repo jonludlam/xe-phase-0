@@ -45,6 +45,7 @@ BITSTRING_VERSION=2.0.3
 
 OPAM_VERSION=0.8.2-7c35da5d6ba999b42f97186b482a01c841e545c4
 OPAM_REAL_VERSION=0.8.2
+OPAM_REPOSITORY_VERSION=2012.12.12
 CUDF_VERSION=0.6.3
 DOSE3_VERSION=3.1.2
 EXTLIB_VERSION=1.5.3
@@ -84,11 +85,14 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-bitstring*.rpm || echo ocaml-bitstring is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/opam.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-opam*.rpm || echo opam is already installed
+	$(RPMBUILD) -bb $(RPM_SPECSDIR)/opam-repository.spec
+	$(RPM) -ivh $(RPM_RPMSDIR)/i386/opam-repository*.rpm || echo opam-repository is already installed
+
 
 .PHONY: srpm
 srpm:
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,yajl,ocaml-bitstring,opam}.spec $(RPM_SPECSDIR)
+	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,yajl,ocaml-bitstring,opam,opam-repository}.spec $(RPM_SPECSDIR)
 	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
 	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
@@ -110,6 +114,7 @@ srpm:
 	cp $(DIST)/ocaml-arg.${OCAML_ARG_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/ocamlgraph-${OCAMLGRAPH_VERSION}.tar.gz $(RPM_SOURCESDIR)/
 	cp $(DIST)/ocaml-re.${OCAML_RE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
+	cp $(DIST)/opam-repository-${OPAM_REPOSITORY_VERSION}.tar.gz $(RPM_SOURCESDIR)
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
 	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
@@ -126,6 +131,7 @@ srpm:
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/yajl.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-bitstring.spec
 	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/opam.spec
+	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/opam-repository.spec
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	@for i in $(shell /bin/ls -1 ${RPM_SRPMSDIR}); do \
