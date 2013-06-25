@@ -24,114 +24,24 @@ DOMAIN0_ARCH_OPTIMIZED?=i686
 	@touch $@
 endif
 
-COMPONENTS=ocaml findlib omake xmlm getopt type-conv ocaml-ounit
-PREFIX=/opt/xensource
-XEN_RELEASE?=unknown
-
-OCAML_VERSION=3.12.1.ocamlspotter
-FINDLIB_VERSION=1.2.6
-OMAKE_VERSION=0.9.8.6-r13252
-XMLM_VERSION=1.0.2
-GETOPT_VERSION=20040811
-TYPECONV_VERSION=3.0.1
-OCAML_OUNIT_VERSION=1.1.0
-LIBEV_VERSION=4.04
-REACT_VERSION=0.9.2
-LWT_VERSION=2.3.1
-OBUS_VERSION=1.1.3
-TEXT_VERSION=0.5
-YAJL_VERSION=1.0.12-0-g17b1790
-BITSTRING_VERSION=2.0.3
-
-OPAM_VERSION=0.8.2-7c35da5d6ba999b42f97186b482a01c841e545c4
-OPAM_REAL_VERSION=0.8.2
-OPAM_REPOSITORY_VERSION=2012.12.12
-CUDF_VERSION=0.6.3
-DOSE3_VERSION=3.1.2
-EXTLIB_VERSION=1.5.3
-OCAML_ARG_VERSION=0.3
-OCAML_RE_VERSION=1.1
-OCAMLGRAPH_VERSION=1.8.1
-
 RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
+#### Build-system boilerplate above ####
 .PHONY: build
-build: srpm $(MY_SOURCES)/MANIFEST
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml.spec
-	$(RPM) -ihv $(RPM_BINDIR)/{ocaml-3*.rpm,ocaml-camlp4*.rpm} || echo ocaml is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/findlib.spec
-	$(RPM) -ihv $(RPM_BINDIR)/ocaml-findlib*.rpm || echo ocaml-findlib is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/omake.spec
-	$(RPM) -ihv $(RPM_BINDIR)/omake* || echo omake is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/xmlm.spec $(RPM_SPECSDIR)/getopt.spec $(RPM_SPECSDIR)/type-conv.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-xmlm*.rpm || echo ocaml-xmlm is already installed
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-getopt*.rpm || echo ocaml-getopt is already installed
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-type-conv*.rpm || echo ocaml-type-conv is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-ounit.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-ounit-*.rpm || echo ocaml-ounit is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/libev.spec
-	$(RPM) -ivh $(RPM_BINDIR)/libev*.rpm || echo libev is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-react.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-react*.rpm || echo ocaml-react is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-text.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-text*.rpm || echo ocaml-text is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-lwt.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-lwt*.rpm || echo ocaml-lwt is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-obus.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-obus*.rpm || echo ocaml-obus is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/yajl.spec
-	$(RPM) -ivh $(RPM_BINDIR)/yajl*.rpm || echo yajl is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-bitstring.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-bitstring*.rpm || echo ocaml-bitstring is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/opam.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-opam*.rpm || echo opam is already installed
-	$(RPMBUILD) -bb $(RPM_SPECSDIR)/opam-repository.spec
-	$(RPM) -ivh $(RPM_RPMSDIR)/i386/opam-repository*.rpm || echo opam-repository is already installed
+build: targets.mk copy-sources
 
-
-.PHONY: srpm
-srpm:
+.PHONY: copy-sources
+copy-sources:
+	# Copy over SOURCES and SPECS TODO: stop using rpmbuild.mk and use CWD
 	mkdir -p $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	install {ocaml,findlib,omake,xmlm,getopt,type-conv,ocaml-ounit,libev,ocaml-react,ocaml-text,ocaml-lwt,ocaml-obus,yajl,ocaml-bitstring,opam,opam-repository}.spec $(RPM_SPECSDIR)
-	cp $(DIST)/ocaml-${OCAML_VERSION}.tar.bz2 $(RPM_SOURCESDIR)/
-	cp $(DIST)/findlib-${FINDLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/omake-${OMAKE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/xmlm-${XMLM_VERSION}.tbz $(RPM_SOURCESDIR)/
-	cp $(DIST)/getopt-${GETOPT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/type-conv-${TYPECONV_VERSION}.tar.bz2 patches/type-conv-META.patch $(RPM_SOURCESDIR)/
-	cp $(DIST)/ounit-${OCAML_OUNIT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/libev-${LIBEV_VERSION}.tar.gz libev.pc.in $(RPM_SOURCESDIR)/
-	cp $(DIST)/react-${REACT_VERSION}.tbz react-LICENSE $(RPM_SOURCESDIR)/
-	cp $(DIST)/ocaml-text-${TEXT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/lwt-${LWT_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/obus-${OBUS_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/yajl-${YAJL_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/ocaml-bitstring-${BITSTRING_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/opam-${OPAM_VERSION}.tar.gz $(RPM_SOURCESDIR)/opam-${OPAM_REAL_VERSION}.tar.gz
-	cp $(DIST)/cudf-${CUDF_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/dose3-${DOSE3_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/extlib-${EXTLIB_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/ocaml-arg.${OCAML_ARG_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/ocamlgraph-${OCAMLGRAPH_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/ocaml-re.${OCAML_RE_VERSION}.tar.gz $(RPM_SOURCESDIR)/
-	cp $(DIST)/opam-repository-${OPAM_REPOSITORY_VERSION}.tar.gz $(RPM_SOURCESDIR)
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml.spec
-	cp patches/xmlm-do-not-display-none-dtd-on-output $(RPM_SOURCESDIR)/
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/findlib.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/omake.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/xmlm.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/getopt.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/type-conv.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-ounit.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/libev.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-react.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-text.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-lwt.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-obus.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/yajl.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/ocaml-bitstring.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/opam.spec
-	$(RPMBUILD) --nodeps -bs $(RPM_SPECSDIR)/opam-repository.spec
+	cp ./SPECS/* $(RPM_SPECSDIR)
+	cp ./SOURCES/* $(RPM_SOURCESDIR)
+
+include targets.mk
+
+targets.mk: ./SPECS/*.spec
+	./configure.py
+#### Build-system boilerplate below ####
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	@for i in $(shell /bin/ls -1 ${RPM_SRPMSDIR}); do \
@@ -143,5 +53,6 @@ $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 	mv -f $@.tmp $@
 
 .PHONY: clean
-clean::
+clean:
 	rm -rf $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
+	rm -f targets.mk

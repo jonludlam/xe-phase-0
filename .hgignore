@@ -1,0 +1,4 @@
+syntax: glob
+targets.mk
+SOURCES/*.tar.*
+SOURCES/*.tbz

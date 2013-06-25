@@ -16,6 +16,10 @@ ExcludeArch:    sparc64 s390 s390x
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml-lwt
+BuildRequires:  ocaml-react
+BuildRequires:  ocaml-type-conv
+BuildRequires:  ocaml-xmlm
 
 %define _use_internal_dependency_generator 0
 
