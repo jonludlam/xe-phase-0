@@ -1,4 +1,5 @@
 syntax: glob
+*.pyc
 targets.mk
 SOURCES/*.tar.*
 SOURCES/*.tbz

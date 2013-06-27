@@ -4,44 +4,51 @@ import sys
 import os.path
 from string import maketrans
 from subprocess import call
+import demjson
 
-CONFIG = "./fetch.conf"
-SPECSDIR = "./SPECS"
-SOURCESDIR = "./SOURCES"
+CONFIG = "./conf.json"
+SPECSDIR = "../SPECS"
+SOURCESDIR = "../SOURCES"
 
 number_skipped = 0
 number_fetched = 0
 
 
 def parse_config():
-    """Returns list of tuples (spec, url, override) from active config lines"""
+    """Returns _list_ of dictionaries of the following form:
+        {
+          'spec': <spec_filename>,
+          'sources': [{'url': <url>, 'override': <name-override>}]
+        }
+    """
     f = open(CONFIG, "r")
-    lines = map(lambda l: l.strip(), f.readlines())
+    json = f.read()
     f.close()
-    # ignore empty lines and comments
-    lines = filter(lambda l: l and not l.startswith('#'), lines)
-    # split into tuples and return
-    return map(lambda l: l.split(','), lines)
+    return demjson.decode(json)
 
 
-def fetch_source(spec, url, override):
+def fetch_sources(pkg):
     global number_skipped, number_fetched
+    spec = os.path.join(SPECSDIR, pkg['spec'])
+    sources = pkg['sources']
 
     # check the .spec file exists
     if not(os.path.exists(spec)):
         print "%s doesn't exist" % spec
         sys.exit(1)
 
-    final_name = url.split("/")[-1]
-    if override != "":
-        final_name = override
-    final_path = os.path.join(SOURCESDIR, final_name)
-    if os.path.exists(final_path):
-        number_skipped += 1
-    else:
-        print "fetching %s -> %s" % (url, final_path)
-        call(["curl", "-k", "-L", "-o", final_path, url])
-        number_fetched += 1
+    for source in sources:
+        url, override = source['url'], source['override']
+        final_name = url.split("/")[-1]
+        if override is not None:
+            final_name = override
+        final_path = os.path.join(SOURCESDIR, final_name)
+        if os.path.exists(final_path):
+            number_skipped += 1
+        else:
+            print "fetching %s -> %s" % (url, final_path)
+            call(["curl", "-k", "-L", "-o", final_path, url])
+            number_fetched += 1
 
 
 def target_deps_from_spec(spec_file):
@@ -121,15 +128,16 @@ def specs_to_makefile(all_specs, makefile_path):
 
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(__file__))
+
     config = parse_config()
 
-    for (spec, url, override) in config:
-        spec_path = os.path.join(SPECSDIR, spec)
-        fetch_source(spec_path, url, override)
+    for pkg in config:
+        fetch_sources(pkg)
     print "number of packages skipped: %d" % number_skipped
     print "number of packages fetched: %d" % number_fetched
 
     # Create targets to be included in Makefile
-    all_specs = [line[0] for line in config]
+    all_specs = [pkg['spec'] for pkg in config]
     all_specs = map(lambda spec: os.path.join(SPECSDIR, spec), all_specs)
     specs_to_makefile(all_specs, './targets.mk')

@@ -28,7 +28,7 @@ RPM_BINDIR=$(RPM_RPMSDIR)/$(DOMAIN0_ARCH_OPTIMIZED)
 
 #### Build-system boilerplate above ####
 .PHONY: build
-build: targets.mk copy-sources
+build: mk/targets.mk copy-sources
 
 .PHONY: copy-sources
 copy-sources:
@@ -37,10 +37,10 @@ copy-sources:
 	cp ./SPECS/* $(RPM_SPECSDIR)
 	cp ./SOURCES/* $(RPM_SOURCESDIR)
 
-include targets.mk
+-include mk/targets.mk
 
-targets.mk: ./SPECS/*.spec
-	./configure.py
+mk/targets.mk: ./SPECS/*.spec
+	./mk/configure.py
 #### Build-system boilerplate below ####
 
 $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
@@ -55,4 +55,4 @@ $(MY_SOURCES)/MANIFEST: $(MY_SOURCES_DIRSTAMP)
 .PHONY: clean
 clean:
 	rm -rf $(RPM_SRPMSDIR) $(RPM_SPECSDIR) $(RPM_SOURCESDIR) $(RPM_RPMSDIR)
-	rm -f targets.mk
+	rm -f mk/targets.mk
