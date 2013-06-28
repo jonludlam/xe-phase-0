@@ -1,12 +1,13 @@
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
-%define index r13252
+%define index 0.rc1
 Version: 0.9.8.6
 Release: %{XEN_RELEASE}
 Summary: The omake build system.
 Name: omake
 URL: http://omake.metaprl.org/
 Source0: %{name}-%{version}-%{index}.tar.gz
+Patch0: omake-1-warnings
 License: GPL
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -30,6 +31,7 @@ features, including:
 
 %prep
 %setup -q
+%patch0 -p4 -b ~omake-1-warnings
 
 %build
 INSTALL_ROOT=$RPM_BUILD_ROOT\
@@ -62,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/omake
 
 %changelog
+* Fri Jun 28 2013 Si Beaumont <simon.beaumont@citrix.com>
+- Updated to 0.9.8.6 (rc1) to support OCaml 4.00.1.
+
 * Thu Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
 - Updated to 0.9.8.6 (revision 13252) to support OCaml 3.12.0.
 

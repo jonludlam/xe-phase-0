@@ -1,11 +1,12 @@
-%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
-
-%define opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-%define debug_package %{nil}
+%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
+%global debug_package %{nil}
+%if !%opt
+%global __strip /bin/true
+%endif
 
 Name:           ocaml-findlib
-Version:        1.2.6
-Release:        %{XEN_RELEASE}
+Version:        1.3.3
+Release:        4%{?dist}
 Summary:        Objective CAML package manager and build helper
 
 Group:          Development/Libraries
@@ -13,11 +14,18 @@ License:        BSD
 URL:            http://projects.camlcity.org/projects/findlib.html
 Source0:        http://download.camlcity.org/download/findlib-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ExcludeArch:    sparc64 s390 s390x
 
-BuildRequires:  ocaml
-BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml >= 4.00.1
+BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-compiler-libs
+BuildRequires:  ocaml-ocamldoc
 BuildRequires:  m4, ncurses-devel
 BuildRequires:  gawk
+Requires:       ocaml
+
+%global __ocaml_requires_opts -i Asttypes -i Parsetree
+
 
 %description
 Objective CAML package manager and build helper.
@@ -53,6 +61,7 @@ make all
 %if %opt
 make opt
 %endif
+rm doc/guide-html/TIMESTAMP
 
 
 %install
@@ -61,6 +70,18 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 make install prefix=$RPM_BUILD_ROOT OCAMLFIND_BIN=$RPM_BUILD_ROOT%{_bindir}
 mv $RPM_BUILD_ROOT/$RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_bindir}
+
+%if %opt
+strip $RPM_BUILD_ROOT%{_bindir}/ocamlfind
+%endif
+
+# If ocamlfind is bytecode, don't strip it and prevent prelink from
+# stripping it as well (RHBZ#435559).
+%if !%opt
+mkdir -p $RPM_BUILD_ROOT/etc/prelink.conf.d
+echo '-b /usr/bin/ocamlfind' \
+  > $RPM_BUILD_ROOT/etc/prelink.conf.d/ocaml-ocamlfind.conf
+%endif
 
 
 %clean
@@ -84,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/ocaml/findlib/*.mli
 %exclude %{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/num-top
+%if !%opt
+%config(noreplace) %{_sysconfdir}/prelink.conf.d/ocaml-ocamlfind.conf
+%endif
 
 
 %files devel
@@ -98,13 +122,101 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
-- Customised for XCP
+* Thu Jun 27 2013 Si Beaumont <simon.beaumont@citrix.com>
+- Customise for XenServer build (remove labltk-devel dependency)
 
-* Thu Apr 24 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-5
-- Removed dependency generation for EL-4.
-- ocaml-camlp4 -> camlp4, ocaml-labltk -> labltk for this ancient
-  version of OCaml.
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+* Tue Nov 27 2012 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-3
+- BR >= OCaml 4.00.1 so we can't build against the wrong OCaml version.
+
+* Tue Oct 16 2012 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-2
+- Rebuild for OCaml 4.00.1.
+
+* Sat Jul 28 2012 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-1
+- New upstream version 1.3.3.
+- Remove patch for OCaml 4 which has been obsoleted by upstream changes.
+
+* Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Sun Jun 10 2012 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-2
+- Rebuild for OCaml 4.00.0.
+
+* Thu Jun  7 2012 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-1
+- New upstream version 1.3.1.
+- This is required for programs using findlib and OCaml 4.00.0.
+- Add small patch to fix build of topfind.
+
+* Sat Apr 28 2012 Richard W.M. Jones <rjones@redhat.com> - 1.2.8-1
+- New upstream version 1.2.8.
+
+* Fri Jan  6 2012 Richard W.M. Jones <rjones@redhat.com> - 1.2.7-1
+- New upstream version 1.2.7.
+
+* Thu Dec  8 2011 Richard W.M. Jones <rjones@redhat.com> - 1.2.6-5
+- Don't strip bytecode binary (see RHBZ#435559).
+
+* Fri Jun 3 2011 Orion Poplawski - 1.2.6-3
+- Add Requires: ocaml (Bug #710290)
+
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Wed Jan  5 2011 Richard W.M. Jones <rjones@redhat.com> - 1.2.6-1
+- New upstream version 1.2.6.
+
+* Tue Dec 29 2009 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-4
+- Rebuild for OCaml 3.11.2.
+
+* Wed Dec 16 2009 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-3
+- Use __ocaml_requires_opts / __ocaml_provides_opts.
+
+* Wed Dec 16 2009 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-2
+- Update to use RPM dependency generator.
+
+* Sun Oct  4 2009 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-1
+- New upstream version 1.2.5.
+
+* Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
+* Fri May 22 2009 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-3
+- Rebuild for OCaml 3.11.1.
+- New upstream version 1.2.4.
+- camlp4/META patch is now upstream.
+
+* Thu Apr 16 2009 S390x secondary arch maintainer <fedora-s390x@lists.fedoraproject.org>
+- ExcludeArch sparc64, s390, s390x as we don't have OCaml on those archs
+  (added sparc64 per request from the sparc maintainer)
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
+* Thu Dec  4 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.3-5
+- Change to camlp4/META means that this package really depends on
+  the latest OCaml compiler.
+
+* Thu Dec  4 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.3-4
+- camlp4/META: camlp4.lib should depend on dynlink.
+
+* Wed Nov 26 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.3-3
+- Rebuild for OCaml 3.11.0+rc1.
+
+* Fri Nov 20 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.3-2
+- Force rebuild.
+
+* Thu Nov 20 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.3-1
+- New upstream version 1.2.3.
+
+* Wed Nov 19 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-2
+- Rebuild for OCaml 3.11.0
+
+* Sun Aug 31 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-1
+- New upstream version 1.2.2.
+- Strip ocamlfind binary.
+- Remove zero-length file.
 
 * Mon Apr 21 2008 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-3
 - New upstream URLs.
@@ -161,3 +273,4 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri May 18 2007 Richard W.M. Jones <rjones@redhat.com> - 1.1.2pl1-1
 - Initial RPM release.
+

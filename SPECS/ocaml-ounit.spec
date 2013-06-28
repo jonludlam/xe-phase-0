@@ -2,7 +2,7 @@
 %define debug_package %{nil}
 
 Name:           ocaml-ounit
-Version:        1.1.0
+Version:        1.1.2
 Release:        3%{?dist}
 Summary:        Unit test framework for OCaml
 
@@ -15,7 +15,8 @@ ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml-camlp4 ocaml-camlp4-devel
+BuildRequires:  ocaml-ocamldoc
 
 %define _use_internal_dependency_generator 0
 
@@ -89,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri 28 Jun 2013 Si Beaumont <simon.beaumont@citrix.com>
+- Upgraded to 1.1.2 for OCaml 4.00.1
+
 * Fri Sep 30 2011 Mike McClurg <mike.mcclurg@citrix.com> - 1.1.0-3
 - Repackaged for XenSource build system
 
