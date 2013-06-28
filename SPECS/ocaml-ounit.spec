@@ -90,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri 28 Jun 2013 Si Beaumont <simon.beaumont@citrix.com>
+* Fri Jun 28 2013 Si Beaumont <simon.beaumont@citrix.com>
 - Upgraded to 1.1.2 for OCaml 4.00.1
 
 * Fri Sep 30 2011 Mike McClurg <mike.mcclurg@citrix.com> - 1.1.0-3
