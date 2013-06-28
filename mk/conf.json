@@ -36,12 +36,6 @@
         ]
     },
     {
-        'spec': 'ocaml-obus.spec',
-        'sources': [
-            {'url': 'file:///distfiles/ocaml/obus-1.1.3.tar.gz', 'override': null}
-        ]
-    },
-    {
         'spec': 'ocaml-ounit.spec',
         'sources': [
             {'url': 'file:///distfiles/ocaml/ounit-1.1.0.tar.gz', 'override': null}
