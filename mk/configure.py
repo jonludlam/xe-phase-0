@@ -47,7 +47,9 @@ def fetch_sources(pkg):
             number_skipped += 1
         else:
             print "fetching %s -> %s" % (url, final_path)
-            call(["curl", "-k", "-L", "-o", final_path, url])
+            if call(["curl", "-k", "-L", "-o", final_path, url]) != 0:
+                print "Error downloading sources %s" % final_name
+                sys.exit(1)
             number_fetched += 1
 
 
