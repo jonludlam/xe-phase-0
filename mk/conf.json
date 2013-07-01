@@ -109,5 +109,12 @@
         'sources': [
             {'url': 'file:///distfiles/ocaml/yajl-1.0.12-0-g17b1790.tar.gz', 'override': null}
         ]
-    }
+    },
+    {
+        'spec': 'ocaml-obuild.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/obuild-0.0.2.tar.gz', 'override': null}
+        ]
+    },
+
 ]
