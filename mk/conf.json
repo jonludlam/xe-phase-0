@@ -39,9 +39,21 @@
         ]
     },
     {
+        'spec': 'ocaml-oclock.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/oclock-0.3.tar.gz', 'override': null}
+        ]
+    },
+    {
         'spec': 'ocaml-ounit.spec',
         'sources': [
             {'url': 'file:///distfiles/ocaml/ounit-1.1.2.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-re.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-re-1.2.1.tar.gz', 'override': null}
         ]
     },
     {
@@ -51,9 +63,21 @@
         ]
     },
     {
+        'spec': 'ocaml-syslog.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/syslog-1.4.tar.gz', 'override': null}
+        ]
+    },
+    {
         'spec': 'ocaml-text.spec',
         'sources': [
             {'url': 'file:///distfiles/ocaml/ocaml-text-0.6.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-uuidm.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/uuidm-0.9.5.tbz', 'override': null}
         ]
     },
     {
