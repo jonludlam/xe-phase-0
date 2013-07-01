@@ -65,7 +65,7 @@
     {
         'spec': 'ocaml-rpc.spec',
         'sources': [
-            {'url': 'file:///distfiles/ocaml/ocaml-rpc-1.2.0.tar.gz', 'override': null}
+            {'url': 'file:///distfiles/ocaml/ocaml-rpc-1.4.1.tar.gz', 'override': null}
         ]
     },
     {
