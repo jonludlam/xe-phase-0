@@ -89,7 +89,7 @@
     {
         'spec': 'ocaml-type-conv.spec',
         'sources': [
-            {'url': 'file:///distfiles/ocaml/type-conv-3.0.1.tar.bz2', 'override': null}
+            {'url': 'file:///distfiles/ocaml/type_conv-109.28.00.tar.gz', 'override': null}
         ]
     },
     {

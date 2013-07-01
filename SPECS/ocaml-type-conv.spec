@@ -1,21 +1,21 @@
 %define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
 
 Name:           ocaml-type-conv
-Version:        3.0.1
+Version:        109.28.00
 Release:        %{XEN_RELEASE}
 Summary:        OCaml base library for type conversion
 
 Group:          Development/Other
 License:        LGPLv2+ with exceptions and BSD
 URL:            http://www.ocaml.info/home/ocaml_sources.html#type-conv
-Source0:        http://hg.ocaml.info/release/type-conv/archive/type-conv-%{version}.tar.bz2
-Patch0:         type-conv-META.patch
-# curl http://hg.ocaml.info/release/type-conv/archive/release-%{version}.tar.bz2 > type-conv-release-%{version}.tar.bz2
+Source0:        https://ocaml.janestreet.com/ocaml-core/%{version}/individual/type_conv-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 
-BuildRequires:  ocaml >= 3.10.0
+BuildRequires:  ocaml >= 4.00.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-camlp4-devel
 
 %description
 The type-conv mini library factors out functionality needed by
@@ -24,9 +24,7 @@ because this functionality cannot be duplicated without losing the
 ability to use these preprocessors simultaneously.
 
 %prep
-%setup -q -n type-conv-release-%{version}
-%patch0 -p1
-#dos2unix LICENSE.Tywith
+%setup -q -n type_conv-%{version}
 
 %build
 make
@@ -43,12 +41,14 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE LICENSE.Tywith COPYRIGHT README.txt
-%{_libdir}/ocaml/type-conv
-
-
+%doc CHANGES.txt COPYRIGHT.txt INRIA-DISCLAIMER.txt INSTALL.txt LICENSE-Tywith.txt LICENSE.txt README.md THIRD-PARTY.txt
+%{_libdir}/ocaml/type_conv
 
 %changelog
+* Mon Jul 01 2013 Si Beaumoint <simon.beaumont@citrix.com>
+- Updated to version 109.28.00 for compatibility with OCaml 4.00.1
+- Removed now-unnecessary patch to META
+
 * Wed Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
 - Updated to version 2.0.1 for compatability with OCaml 3.12.0
 
