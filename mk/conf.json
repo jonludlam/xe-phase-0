@@ -63,6 +63,12 @@
         ]
     },
     {
+        'spec': 'ocaml-rpc.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-rpc-1.2.0.tar.gz', 'override': null}
+        ]
+    },
+    {
         'spec': 'ocaml-syslog.spec',
         'sources': [
             {'url': 'file:///distfiles/ocaml/syslog-1.4.tar.gz', 'override': null}
