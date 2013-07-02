@@ -61,32 +61,47 @@ build: srpm $(MY_SOURCES)/MANIFEST
 	$(RPM) -ihv $(RPM_BINDIR)/{ocaml-3*.rpm,ocaml-camlp4*.rpm} || echo ocaml is already installed
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/findlib.spec
 	$(RPM) -ihv $(RPM_BINDIR)/ocaml-findlib*.rpm || echo ocaml-findlib is already installed
+	rpm -q ocaml-findlib
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/omake.spec
 	$(RPM) -ihv $(RPM_BINDIR)/omake* || echo omake is already installed
+	rpm -q omake
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/xmlm.spec $(RPM_SPECSDIR)/getopt.spec $(RPM_SPECSDIR)/type-conv.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-xmlm*.rpm || echo ocaml-xmlm is already installed
+	rpm -q ocaml-xmlm
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-getopt*.rpm || echo ocaml-getopt is already installed
+	rpm -q ocaml-getopt
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-type-conv*.rpm || echo ocaml-type-conv is already installed
+	rpm -q ocaml-type-conv
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-ounit.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-ounit-*.rpm || echo ocaml-ounit is already installed
+	rpm -q ocaml-ounit
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/libev.spec
 	$(RPM) -ivh $(RPM_BINDIR)/libev*.rpm || echo libev is already installed
+	rpm -q libev
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-react.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-react*.rpm || echo ocaml-react is already installed
+	rpm -q ocaml-react
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-text.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-text*.rpm || echo ocaml-text is already installed
+	rpm -q ocaml-text
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-lwt.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-lwt*.rpm || echo ocaml-lwt is already installed
+	rpm -q ocaml-lwt
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-obus.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-obus*.rpm || echo ocaml-obus is already installed
+	rpm -q ocaml-obus
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/yajl.spec
 	$(RPM) -ivh $(RPM_BINDIR)/yajl*.rpm || echo yajl is already installed
+	rpm -q yajl
 	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/ocaml-bitstring.spec
 	$(RPM) -ivh $(RPM_BINDIR)/ocaml-bitstring*.rpm || echo ocaml-bitstring is already installed
-	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/opam.spec
-	$(RPM) -ivh $(RPM_BINDIR)/ocaml-opam*.rpm || echo opam is already installed
-	$(RPMBUILD) -bb $(RPM_SPECSDIR)/opam-repository.spec
-	$(RPM) -ivh $(RPM_RPMSDIR)/i386/opam-repository*.rpm || echo opam-repository is already installed
+	rpm -q ocaml-bitstring
+	#$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/opam.spec
+	#$(RPM) -ivh $(RPM_BINDIR)/ocaml-opam*.rpm || echo opam is already installed
+	#rpm -q ocaml-opam
+	$(RPMBUILD) --target $(DOMAIN0_ARCH_OPTIMIZED) -bb $(RPM_SPECSDIR)/opam-repository.spec
+	$(RPM) -ivh $(RPM_BINDIR)/opam-repository*.rpm || echo opam-repository is already installed
+	rpm -q opam-repository
 
 
 .PHONY: srpm

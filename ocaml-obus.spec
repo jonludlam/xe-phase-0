@@ -17,8 +17,6 @@ BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-camlp4
 
-%define _use_internal_dependency_generator 0
-
 
 %description
 OBus is a pure ocaml implementation of DBus. It aims to provide a clean and easy way for ocaml programmers to access and provide dbus services.

@@ -19,6 +19,12 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: ncurses-devel
 
+Provides: ocaml(compiler) = %{major}.1
+Provides: ocaml(runtime) = %{major}.1
+
+%global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo'
+%global __ocaml_provides_opts -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo'
+
 %description
 Objective Caml is the latest implementation of the Caml dialect of ML. It
 has full support for objects and classes combined with ML-style type
