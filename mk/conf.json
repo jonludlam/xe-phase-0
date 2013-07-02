@@ -116,5 +116,23 @@
             {'url': 'file:///distfiles/ocaml/obuild-0.0.2.tar.gz', 'override': null}
         ]
     },
+    {
+        'spec': 'ocaml-cstruct.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-cstruct-0.7.1.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-ocplib-endian.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocplib-endian-0.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'optcomp.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/optcomp-1.4.tar.gz', 'override': null}
+        ]
+    },
 
 ]
