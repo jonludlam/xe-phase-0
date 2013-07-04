@@ -134,5 +134,11 @@
             {'url': 'file:///distfiles/ocaml/optcomp-1.4.tar.gz', 'override': null}
         ]
     },
+    {
+        'spec': 'cmdliner.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/cmdliner-0.9.3.tbz', 'override': null}
+        ]
+    },
 
 ]
