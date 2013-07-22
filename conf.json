@@ -1,0 +1,144 @@
+[
+    {
+        'spec': 'libev.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/libev-4.04.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml.spec',
+        'sources': [
+            {'url':'file:///distfiles/ocaml/ocaml-4.00.1.tar.bz2', 'override': null},
+            {'url':'file:///distfiles/ocaml/ocaml-4.00-refman-html.tar.gz', 'override': null},
+            {'url':'file:///distfiles/ocaml/ocaml-4.00-refman.info.tar.gz', 'override': null},
+            {'url':'file:///distfiles/ocaml/ocaml-4.00-refman.pdf', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-bitstring.spec',
+        'sources': [
+            {'url':'file:///distfiles/ocaml/ocaml-bitstring-2.0.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-findlib.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/findlib-1.3.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-getopt.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/getopt-20040811.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-lwt.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/lwt-2.4.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-oclock.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/oclock-0.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-ounit.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ounit-1.1.2.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-re.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-re-1.2.1.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-react.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/react-0.9.2.tbz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-rpc.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-rpc-1.4.1.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-syslog.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/syslog-1.4.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-text.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-text-0.6.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-uuidm.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/uuidm-0.9.5.tbz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'omake.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/omake-0.9.8.6-0.rc1.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-type-conv.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/type_conv-109.28.00.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-xmlm.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/xmlm-1.0.2.tbz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'yajl.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/yajl-1.0.12-0-g17b1790.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-obuild.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/obuild-0.0.2.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-cstruct.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocaml-cstruct-0.7.1.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'ocaml-ocplib-endian.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/ocplib-endian-0.3.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'optcomp.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/optcomp-1.4.tar.gz', 'override': null}
+        ]
+    },
+    {
+        'spec': 'cmdliner.spec',
+        'sources': [
+            {'url': 'file:///distfiles/ocaml/cmdliner-0.9.3.tbz', 'override': null}
+        ]
+    },
+
+]
