@@ -27,7 +27,7 @@ URL: http://lloyd.github.com/yajl/
 # So for new versions, update 'githash' to match the hash of the
 # GIT tag associated with updated 'Version:' field just above
 %global githash 17b1790
-Source0: http://github.com/lloyd/yajl/tarball/1.0.7/%{name}-%{version}-0-g%{githash}.tar.gz
+Source0: %{name}-%{version}-0-g%{githash}.tar.gz
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: cmake

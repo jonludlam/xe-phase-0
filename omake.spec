@@ -6,7 +6,7 @@ Release: %{XEN_RELEASE}
 Summary: The omake build system.
 Name: omake
 URL: http://omake.metaprl.org/
-Source0: http://omake.metaprl.org/downloads/%{name}-%{version}-%{index}.tar.gz
+Source0: %{name}-%{version}-%{index}.tar.gz
 Patch0: omake-1-warnings
 License: GPL
 Group: Development/Tools
