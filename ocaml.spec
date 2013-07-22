@@ -68,6 +68,12 @@ ExclusiveArch:  alpha %{arm} ia64 %{ix86} x86_64 ppc ppc64 sparc sparcv9
 %global __ocaml_provides_opts -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo'
 
 
+Provides: ocaml(compiler) = %{major}.1
+Provides: ocaml(runtime) = %{major}.1
+
+%global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo'
+%global __ocaml_provides_opts -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo'
+
 %description
 OCaml is a high-level, strongly-typed, functional and object-oriented
 programming language from the ML family of languages.
