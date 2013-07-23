@@ -24,6 +24,7 @@ BuildRequires:  ocaml-react-devel >= 0.9.0
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-text-devel
 BuildRequires:  ocaml-camlp4 ocaml-camlp4-devel
+BuildRequires:  ocaml-ssl-devel
 
 %description
 Lwt is a lightweight thread library for Objective Caml.  This library
@@ -51,7 +52,7 @@ iconv -f iso-8859-1 -t utf-8 < README.old > README
 
 %build
 export C_INCLUDE_PATH=/usr/include/libev
-./configure --enable-react --enable-text --disable-libev
+./configure --enable-react --enable-text --disable-libev --enable-ssl
 make
 
 
@@ -79,9 +80,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/stublibs/*.so.owner
 
 %changelog
-* Sat Jun  1 2013 Si Beaumont <simon.beaumont@citrix.com>
-- Disable SSL
-
 * Sat Jun  1 2013 David Scott <dave.scott@eu.citrix.com>
 - Update to 2.4.3
 
