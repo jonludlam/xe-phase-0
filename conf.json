@@ -101,7 +101,7 @@
     {
         'spec': 'ocaml-xmlm.spec',
         'sources': [
-            {'url': 'file:///distfiles/ocaml/xmlm-1.1.1.tbz', 'override': null}
+            {'url': 'file:///distfiles/ocaml/xmlm-1.0.2.tbz', 'override': null}
         ]
     },
     {
