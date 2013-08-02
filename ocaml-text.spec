@@ -18,10 +18,6 @@ BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-camlp4
 BuildRequires:  ocaml-ocamldoc
 
-%define _use_internal_dependency_generator 0
-%define __find_requires /usr/lib/rpm/find-requires
-%define __find_provides /usr/lib/rpm/find-provides
-
 
 %description
 OCaml-Text is a library for dealing with ``text'', i.e. sequence of
