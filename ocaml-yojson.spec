@@ -1,17 +1,17 @@
-Name:           ocaml-re
-Version:        1.2.1
+Name:           ocaml-yojson
+Version:        1.1.6
 Release:        0
-Summary:        A regular expression library for OCaml
-License:        LGPL
+Summary:        A JSON parser and priter for OCaml
+License:        BSD3
 Group:          Development/Other
-URL:            http://github.com/ocaml/ocaml-re/tarball/ocaml-re-1.2.1
-Source0:        http://github.com/ocaml/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+URL:            http://mjambon.com/releases/yojson/yojson-1.1.6.tar.gz
+Source0:        http://mjambon.com/releases/yojson/yojson-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-ocamldoc
+BuildRequires:  ocaml ocaml-findlib cppo easy-format biniou
 Requires:       ocaml ocaml-findlib
 
 %description
-A regular expression library for OCaml.
+A JSON parser and printer for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -22,25 +22,26 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n ocaml-ocaml-re-f464ffd
+%setup -q -n yojson-%{version}
 
 %build
-ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
-ocaml setup.ml -build
+make
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
-ocaml setup.ml -install
+mkdir -p %{buildroot}/%{_bindir}
+make install DESTDIR=%{buildroot} BINDIR=%{buildroot}/%{_bindir}
 
 %clean
 rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc LICENSE README CHANGES
-%{_libdir}/ocaml/re/*
+%doc README.md LICENSE
+%{_libdir}/ocaml/yojson/*
+%{_bindir}/ydump
 
 %changelog
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>

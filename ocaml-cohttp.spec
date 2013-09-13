@@ -1,32 +1,34 @@
-Name:           ocaml-re
-Version:        1.2.1
+Name:           ocaml-cohttp
+Version:        0.9.8
 Release:        0
-Summary:        A regular expression library for OCaml
+Summary:        An HTTP library for OCaml
 License:        LGPL
 Group:          Development/Other
-URL:            http://github.com/ocaml/ocaml-re/tarball/ocaml-re-1.2.1
-Source0:        http://github.com/ocaml/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/mirage/ocaml-cohttp/archive/ocaml-cohttp-0.9.8.tar.gz
+Source0:        https://github.com/mirage/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-ocamldoc
+BuildRequires:  ocaml ocaml-findlib ocaml-re-devel ocaml-uri-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-ounit-devel ocaml-ocamldoc ocaml-camlp4-devel
+# should these be inherited from ssl.spec somehow?
+BuildRequires:  openssl openssl-devel
 Requires:       ocaml ocaml-findlib
 
 %description
-A regular expression library for OCaml.
+An HTTP library for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Other
+#Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n ocaml-ocaml-re-f464ffd
+%setup -q -n %{name}-%{name}-%{version}
 
 %build
-ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
-ocaml setup.ml -build
+make build
 
 %install
 rm -rf %{buildroot}
@@ -39,8 +41,8 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc LICENSE README CHANGES
-%{_libdir}/ocaml/re/*
+%doc LICENSE README.md CHANGES
+%{_libdir}/ocaml/cohttp/*
 
 %changelog
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
