@@ -1,5 +1,5 @@
 Name:           ocaml
-Version:        4.00.1
+Version:        4.01.0
 Release:        2%{?dist}
 
 Summary:        OCaml compiler and programming environment
@@ -10,10 +10,10 @@ Group:          Development/Languages
 
 URL:            http://www.ocaml.org
 
-Source0:        http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-%{version}.tar.bz2
-Source1:        http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00-refman-html.tar.gz
-Source2:        http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00-refman.pdf
-Source3:        http://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00-refman.info.tar.gz
+Source0:        http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-%{version}.tar.bz2
+Source1:        http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01-refman-html.tar.gz
+Source2:        http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01-refman.pdf
+Source3:        http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01-refman.info.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -33,7 +33,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 Patch0003:      0003-ocamlbyteinfo-ocamlplugininfo-Useful-utilities-from-.patch
 Patch0004:      0004-Don-t-add-rpaths-to-libraries.patch
 Patch0005:      0005-configure-Allow-user-defined-C-compiler-flags.patch
-Patch0006:      0006-Add-support-for-ppc64.patch
+#Patch0006:      0006-Add-support-for-ppc64.patch
 
 BuildRequires:  ncurses-devel
 BuildRequires:  gdbm-devel
@@ -183,7 +183,7 @@ cp %{SOURCE2} refman.pdf
 %patch0003 -p1 -b ~0003-ocamlbyteinfo-ocamlplugininfo-Useful-utilities-from-.patch
 %patch0004 -p1 -b ~0004-Don-t-add-rpaths-to-libraries.patch
 %patch0005 -p1 -b ~0005-configure-Allow-user-defined-C-compiler-flags.patch
-%patch0006 -p1 -b ~0006-Add-support-for-ppc64.patch
+#%patch0006 -p1 -b ~0006-Add-support-for-ppc64.patch
 
 %build
 # make -jN (N > 1) breaks the build.  Therefore we cannot use
@@ -404,6 +404,9 @@ fi
 
 
 %changelog
+* Wed Sep 25 2013 Akshay Ramani <akshay.ramani@citrix.com>
+- Update to OCaml 4.01.0
+
 * Thu Jun 27 2013 Si Beaumont <simon.beaumont@citrix.com>
 - Rebuilt for XenServer use case:
   - Removed requirements for the following:

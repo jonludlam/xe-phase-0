@@ -15,7 +15,7 @@ ExcludeArch:    sparc64 s390 s390x
 
 # Location of libev headers on Fedora is in /usr/include/libev/ev.h
 # so we need to patch the source accordingly.
-#Patch0:         lwt-2.2.0-libev.patch
+Patch0:		ocaml-lwt-ocloexecflag
 
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
@@ -43,7 +43,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n lwt-%{version}
-
+%patch0 -p1 -b ~ocaml-lwt-ocloexecflag
 #%patch0 -p1
 
 mv README README.old
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/stublibs/*.so.owner
 
 %changelog
+* Wed Sep 25 2013 Akshay Ramani <akshay.ramani@citrix.com>
+- Add patch to work with OCaml 4.01.0
+
 * Sat Jun  1 2013 David Scott <dave.scott@eu.citrix.com>
 - Update to 2.4.3
 
