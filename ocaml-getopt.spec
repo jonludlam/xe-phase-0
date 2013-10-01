@@ -2,14 +2,14 @@
 
 Name:           ocaml-getopt
 Version:        20040811
-Release:        %{XEN_RELEASE}
+Release:        1%{?extrarelease}
 Summary:        Command line parsing a la GNU getopt
 License:        MIT-like
 Group:          Development/Other
 URL:            http://alain.frisch.fr/soft#Getopt
 Source0:        http://alain.frisch.fr/info/getopt-20040811.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml-findlib, ocaml
+BuildRequires:  ocaml-findlib, ocaml, ocaml-ocamldoc
 
 %description
 The OCaml distribution comes with the module Arg specialized in

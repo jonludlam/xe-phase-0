@@ -2,7 +2,7 @@
 
 Name:           ocaml-xmlm
 Version:        1.0.2
-Release:        %{XEN_RELEASE}
+Release:        1%{?extrarelease}
 Summary:        Streaming XML input/output for OCaml
 License:        new-BSD
 Group:          Development/Other
@@ -10,7 +10,7 @@ URL:            http://erratique.ch/software/xmlm
 Source0:        http://erratique.ch/software/xmlm/releases/xmlm-%{version}.tbz
 Patch0: xmlm-do-not-display-none-dtd-on-output
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml
+BuildRequires:  ocaml ocaml-ocamldoc
 Requires:       ocaml
 
 %description

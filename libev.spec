@@ -3,7 +3,7 @@
 
 Name:		libev
 Version:	4.04
-Release:	1%{?dist}
+Release:	1%{?extrarelease}
 Summary:	High-performance event loop/event model with lots of features
 Group:		System Environment/Libraries
 License:	BSD or GPLv2+

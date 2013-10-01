@@ -2,7 +2,7 @@
 
 %define index 0.rc1
 Version: 0.9.8.6
-Release: %{XEN_RELEASE}
+Release: 1%{?extrarelease}
 Summary: The omake build system.
 Name: omake
 URL: http://omake.metaprl.org/

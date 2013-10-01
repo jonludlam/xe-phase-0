@@ -3,7 +3,7 @@
 
 Name:           ocaml-lwt
 Version:        2.4.3
-Release:        0%{?dist}
+Release:        2%{?extrarelease}
 Summary:        OCaml lightweight thread library
 
 Group:          Development/Libraries
@@ -25,6 +25,7 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-text-devel
 BuildRequires:  ocaml-camlp4 ocaml-camlp4-devel
 BuildRequires:  ocaml-ssl-devel
+BuildRequires:  ocaml-compiler-libs
 
 %description
 Lwt is a lightweight thread library for Objective Caml.  This library

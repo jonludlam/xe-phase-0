@@ -1,6 +1,6 @@
 Name:           ocaml
 Version:        4.01.0
-Release:        2%{?dist}
+Release:        2%{?extrarelease}
 
 Summary:        OCaml compiler and programming environment
 

@@ -1,6 +1,6 @@
 Name:           ocaml-re
 Version:        1.2.1
-Release:        0
+Release:        1%{?extrarelease}
 Summary:        A regular expression library for OCaml
 License:        LGPL
 Group:          Development/Other
@@ -22,7 +22,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n ocaml-ocaml-re-f464ffd
+%setup -q -n %{name}-%{name}-%{version}
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
@@ -36,6 +36,9 @@ ocaml setup.ml -install
 
 %clean
 rm -rf %{buildroot}
+
+%files
+# This space intentionally left blank
 
 %files devel
 %defattr(-,root,root)

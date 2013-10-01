@@ -1,6 +1,6 @@
 Name:           ocaml-cohttp
 Version:        0.9.8
-Release:        0
+Release:        2%{?extrarelease}
 Summary:        An HTTP library for OCaml
 License:        LGPL
 Group:          Development/Other
@@ -9,7 +9,7 @@ Source0:        https://github.com/mirage/%{name}/archive/%{name}-%{version}/%{n
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-re-devel ocaml-uri-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-ounit-devel ocaml-ocamldoc ocaml-camlp4-devel
 # should these be inherited from ssl.spec somehow?
-BuildRequires:  openssl openssl-devel
+BuildRequires:  openssl openssl-devel ocaml-ocplib-endian-devel ocaml-ssl-devel
 Requires:       ocaml ocaml-findlib
 
 %description

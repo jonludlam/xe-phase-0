@@ -3,13 +3,13 @@
 
 Name:           ocaml-ounit
 Version:        1.1.2
-Release:        3%{?dist}
+Release:        3%{?extrarelease}
 Summary:        Unit test framework for OCaml
 
 Group:          Development/Libraries
 License:        MIT
 URL:            http://ounit.forge.ocamlcore.org/
-Source0:        https://forge.ocamlcore.org/frs/download.php/495/ounit-%{version}.tar.gz
+Source0:        http://forge.ocamlcore.org/frs/download.php/886/ounit-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExcludeArch:    sparc64 s390 s390x
 

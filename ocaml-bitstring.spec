@@ -6,7 +6,7 @@
 
 Name:           ocaml-bitstring
 Version:        2.0.3
-Release:        1%{?dist}
+Release:        1%{?extrarelease}
 Summary:        OCaml library for matching and constructing bitstrings
 
 Group:          Development/Libraries
@@ -20,15 +20,15 @@ ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 3.10.2
 BuildRequires:  ocaml-findlib-devel
-#BuildRequires:  ocaml-ocamldoc
-#BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-camlp4-devel
 %if %build_cil_tools
 BuildRequires:  ocaml-cil-devel
 BuildRequires:  ocaml-extlib-devel
 %endif
 
 #BuildRequires:  chrpath
-#BuildRequires:  time
+BuildRequires:  time
 
 %global __ocaml_requires_opts -i Asttypes -i Parsetree
 %global __ocaml_provides_opts -i Pa_bitstring

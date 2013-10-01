@@ -6,7 +6,7 @@
 
 Name:           ocaml-findlib
 Version:        1.3.3
-Release:        4%{?dist}
+Release:        1%{?extrarelease}
 Summary:        Objective CAML package manager and build helper
 
 Group:          Development/Libraries
