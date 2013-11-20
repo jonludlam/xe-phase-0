@@ -1,0 +1,13 @@
+--- Makefile.orig
++++ Makefile
+@@ -59,10 +59,6 @@ install:
+ 	cp zip.cma zip.cmi gzip.cmi zip.mli gzip.mli libcamlzip.a $(INSTALLDIR)
+ 	if test -f dllcamlzip.so; then \
+ 	  cp dllcamlzip.so $(INSTALLDIR); \
+-          ldconf=`$(OCAMLC) -where`/ld.conf; \
+-          installdir=$(INSTALLDIR); \
+-          if test `grep -s -c $$installdir'$$' $$ldconf || :` = 0; \
+-          then echo $$installdir >> $$ldconf; fi \
+         fi
+ 
+ installopt:
