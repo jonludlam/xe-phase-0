@@ -1,5 +1,5 @@
 Name:           ocaml-ctypes
-Version:        0.2.1
+Version:        0.2.2
 Release:        1%{?extrarelease}
 Summary:        Library for binding to C libraries using pure OCaml
 License:        MIT
