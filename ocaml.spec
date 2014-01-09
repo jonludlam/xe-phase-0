@@ -35,6 +35,8 @@ Patch0004:      0004-Don-t-add-rpaths-to-libraries.patch
 Patch0005:      0005-configure-Allow-user-defined-C-compiler-flags.patch
 #Patch0006:      0006-Add-support-for-ppc64.patch
 
+Patch0007:      0007-Citrix-Debug-report-string-in-int-of-string-exception.patch
+
 BuildRequires:  ncurses-devel
 BuildRequires:  gdbm-devel
 BuildRequires:  gawk
@@ -184,6 +186,8 @@ cp %{SOURCE2} refman.pdf
 %patch0004 -p1 -b ~0004-Don-t-add-rpaths-to-libraries.patch
 %patch0005 -p1 -b ~0005-configure-Allow-user-defined-C-compiler-flags.patch
 #%patch0006 -p1 -b ~0006-Add-support-for-ppc64.patch
+
+%patch0007 -p1 -b ~0007-Citrix-Debug-report-string-in-int-of-string-exception.patch
 
 %build
 # make -jN (N > 1) breaks the build.  Therefore we cannot use
