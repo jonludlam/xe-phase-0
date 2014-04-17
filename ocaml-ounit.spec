@@ -2,20 +2,20 @@
 %define debug_package %{nil}
 
 Name:           ocaml-ounit
-Version:        1.1.2
-Release:        3%{?extrarelease}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Unit test framework for OCaml
 
 Group:          Development/Libraries
 License:        MIT
 URL:            http://ounit.forge.ocamlcore.org/
-Source0:        http://forge.ocamlcore.org/frs/download.php/886/ounit-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://forge.ocamlcore.org/frs/download.php/1258/ounit-%{version}.tar.gz
 ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-camlp4 ocaml-camlp4-devel
+BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-ocamldoc
 
 
@@ -39,10 +39,10 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n ounit-%{version}
-sh ./configure --destdir $RPM_BUILD_ROOT
 
 
 %build
+sh ./configure --destdir $RPM_BUILD_ROOT
 make all
 make doc
 
@@ -52,7 +52,6 @@ make test
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 make install
@@ -61,12 +60,7 @@ make install
 rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %files
-%defattr(-,root,root,-)
 %doc LICENSE.txt
 %{_libdir}/ocaml/oUnit
 %if %opt
@@ -77,7 +71,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files devel
-%defattr(-,root,root,-)
 %doc LICENSE.txt README.txt
 %doc _build/src/api-ounit.docdir/*
 %if %opt
@@ -88,10 +81,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jun 28 2013 Si Beaumont <simon.beaumont@citrix.com>
-- Upgraded to 1.1.2 for OCaml 4.00.1
+* Tue Mar 25 2014 Euan Harris <euan.harris@citrix.com> - 2.0.0-1
+- Update to version 2.0.0
 
-* Fri Sep 30 2011 Mike McClurg <mike.mcclurg@citrix.com> - 1.1.0-3
+* Fri Sep 30 2011 Mike McClurg <mike.mcclurg@citrix.com> - 1.1.2-3
 - Repackaged for XenSource build system
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-3
