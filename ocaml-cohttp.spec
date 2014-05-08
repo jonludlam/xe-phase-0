@@ -1,10 +1,10 @@
 Name:           ocaml-cohttp
-Version:        0.9.8
-Release:        2%{?extrarelease}
+Version:        0.11.2
+Release:        1%{?extrarelease}
 Summary:        An HTTP library for OCaml
 License:        LGPL
 Group:          Development/Other
-URL:            https://github.com/mirage/ocaml-cohttp/archive/ocaml-cohttp-0.9.8.tar.gz
+URL:            https://github.com/mirage/ocaml-cohttp/archive/ocaml-cohttp-0.11.2.tar.gz
 Source0:        https://github.com/mirage/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-re-devel ocaml-uri-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-ounit-devel ocaml-ocamldoc ocaml-camlp4-devel
@@ -25,7 +25,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q
 
 %build
 make build
