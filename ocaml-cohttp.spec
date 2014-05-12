@@ -9,7 +9,7 @@ Source0:        https://github.com/mirage/%{name}/archive/%{name}-%{version}/%{n
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-re-devel ocaml-uri-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-ounit-devel ocaml-ocamldoc ocaml-camlp4-devel
 # should these be inherited from ssl.spec somehow?
-BuildRequires:  openssl openssl-devel ocaml-ocplib-endian-devel ocaml-ssl-devel
+BuildRequires:  openssl openssl-devel ocaml-ocplib-endian-devel ocaml-ssl-devel ocaml-conduit-devel ocaml-stringext-devel ocaml-fieldslib-devel ocaml-sexplib-devel
 Requires:       ocaml ocaml-findlib
 
 %description

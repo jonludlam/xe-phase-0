@@ -8,7 +8,7 @@ URL:            http://github.com/mirage/ocaml-conduit
 Source0:        https://github.com/mirage/ocaml-conduit/archive/v%{version}/ocaml-conduit-%{version}.tar.gz
 
 
-BuildRequires:  ocaml
+BuildRequires:  ocaml ocaml-findlib ocaml-sexplib-devel ocaml-lwt-devel
 
 %description
 The conduit library takes care of establishing and listening for TCP and SSL/TLS connections for the Lwt and Async libraries.
