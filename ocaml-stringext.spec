@@ -5,7 +5,7 @@ Summary:        String manipulation functions
 License:        Unknown 
 Group:          Development/Libraries
 URL:            http://github.com/rgrinberg/stringext
-Source0:        https://github.com/rgrinberg.stringext/archive/v%{version}/stringext-%{version}.tar.gz
+Source0:        https://github.com/rgrinberg/stringext/archive/v%{version}/stringext-%{version}.tar.gz
 
 
 BuildRequires:  ocaml ocaml-findlib
