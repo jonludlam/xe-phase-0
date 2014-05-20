@@ -6,7 +6,7 @@ Summary:	A portable foreign function interface library
 Group:		System Environment/Libraries
 License:	BSD
 URL:		ftp://sourceware.org/pub/libffi/libffi-%{version}.tar.gz
-Source0:	file:///libffi-%{version}.tar.gz
+Source0:	ftp://sourceware.org/pub/libffi/libffi-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
