@@ -3,21 +3,18 @@
 
 Name:           ocaml-text
 Version:        0.6
-Release:        1%{?extrarelease}
-Summary:        OCaml-Text is a library for dealing with ``text'', i.e. sequence of unicode characters, in a convenient way.
+Release:        2%{?dist}
+Summary:        Library for dealing with unicode text conveniently
 
-Group:          Development/Libraries
 License:        BSD
 URL:            http://forge.ocamlcore.org/projects/ocaml-text
-Source0:        http://forge.ocamlcore.org/frs/download.php/937/ocaml-text-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://forge.ocamlcore.org/frs/download.php/937/%{name}-%{version}.tar.gz
 ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-camlp4
 BuildRequires:  ocaml-ocamldoc
-
 
 %description
 OCaml-Text is a library for dealing with ``text'', i.e. sequence of
@@ -25,42 +22,50 @@ unicode characters, in a convenient way.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
-
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
-
 %prep
-%setup -q -n ocaml-text-%{version}
-ocaml setup.ml -configure --destdir $RPM_BUILD_ROOT --prefix /usr
+%setup -q
 
 %build
-ocaml setup.ml -build
-ocaml setup.ml -doc
+./configure --destdir $RPM_BUILD_ROOT --prefix /usr
+make
+make doc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-ocaml setup.ml -install
+make install
 
 # Remove this, reinstall it properly with a %%doc rule below.
 rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
+%files
+%{_libdir}/ocaml/text
+%exclude %{_libdir}/ocaml/text/*.a
+%exclude %{_libdir}/ocaml/text/*.cmxa
+%exclude %{_libdir}/ocaml/text/*.cmx
+%exclude %{_libdir}/ocaml/text/*.mli
+%{_libdir}/ocaml/stublibs/dlltext-bigarray_stubs.so
+%{_libdir}/ocaml/stublibs/dlltext-bigarray_stubs.so.owner
+%{_libdir}/ocaml/stublibs/dlltext_stubs.so
+%{_libdir}/ocaml/stublibs/dlltext_stubs.so.owner
 
 %files devel
-%defattr(-,root,root,-)
-%doc /usr/share/doc/ocaml-text/*
-%{_libdir}/ocaml/text/*
-%{_libdir}/ocaml/stublibs/*
-
+%doc /usr/share/doc/ocaml-text
+%{_libdir}/ocaml/text/*.a
+%{_libdir}/ocaml/text/*.cmx
+%{_libdir}/ocaml/text/*.cmxa
+%{_libdir}/ocaml/text/*.mli
 
 %changelog
-* Fri Jun 28 2013 Si Beaumont <simon.beaumont@citrix.com>
-- Customise for XenServer build env (no ocaml-find-{provides,requires}.sh)
+* Mon Jun 02 2014 Euan Harris <euan.harris@citrix.com> - 0.6-2
+- Split files correctly between base and devel packages
+
+* Sat Jun 01 2013 David Scott <dave.scott@eu.citrix.com> - 0.6-1
+- Initial package
+

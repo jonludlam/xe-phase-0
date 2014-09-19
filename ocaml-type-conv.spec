@@ -1,19 +1,17 @@
-%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
+%global debug_package %{nil}
 
 Name:           ocaml-type-conv
-Version:        109.28.00
-Release:        1%{?extrarelease}
+Version:        111.13.00
+Release:        1%{?dist}
 Summary:        OCaml base library for type conversion
 
-Group:          Development/Other
 License:        LGPLv2+ with exceptions and BSD
-URL:            http://www.ocaml.info/home/ocaml_sources.html#type-conv
+URL:            http://www.ocaml.info/software.html#type_driven
 Source0:        https://ocaml.janestreet.com/ocaml-core/%{version}/individual/type_conv-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+#Patch0:         type-conv-META.patch
 
 BuildRequires:  ocaml >= 4.00.0
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-camlp4
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-camlp4-devel
 
@@ -25,31 +23,28 @@ ability to use these preprocessors simultaneously.
 
 %prep
 %setup -q -n type_conv-%{version}
+#%patch0 -p1
+#dos2unix LICENSE.Tywith
 
 %build
 make
 
 %install
-rm -rf %{buildroot}
 export DESTDIR=%{buildroot}
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR
 make install
 
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %doc CHANGES.txt COPYRIGHT.txt INRIA-DISCLAIMER.txt INSTALL.txt LICENSE-Tywith.txt LICENSE.txt README.md THIRD-PARTY.txt
 %{_libdir}/ocaml/type_conv
 
 %changelog
-* Mon Jul 01 2013 Si Beaumoint <simon.beaumont@citrix.com>
-- Updated to version 109.28.00 for compatibility with OCaml 4.00.1
-- Removed now-unnecessary patch to META
+* Wed Jul 16 2014 David Scott <dave.scott@citrix.com> - 111.13.00-1
+- Updated to 111.13.00 for Mirage compatibility
 
-* Wed Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
+* Thu Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com> - 109.20.00-1
 - Updated to version 2.0.1 for compatability with OCaml 3.12.0
 
 * Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>

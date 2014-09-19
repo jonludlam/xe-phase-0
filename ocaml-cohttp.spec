@@ -1,50 +1,91 @@
+%global debug_package %{nil}
+
 Name:           ocaml-cohttp
 Version:        0.11.2
-Release:        1%{?extrarelease}
+Release:        1%{?dist}
 Summary:        An HTTP library for OCaml
 License:        LGPL
-Group:          Development/Other
-URL:            https://github.com/mirage/ocaml-cohttp/archive/ocaml-cohttp-0.11.2.tar.gz
-Source0:        https://github.com/mirage/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-re-devel ocaml-uri-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-ounit-devel ocaml-ocamldoc ocaml-camlp4-devel
-# should these be inherited from ssl.spec somehow?
-BuildRequires:  openssl openssl-devel ocaml-ocplib-endian-devel ocaml-ssl-devel ocaml-conduit-devel ocaml-stringext-devel ocaml-fieldslib-devel ocaml-sexplib-devel
-Requires:       ocaml ocaml-findlib
+URL:            https://github.com/mirage/ocaml-cohttp
+Source0:        https://github.com/mirage/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  ocaml
+BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-ssl-devel
+BuildRequires:  ocaml-uri-devel
+BuildRequires:  ocaml-stringext-devel
+BuildRequires:  ocaml-conduit-devel
+BuildRequires:  ocaml-fieldslib-devel
+BuildRequires:  ocaml-sexplib-devel
 
 %description
 An HTTP library for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
-#Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-lwt-devel%{?_isa}
+Requires:       ocaml-re-devel%{?_isa}
+Requires:       ocaml-ssl-devel%{?_isa}
+Requires:       ocaml-uri-devel%{?_isa}
+Requires:       ocaml-stringext-devel%{?_isa}
+Requires:       ocaml-conduit-devel%{?_isa}
+Requires:       ocaml-fieldslib-devel%{?_isa}
+Requires:       ocaml-sexplib-devel%{?_isa}
+
+%package	bin
+Summary:        Example binaries for %{name}
+
+%description    bin
+The %{name}-bin package contains the compiled example files
+for %{name}.
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%setup -q 
 
 %build
+# Dirty hack
+export PREFIX=%{buildroot}%{_prefix}
 make build
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
-ocaml setup.ml -install
+mkdir -p $OCAMLFIND_DESTDIR
+make install
 
-%clean
-rm -rf %{buildroot}
+%files
+%doc CHANGES
+%doc LICENSE
+%doc README.md
+%{_libdir}/ocaml/cohttp
+%exclude %{_libdir}/ocaml/cohttp/*.a
+%exclude %{_libdir}/ocaml/cohttp/*.cmxa
+%exclude %{_libdir}/ocaml/cohttp/*.cmx
+%exclude %{_libdir}/ocaml/cohttp/*.mli
 
 %files devel
-%defattr(-,root,root)
-%doc LICENSE README.md CHANGES
-%{_libdir}/ocaml/cohttp/*
+%{_libdir}/ocaml/cohttp/*.a
+%{_libdir}/ocaml/cohttp/*.cmx
+%{_libdir}/ocaml/cohttp/*.cmxa
+%{_libdir}/ocaml/cohttp/*.mli
+
+%files bin
+%{_prefix}/bin/cohttp-server-lwt
 
 %changelog
-* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
+* Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.11.2-1
+- Update to 0.11.2
+
+* Fri May 30 2014 Euan Harris <euan.harris@citrix.com> - 0.9.8-2
+- Split files correctly between base and devel packages
+
+* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.8-1
 - Initial package
 

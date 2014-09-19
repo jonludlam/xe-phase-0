@@ -1,54 +1,58 @@
+%global debug_package %{nil}
+
 Name:           ocaml-rpc
-Version:        1.4.1
-Release:        1%{?extrarelease}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        An RPC library for OCaml
 License:        LGPL
-Group:          Development/Other
-URL:            https://github.com/samoht/ocaml-rpc/archive/1.4.1.tar.gz
+URL:            https://github.com/samoht/ocaml-rpc
 Source0:        https://github.com/samoht/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         ocaml-rpc-1-remove-js_of_ocaml-dep
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-type-conv ocaml-xmlm-devel ocaml-camlp4-devel ocaml-lwt-devel
-Requires:       ocaml ocaml-findlib ocaml-type-conv ocaml-camlp4-devel
+BuildRequires:  ocaml
+BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-type-conv
+BuildRequires:  ocaml-xmlm-devel
 
 %description
-An RPC library for OCaml.
+Am RPC library for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
-#Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-camlp4-devel%{?_isa}
+Requires:       ocaml-type-conv%{?_isa}
+Requires:       ocaml-lwt%{?_isa}
+Requires:       ocaml-xmlm-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n ocaml-rpc-%{version}
-%patch0 -p1 -b ~ocaml-rpc-1-remove-js_of_ocaml-dep
+%setup -q
 
 %build
 make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p $OCAMLFIND_DESTDIR
 export OCAMLFIND_LDCONF=ignore
 make install DESTDIR=${buildroot}
 
-%clean
-rm -rf %{buildroot}
+%files
+%doc README.md
+%{_libdir}/ocaml/rpclib
+%exclude %{_libdir}/ocaml/rpclib/*.cmx
 
 %files devel
-%defattr(-,root,root)
-%doc README.md
-%{_libdir}/ocaml/rpclib/*
+%{_libdir}/ocaml/rpclib/*.cmx
 
 %changelog
-* Fri Jun 28 2013 Si Beaumont <simon.beaumont@ctirix.com>
-- Patch out js_of_ocaml bits for XenServer build env
+* Fri May 23 2014 Euan Harris <euan.harris@citrix.com> - 1.5.1-1
+- Update to 1.5.1, removing dependency on js-of-ocaml
 
-* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
+* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com> - 1.4.1-1
 - Initial package
 

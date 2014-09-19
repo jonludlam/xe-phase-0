@@ -1,17 +1,14 @@
-%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
-
-%define index 0.rc1
 Version: 0.9.8.6
-Release: 1%{?extrarelease}
-Summary: The omake build system.
+Release: 1%{?dist}
+Summary: The omake build system
 Name: omake
 URL: http://omake.metaprl.org/
-Source0: http://omake.metaprl.org/downloads/%{name}-%{version}-%{index}.tar.gz
+Source0: http://pkgs.fedoraproject.org/repo/pkgs/ocaml-omake/omake-0.9.8.6-0.rc1.tar.gz/fe39a476ef4e33b7ba2ca77a6bcaded2/omake-0.9.8.6-0.rc1.tar.gz
 Patch0: omake-1-warnings
 License: GPL
-Group: Development/Tools
-BuildRoot: %{_tmppath}/%{name}-root
-BuildRequires: ocaml >= 3.09.2, make, ncurses-devel
+BuildRequires: make
+BuildRequires: ncurses-devel
+BuildRequires: ocaml >= 3.09.2
 
 %define debug_package %{nil}
 
@@ -41,7 +38,6 @@ INSTALL_ROOT=$RPM_BUILD_ROOT\
    make all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/omake
 
@@ -53,21 +49,15 @@ INSTALL_ROOT=$RPM_BUILD_ROOT\
 
 chmod +w $RPM_BUILD_ROOT/%{_bindir}/*
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %doc LICENSE LICENSE.OMake doc/txt/omake-doc.txt doc/ps/omake-doc.ps doc/ps/omake-doc.pdf doc/webpage CHANGELOG.txt
 
 %attr(555,root,root) %{_bindir}/*
 %{_libdir}/omake
 
 %changelog
-* Fri Jun 28 2013 Si Beaumont <simon.beaumont@citrix.com>
-- Updated to 0.9.8.6 (rc1) to support OCaml 4.00.1.
-
-* Thu Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com>
+* Thu Nov 25 2010 Mike McClurg <mike.mcclurg@citrix.com> - 0.9.8.6-1
 - Updated to 0.9.8.6 (revision 13252) to support OCaml 3.12.0.
 
 * Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>

@@ -2,7 +2,7 @@
 
 Name:           ocaml-io-page
 Version:        1.1.1
-Release:        2%{?extrarelease}
+Release:        2%{?dist}
 Summary:        Efficient handling of I/O memory pages on Unix and Xen.
 License:        ISC
 URL:            https://github.com/mirage/io-page

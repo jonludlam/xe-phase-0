@@ -1,29 +1,26 @@
-%define XEN_RELEASE %(test -z "${XEN_RELEASE}" && echo unknown || echo $XEN_RELEASE)
-
 Name:           ocaml-xmlm
-Version:        1.0.2
-Release:        1%{?extrarelease}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Streaming XML input/output for OCaml
-License:        new-BSD
-Group:          Development/Other
+License:        BSD3
 URL:            http://erratique.ch/software/xmlm
-Source0:        http://erratique.ch/software/xmlm/releases/xmlm-%{version}.tbz
-Patch0: xmlm-do-not-display-none-dtd-on-output
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-ocamldoc
-Requires:       ocaml
+Source0:        https://github.com/dbuenzli/xmlm/archive/v%{version}/xmlm-%{version}.tar.gz
+Obsoletes:      xmlm <= 1.1.1
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-ocamldoc
 
 %description
 Xmlm is an OCaml module providing streaming XML input/output. It aims at
-making XML processing robust and painless. The streaming interface can
-process documents without building an in-memory representation. It lets
-the programmer translate its data structures to XML documents and
-vice-versa. Functions are provided to easily transform arborescent data
-structures to/from XML documents.
+making XML processing robust and painless.
+
+The streaming interface can process documents without building an in-memory
+representation. It lets the programmer translate its data structures to
+XML documents and vice-versa. Functions are provided to easily transform
+arborescent data structures to/from XML documents.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 
 %description    devel
@@ -32,53 +29,43 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n xmlm-%{version}
-%patch0 -p1 -b ~xmlm-do-not-display-none-dtd-on-output
 
 %build
-./build module
-./build doc
+./pkg/pkg-git
+./pkg/build true
 
 %install
-rm -rf %{buildroot}
-export INSTALLDIR=%{buildroot}/%{_libdir}/ocaml/xmlm
-./build install
+find .
+mkdir -p %{buildroot}/%{_libdir}/ocaml/xmlm
+cp _build/pkg/META  _build/src/xmlm.a  _build/src/xmlm.cma  _build/src/xmlm.cmi  _build/src/xmlm.cmx  _build/src/xmlm.cmxa  _build/src/xmlm.cmxs  _build/src/xmlm.mli  %{buildroot}/%{_libdir}/ocaml/xmlm
 
-%clean
-rm -rf %{buildroot}
+
 
 %files
-%defattr(-,root,root)
-%doc README
-%{_libdir}/ocaml/xmlm/META
-%{_libdir}/ocaml/xmlm/xmlm.cmi
-%{_libdir}/ocaml/xmlm/xmlm.cmo
+%doc CHANGES.md
+%doc README.md
+%{_libdir}/ocaml/xmlm
+%exclude %{_libdir}/ocaml/xmlm/*.a
+%exclude %{_libdir}/ocaml/xmlm/*.cmxa
+%exclude %{_libdir}/ocaml/xmlm/*.cmx
+%exclude %{_libdir}/ocaml/xmlm/*.mli
 
 %files devel
-%defattr(-,root,root)
-%doc test doc CHANGES
-%{_libdir}/ocaml/xmlm/xmlm.cmx
-%{_libdir}/ocaml/xmlm/xmlm.o
-%{_libdir}/ocaml/xmlm/xmlm.mli
-%{_libdir}/ocaml/xmlm/xmlm.ml
-
-
+%{_libdir}/ocaml/xmlm/*.a
+%{_libdir}/ocaml/xmlm/*.cmxa
+%{_libdir}/ocaml/xmlm/*.cmx
+%{_libdir}/ocaml/xmlm/*.mli
 
 %changelog
-* Fri May 14 2010 David Scott <dave.scott@eu.citrix.com>
-- Customised for XCP
+* Thu Jul 17 2014 David Scott <dave.scott@citri.com> - 1.2.0-1
+- Update to 1.2.0
 
-* Wed Mar 17 2010 Florent Monnier <blue_prawn@mandriva.org> 1.0.2-1mdv2010.1
-+ Revision: 522813
-- update to new version 1.0.2
+* Mon Jun 2 2014 Euan Harris <euan.harris@citrix.com> - 1.1.1-3
+- Split files correctly between base and devel packages
 
-* Sat Jun 27 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.1-2mdv2010.0
-+ Revision: 390087
-- rebuild
+* Mon May 19 2014 Euan Harris <euan.harris@citrix.com> - 1.1.1-2
+- Switch to GitHub mirror
 
-* Thu Feb 19 2009 Florent Monnier <blue_prawn@mandriva.org> 1.0.1-1mdv2009.1
-+ Revision: 342935
-- ocaml required to build
-- * Thu Feb 19 2009 Florent Monnier <blue_prawn@mandriva.org> 1.0.1-1mdv
-- Initial RPM release (please care that the upstream doc tells this software is designed to be used included)
-
+* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com> - 1.1.1-1
+- Initial package
 

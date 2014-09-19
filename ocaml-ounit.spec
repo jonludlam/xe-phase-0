@@ -6,7 +6,6 @@ Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Unit test framework for OCaml
 
-Group:          Development/Libraries
 License:        MIT
 URL:            http://ounit.forge.ocamlcore.org/
 Source0:        http://forge.ocamlcore.org/frs/download.php/1258/ounit-%{version}.tar.gz
@@ -14,10 +13,8 @@ ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-camlp4
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-ocamldoc
-
 
 %description
 OUnit is a unit test framework for OCaml. It allows one to easily
@@ -25,31 +22,24 @@ create unit-tests for OCaml code. It is based on HUnit, a unit testing
 framework for Haskell. It is similar to JUnit, and other xUnit testing
 frameworks.
 
-
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
-
 %prep
 %setup -q -n ounit-%{version}
-
 
 %build
 sh ./configure --destdir $RPM_BUILD_ROOT
 make all
 make doc
 
-
 %check
 make test
-
 
 %install
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
@@ -58,7 +48,6 @@ make install
 
 # Remove this, reinstall it properly with a %%doc rule below.
 rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
-
 
 %files
 %doc LICENSE.txt
@@ -69,7 +58,6 @@ rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
 %endif
 %exclude %{_libdir}/ocaml/oUnit/*.mli
 
-
 %files devel
 %doc LICENSE.txt README.txt
 %doc _build/src/api-ounit.docdir/*
@@ -78,7 +66,6 @@ rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
 %{_libdir}/ocaml/oUnit/*.cmxa
 %endif
 %{_libdir}/ocaml/oUnit/*.mli
-
 
 %changelog
 * Tue Mar 25 2014 Euan Harris <euan.harris@citrix.com> - 2.0.0-1
@@ -131,3 +118,4 @@ rm -rf $RPM_BUILD_ROOT/usr/local/share/doc
 
 * Sat May  3 2008 Richard W.M. Jones <rjones@redhat.com> - 1.0.2-1
 - Initial RPM release.
+

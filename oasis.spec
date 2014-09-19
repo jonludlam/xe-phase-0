@@ -3,7 +3,6 @@ Version:	0.4.4
 Release:	1%{?dist}
 Summary:	Architecture for building OCaml libraries and applications
 
-Group:          Development/Tools
 License:	LGPL
 URL:		http://oasis.forge.ocamlcore.org/index.html
 Source0:	https://github.com/ocaml/oasis/archive/%{version}/%{name}-%{version}.tar.gz
@@ -15,7 +14,6 @@ BuildRequires:	ocamlify
 BuildRequires:	ocamlmod
 BuildRequires:	ocaml-ocamldoc
 BuildRequires:	ocaml-odn-devel
-Requires:	ocaml
 
 %description
 OASIS generates a full configure, build and install system for your
@@ -25,6 +23,7 @@ your project and creates everything required.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-odn-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -42,15 +41,14 @@ developing applications that use %{name}.
 
 
 %build
-ocaml setup.ml -configure --prefix %{_prefix} --destdir %{buildroot}
-ocaml setup.ml -build
+./configure --prefix %{_prefix} --destdir %{buildroot}
+make
 
 
 %install
-mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
-ocaml setup.ml -install
-
+mkdir -p $OCAMLFIND_DESTDIR
+make install
 
 
 %files

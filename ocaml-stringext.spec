@@ -7,8 +7,8 @@ Group:          Development/Libraries
 URL:            http://github.com/rgrinberg/stringext
 Source0:        https://github.com/rgrinberg/stringext/archive/v%{version}/stringext-%{version}.tar.gz
 
-
-BuildRequires:  ocaml ocaml-findlib
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
 
 %description
 Extra string functions for OCaml

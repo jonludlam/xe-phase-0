@@ -2,21 +2,17 @@
 %global debug_package %{nil}
 
 Name:           ocaml-react
-Version:        0.9.2
-Release:        2%{?extrarelease}
+Version:        1.1.0
+Release:        2%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-Group:          Development/Libraries
 License:        BSD
 URL:            http://erratique.ch/software/react
-
-Source0:        http://erratique.ch/software/react/releases/react-%{version}.tbz
+Source0:        https://github.com/dbuenzli/react/archive/v%{version}/react-%{version}.tar.gz
 Source1:        react-LICENSE
 
-BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml >= 3.11.0
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-ocamldoc
 
 %description
 React is an OCaml module for functional reactive programming (FRP). It
@@ -30,72 +26,53 @@ the new BSD license.
 Given an absolute notion of time Rtime helps you to manage a timeline
 and provides time stamp events, delayed events and delayed signals.
 
-
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
-
 %prep
 %setup -q -n react-%{version}
 cp %{SOURCE1} LICENSE
-chmod +x build
-
 
 %build
-./build
-
+ocaml pkg/build.ml native=true native-dynlink=true
 
 %install
-rm -rf $RPM_BUILD_ROOT
-export INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/react
-mkdir -p $INSTALLDIR
-./build install
-
-
-%check
-%if %opt
-./build test.native
-./_build/test/test.native
-./build clock.native
-#./_build/test/clock.native
-./build breakout.native
-#./_build/test/breakout.native
-%endif
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
+mkdir -p %{buildroot}/%{_libdir}/ocaml/react
+cp _build/pkg/META _build/src/react.a _build/src/react.cma _build/src/react.cmi _build/src/react.cmx _build/src/react.cmxa _build/src/react.cmxs _build/src/react.mli %{buildroot}/%{_libdir}/ocaml/react
 
 %files
-%defattr(-,root,root,-)
-%doc LICENSE
+%doc CHANGES.md
+%doc README.md
 %{_libdir}/ocaml/react
-%if %opt
+%exclude %{_libdir}/ocaml/react/*.a
+%exclude %{_libdir}/ocaml/react/*.cmxa
 %exclude %{_libdir}/ocaml/react/*.cmx
-%endif
 %exclude %{_libdir}/ocaml/react/*.mli
-%exclude %{_libdir}/ocaml/react/*.ml
-
 
 %files devel
-%defattr(-,root,root,-)
-%doc CHANGES README
-%if %opt
+%{_libdir}/ocaml/react/*.a
 %{_libdir}/ocaml/react/*.cmx
-%endif
+%{_libdir}/ocaml/react/*.cmxa
 %{_libdir}/ocaml/react/*.mli
-%{_libdir}/ocaml/react/*.ml
-
 
 %changelog
+* Sat Jun  7 2014 David Scott <dave.scott@citrix.com> - 1.1.0-2
+- Update for 1.1.0
+
+* Thu May 29 2014 Euan Harris <euan.harris@citrix.com> - 0.9.4-3
+- Split files correctly between base and devel packages
+
+* Mon May 19 2014 Euan Harris <euan.harris@citrix.com> - 0.9.4-2
+- Switch to GitHub mirror
+
+* Sat Jun 01 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.4-1
+- Update for 0.9.4
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

@@ -2,25 +2,22 @@
 
 Name:           ocaml-oclock
 Version:        0.3
-Release:        2%{?extrarelease}
+Release:        3%{?dist}
 Summary:        POSIX monotonic clock for OCaml
 License:        ISC
-Group:          Development/Other
 URL:            https://github.com/polazarus/oclock
-Source0:        http://github.com/polazarus/oclock/archive/v0.3/oclock-%{version}.tar.gz
+Source0:        https://github.com/polazarus/oclock/archive/v0.3/oclock-%{version}.tar.gz
 Patch0:         oclock-1-cc-headers
 Patch1:         oclock-2-destdir
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib
-Requires:       ocaml ocaml-findlib
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
 
 %description
 A POSIX monotonic clock for OCaml
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
-#Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -32,29 +29,32 @@ developing applications that use %{name}.
 %patch1 -p1
 
 %build
-if [ -x ./configure ]; then
-  ./configure
-fi
 make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/ocaml
-mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
+export OCAMLFIND_DISTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p $OCAMLFIND_DISTDIR
+mkdir -p $OCAMLFIND_DISTDIR/stublibs
 export OCAMLFIND_LDCONF=ignore
 make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
 
-%clean
-rm -rf %{buildroot}
-
-%files devel
-%defattr(-,root,root)
-%doc LICENSE README.markdown
-%{_libdir}/ocaml/oclock/*
+%files
+%doc LICENSE
+%doc README.markdown
+%{_libdir}/ocaml/oclock
+%exclude %{_libdir}/ocaml/oclock/*.a
+%exclude %{_libdir}/ocaml/oclock/*.cmxa
 %{_libdir}/ocaml/stublibs/dlloclock.so
 %{_libdir}/ocaml/stublibs/dlloclock.so.owner
 
+%files devel
+%{_libdir}/ocaml/oclock/*.a
+%{_libdir}/ocaml/oclock/*.cmxa
+
 %changelog
-* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com>
+* Fri May 30 2014 Euan Harris <euan.harris@citrix.com> - 0.3-3
+- Split files correctly between base and devel packages
+
+* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com> - 0.3-2
 - Initial package
 

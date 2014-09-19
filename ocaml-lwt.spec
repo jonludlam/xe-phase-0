@@ -2,30 +2,28 @@
 %define debug_package %{nil}
 
 Name:           ocaml-lwt
-Version:        2.4.3
-Release:        2%{?extrarelease}
+Version:        2.4.5
+Release:        1%{?dist}
 Summary:        OCaml lightweight thread library
 
-Group:          Development/Libraries
 License:        LGPLv2+ with exceptions
 URL:            http://ocsigen.org/lwt
-Source0:        http://ocsigen.org/download/lwt-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        https://github.com/ocsigen/lwt/archive/%{version}/%{name}-%{version}.tar.gz
 ExcludeArch:    sparc64 s390 s390x
 
 # Location of libev headers on Fedora is in /usr/include/libev/ev.h
 # so we need to patch the source accordingly.
-Patch0:		ocaml-lwt-ocloexecflag
+#Patch0:         lwt-2.2.0-libev.patch
 
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-react-devel >= 0.9.0
+BuildRequires:  ocaml-react-devel >= 1.0.0
 #BuildRequires:  libev-devel
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-text-devel
-BuildRequires:  ocaml-camlp4 ocaml-camlp4-devel
+BuildRequires:  ocaml-camlp4
+BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-ssl-devel
-BuildRequires:  ocaml-compiler-libs
 
 %description
 Lwt is a lightweight thread library for Objective Caml.  This library
@@ -34,7 +32,7 @@ is part of the Ocsigen project.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
+Requires:       %{name} = %{version}-%{release}
 
 
 %description    devel
@@ -44,7 +42,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n lwt-%{version}
-%patch0 -p1 -b ~ocaml-lwt-ocloexecflag
+
 #%patch0 -p1
 
 mv README README.old
@@ -58,7 +56,6 @@ make
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
@@ -69,22 +66,24 @@ strip $OCAMLFIND_DESTDIR/stublibs/dll*.so
 #chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
+%files
+# This space intentionally left blank
 
 %files devel
-%defattr(-,root,root,-)
 %doc LICENSE COPYING CHANGES README
 %{_libdir}/ocaml/lwt/*
 %{_libdir}/ocaml/stublibs/*.so
 %{_libdir}/ocaml/stublibs/*.so.owner
 
 %changelog
-* Wed Sep 25 2013 Akshay Ramani <akshay.ramani@citrix.com>
-- Add patch to work with OCaml 4.01.0
+* Sun May 11 2014 David Scott <dave.scott@citrix.com> - 2.4.5-1
+- Update to 2.4.5
 
-* Sat Jun  1 2013 David Scott <dave.scott@eu.citrix.com>
+* Mon Mar 10 2014 Bob Ball <bob.ball@citrix.com> - 2.4.4-1
+- Update to 2.4.4
+
+* Sat Jun  1 2013 David Scott <dave.scott@eu.citrix.com> - 2.4.3-1
 - Update to 2.4.3
 
 * Wed Nov  2 2011 David Scott <dave.scott@eu.citrix.com> - 2.2.0-2
