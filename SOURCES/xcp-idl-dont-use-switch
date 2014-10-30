@@ -1,0 +1,13 @@
+diff --git a/lib/xcp_client.ml b/lib/xcp_client.ml
+index 390dfde..9783125 100644
+--- a/lib/xcp_client.ml
++++ b/lib/xcp_client.ml
+@@ -22,7 +22,7 @@ let colon = Re_str.regexp "[:]"
+ let get_user_agent () = Sys.argv.(0)
+ 
+ let switch_port = ref 8080
+-let use_switch = ref true 
++let use_switch = ref false
+ 
+ let switch_rpc queue_name string_of_call response_of_string =
+ 	let c = Protocol_unix.Client.connect !switch_port in

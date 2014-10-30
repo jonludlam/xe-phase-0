@@ -1,0 +1,70 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
+Name:           ocaml-camldm
+Version:        %{planex_version}
+Release:        %{planex_release}
+Summary:        OCaml bindings to device mapper
+License:        LGPL2.1 + OCaml linking exception
+Group:          Development/Other
+URL:            http://github.com/xapi-project/camldm
+Source0:        git://github.com/jonludlam/camldm
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper device-mapper-devel ocaml-camlp4-devel
+Requires:       ocaml ocaml-findlib device-mapper
+
+%description
+OCaml bindings to libdevicemapper.
+These are the userspace libraries that talk to the kernel 
+device-mapper module
+
+%package        devel
+Summary:        Development files for %{name}
+Group:          Development/Other
+#Requires:       %{name} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
+
+%prep
+%setup -q -n camldm-%{version}
+
+%build
+if [ -x ./configure ]; then
+  ./configure
+fi
+make
+
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/%{_libdir}/ocaml
+export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
+make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
+
+%clean
+rm -rf %{buildroot}
+
+%files devel
+%defattr(-,root,root)
+%doc ChangeLog README.md
+
+%{_libdir}/ocaml/camldm/META
+%{_libdir}/ocaml/camldm/camldm.a
+%{_libdir}/ocaml/camldm/camldm.cma
+%{_libdir}/ocaml/camldm/camldm.cmi
+%{_libdir}/ocaml/camldm/camldm.cmx
+%{_libdir}/ocaml/camldm/camldm.cmxa
+%{_libdir}/ocaml/camldm/camldm.cmxs
+%{_libdir}/ocaml/camldm/camldm.mli
+%{_libdir}/ocaml/camldm/libcamldm_stubs.a
+%{_libdir}/ocaml/stublibs/dllcamldm_stubs.so
+%{_libdir}/ocaml/stublibs/dllcamldm_stubs.so.owner
+
+
+
+%changelog
+* Mon Nov 18 2013 Jon Ludlam <jonathan.ludlam@eu.citrix.com>
+- Initial package
+
