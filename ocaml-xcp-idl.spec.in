@@ -25,6 +25,7 @@ BuildRequires:  ocaml-xmlm-devel
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  ocaml-xcp-inventory-devel
+BuildRequires:  ocaml-backtrace-devel
 
 %description
 Common interface definitions for XCP services.
@@ -41,6 +42,7 @@ Requires:       ocaml-rpc-devel%{?_isa}
 Requires:       ocaml-fd-send-recv-devel%{?_isa}
 Requires:       ocaml-xmlm-devel%{?_isa}
 Requires:       ocaml-sexplib-devel%{?_isa}
+Requires:       ocaml-backtrace-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
