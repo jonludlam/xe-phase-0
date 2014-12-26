@@ -1,6 +1,6 @@
 Name:           opam
-Version:        1.1.2
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Source-based OCaml package manager
 License:        LGPLv3
 URL:            https://github.com/ocaml/opam/releases/download/1.1.2/opam-full-1.1.2.tar.gz
@@ -21,9 +21,6 @@ make
 
 %install
 make install DESTDIR=%{buildroot}
-mkdir -p %{buildroot}/%{_mandir}
-mv %{buildroot}/usr/man/* %{buildroot}/%{_mandir}
-rm -rf %{buildroot}/usr/man
 
 %files
 %doc AUTHORS
@@ -31,12 +28,14 @@ rm -rf %{buildroot}/usr/man
 %doc CONTRIBUTING.md
 %doc LICENSE
 %doc README.md
-%{_mandir}/man1/opam*
 %{_bindir}/opam
 %{_bindir}/opam-admin
 %{_bindir}/opam-installer
 
 %changelog
+* Fri Dec 26 2014 David Scott <dave.scott@citrix.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Thu Oct 02 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.1.2-2
 - Force a rebuild
 
