@@ -49,15 +49,15 @@ make install
 %doc LICENSE 
 %doc MAINTAINERS
 %doc README.md 
-%{_libdir}/ocaml/xcp-rrd
-%exclude %{_libdir}/ocaml/xcp-rrd/*.a
-%exclude %{_libdir}/ocaml/xcp-rrd/*.cmxa
-%exclude %{_libdir}/ocaml/xcp-rrd/*.cmx
+%{_libdir}/ocaml/rrd
+%exclude %{_libdir}/ocaml/rrd/*.a
+%exclude %{_libdir}/ocaml/rrd/*.cmxa
+%exclude %{_libdir}/ocaml/rrd/*.cmx
 
 %files devel
-%{_libdir}/ocaml/xcp-rrd/*.a
-%{_libdir}/ocaml/xcp-rrd/*.cmxa
-%{_libdir}/ocaml/xcp-rrd/*.cmx
+%{_libdir}/ocaml/rrd/*.a
+%{_libdir}/ocaml/rrd/*.cmxa
+%{_libdir}/ocaml/rrd/*.cmx
 
 %changelog
 * Thu Apr  2 2015 David Scott <dave.scott@citrix.com> - 0.9.0-3
