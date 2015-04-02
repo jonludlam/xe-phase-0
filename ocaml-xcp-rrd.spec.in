@@ -19,6 +19,7 @@ BuildRequires:  ocaml-obuild
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-stdext-devel
 BuildRequires:  ocaml-uuidm-devel
+BuildRequires:  ocaml-ounit-devel
 
 %description
 Round-Robin Datasources in OCaml.
