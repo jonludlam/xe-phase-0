@@ -19,7 +19,6 @@ BuildRequires:  ocaml-ssl-devel
 BuildRequires:  ocaml-uri-devel
 BuildRequires:  ocaml-stringext-devel
 BuildRequires:  ocaml-conduit-devel
-BuildRequires:  ocaml-async-kernel-devel
 BuildRequires:  ocaml-base64-devel
 BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-conduit-devel
@@ -38,7 +37,6 @@ Requires:       ocaml-stringext-devel%{?_isa}
 Requires:       ocaml-conduit-devel%{?_isa}
 Requires:       ocaml-fieldslib-devel%{?_isa}
 Requires:       ocaml-sexplib-devel%{?_isa}
-Requires:       ocaml-async-kernel-devel
 Requires:       ocaml-base64-devel
 Requires:       ocaml-cmdliner-devel
 Requires:       ocaml-conduit-devel
@@ -80,7 +78,6 @@ make install
 %exclude %{_libdir}/ocaml/cohttp/*.cmt
 %exclude %{_libdir}/ocaml/cohttp/*.cmti
 %exclude %{_libdir}/ocaml/cohttp/*.annot
-%{_bindir}/cohttp-server-async
 
 %files devel
 %{_libdir}/ocaml/cohttp/*.a
@@ -90,7 +87,6 @@ make install
 
 %files bin
 %{_prefix}/bin/cohttp-server-lwt
-%{_prefix}/bin/cohttp-server-async
 %{_prefix}/bin/cohttp-curl-lwt
 
 %changelog

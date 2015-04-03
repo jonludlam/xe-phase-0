@@ -11,7 +11,6 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  ocaml-lwt-devel
-BuildRequires:  ocaml-async-devel
 BuildRequires:  ocaml-stringext-devel
 BuildRequires:  ocaml-uri-devel
 BuildRequires:  ocaml-cstruct-devel
@@ -28,7 +27,6 @@ Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:  ocaml-sexplib-devel
 Requires:  ocaml-lwt-devel
-Requires:  ocaml-async-devel
 Requires:  ocaml-stringext-devel
 Requires:  ocaml-uri-devel
 Requires:  ocaml-cstruct-devel
