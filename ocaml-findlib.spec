@@ -5,7 +5,7 @@
 %endif
 
 Name:           ocaml-findlib
-Version:        1.4.1
+Version:        1.5.5
 Release:        1%{?extrarelease}
 Summary:        Objective CAML package manager and build helper
 
@@ -98,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/*/META
 %{_libdir}/ocaml/topfind
 %{_libdir}/ocaml/findlib
+%{_libdir}/ocaml/bytes
 %if %opt
 %exclude %{_libdir}/ocaml/findlib/*.a
 %exclude %{_libdir}/ocaml/findlib/*.cmxa
@@ -122,6 +123,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr  3 2015 David Scott <dave.scott@citrix.com>
+- Update to 1.5.5 with bytes package
+
 * Thu Jun 27 2013 Si Beaumont <simon.beaumont@citrix.com>
 - Customise for XenServer build (remove labltk-devel dependency)
 
