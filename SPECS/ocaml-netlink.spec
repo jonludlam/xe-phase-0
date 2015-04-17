@@ -4,7 +4,7 @@ Release:        1
 Summary:        OCaml bindings to libnl
 License:        LGPL
 URL:            https://github.com/xapi-project/ocaml-netlink
-Source0:        https://github.com/jonludlam/ocaml-netlink/archive/v%{planex_version}/ocaml-netlink-%{version}.tar.gz
+Source0:        https://github.com/jonludlam/ocaml-netlink/archive/v%{version}/ocaml-netlink-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  libffi-devel
 BuildRequires:  libnl3
