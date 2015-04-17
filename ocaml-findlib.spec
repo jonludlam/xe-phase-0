@@ -5,7 +5,7 @@
 %endif
 
 Name:           ocaml-findlib
-Version:        1.4.1
+Version:        1.5.5
 Release:        1%{?extrarelease}
 Summary:        Objective CAML package manager and build helper
 
@@ -13,7 +13,6 @@ Group:          Development/Libraries
 License:        BSD
 URL:            http://projects.camlcity.org/projects/findlib.html
 Source0:        http://download.camlcity.org/download/findlib-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExcludeArch:    sparc64 s390 s390x
 
 BuildRequires:  ocaml >= 4.00.1
@@ -98,9 +97,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/*/META
 %{_libdir}/ocaml/topfind
 %{_libdir}/ocaml/findlib
+%{_libdir}/ocaml/bytes
 %if %opt
 %exclude %{_libdir}/ocaml/findlib/*.a
 %exclude %{_libdir}/ocaml/findlib/*.cmxa
+%exclude %{_libdir}/ocaml/bytes/*.a
+%exclude %{_libdir}/ocaml/bytes/*.cmxa
 %endif
 %exclude %{_libdir}/ocaml/findlib/*.mli
 %exclude %{_libdir}/ocaml/findlib/Makefile.config
@@ -116,12 +118,17 @@ rm -rf $RPM_BUILD_ROOT
 %if %opt
 %{_libdir}/ocaml/findlib/*.a
 %{_libdir}/ocaml/findlib/*.cmxa
+%{_libdir}/ocaml/bytes/*.a
+%{_libdir}/ocaml/bytes/*.cmxa
 %endif
 %{_libdir}/ocaml/findlib/*.mli
 %{_libdir}/ocaml/findlib/Makefile.config
 
 
 %changelog
+* Fri Apr 17 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.5.5-1
+- New upstream version
+
 * Thu Jun 27 2013 Si Beaumont <simon.beaumont@citrix.com>
 - Customise for XenServer build (remove labltk-devel dependency)
 
