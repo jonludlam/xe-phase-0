@@ -7,7 +7,7 @@ URL:            https://github.com/xapi-project/ocaml-opasswd
 Source0:        https://github.com/xapi-project/ocaml-opasswd/archive/%{version}/%{name}-%{version}.tar.gz
 #Patch0:         ocaml-opasswd-ocaml-4.00.1.patch
 BuildRequires:  ocaml 
-BuildRequires:  ocaml-findlib 
+BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ctypes-devel 
 BuildRequires:  libffi-devel
 
