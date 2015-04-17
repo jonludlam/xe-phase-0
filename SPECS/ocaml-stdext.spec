@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-stdext
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Deprecated misc library functions for OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/stdext
-Source0:        git://github.com/xapi-project/stdext
+Source0:        https://github.com/xapi-project/stdext/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-fd-send-recv-devel
 BuildRequires:  ocaml-findlib
@@ -61,6 +57,9 @@ make install DESTDIR=${buildroot}
 %{_libdir}/ocaml/stdext/*.mli
 
 %changelog
+* Wed Jan 21 2015 David Scott <dave.scott@citrix.com> - 0.13.0-1
+- Update to 0.13.0
+
 * Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.11.0-1
 - Update to 0.11.0
 

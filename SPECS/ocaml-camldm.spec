@@ -1,15 +1,11 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           ocaml-camldm
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        OCaml bindings to device mapper
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
 URL:            http://github.com/xapi-project/camldm
-Source0:        git://github.com/jonludlam/camldm
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+Source0:        https://github.com/xapi-project/camldm/archive/v%{version}/camldm-%{version}.tar.gz
 BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper device-mapper-devel ocaml-camlp4-devel
 Requires:       ocaml ocaml-findlib device-mapper
 

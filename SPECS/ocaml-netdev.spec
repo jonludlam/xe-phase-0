@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-netdev
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Manipulate Linux bridges, network devices and openvswitch instances in OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/netdev
-Source0:        git://github.com/xapi-project/netdev
+Source0:        https://github.com/xapi-project/netdev/archive/v%{version}/netdev-%{version}.tar.gz
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib

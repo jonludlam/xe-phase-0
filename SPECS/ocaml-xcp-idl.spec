@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-idl
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Common interface definitions for XCP services
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-idl
-Source0:        git://github.com/xapi-project/xcp-idl
+Source0:        https://github.com/xapi-project/xcp-idl/archive/v%{version}/xcp-idl-%{version}.tar.gz
 Patch1:         xcp-idl-dont-use-switch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
@@ -25,7 +21,6 @@ BuildRequires:  ocaml-xmlm-devel
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  ocaml-xcp-inventory-devel
-BuildRequires:  ocaml-backtrace-devel
 
 %description
 Common interface definitions for XCP services.
@@ -42,7 +37,7 @@ Requires:       ocaml-rpc-devel%{?_isa}
 Requires:       ocaml-fd-send-recv-devel%{?_isa}
 Requires:       ocaml-xmlm-devel%{?_isa}
 Requires:       ocaml-sexplib-devel%{?_isa}
-Requires:       ocaml-backtrace-devel%{?_isa}
+Requires:       ocaml-xcp-inventory-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -50,7 +45,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n xcp-idl-%{version}
-%patch1 -p1
+%patch1
 
 %build
 ocaml setup.ml -configure
@@ -80,6 +75,18 @@ make install
 %{_libdir}/ocaml/xcp/*.mli
 
 %changelog
+* Sat Apr  4 2015 David Scott <dave.scott@citrix.com> - 0.10.0-1
+- Update to 0.10.0
+
+* Thu Apr  3 2015 David Scott <dave.scott@citrix.com> - 0.9.21-2
+- Update to cohttp.0.15.2
+
+* Wed Jan 21 2015 David Scott <dave.scott@citrix.com> - 0.9.21-1
+- Update to 0.9.21
+
+* Tue Oct 14 2014 David Scott <dave.scott@citrix.com> - 0.9.20-1
+- Update to 0.9.20
+
 * Wed Aug 20 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.18-1
 - Update to 0.9.18
 

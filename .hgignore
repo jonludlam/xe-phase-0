@@ -7,3 +7,4 @@ SOURCES/*.pdf
 _build
 RPMS
 SRPMS
+PINS

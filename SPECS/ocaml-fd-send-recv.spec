@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-fd-send-recv
+Version:        1.0.1
+Release:        2%{?dist}
 Summary:        Bindings to sendmsg/recvmsg for fd passing under Linux
 License:        LGPL
 URL:            https://github.com/xapi-project/ocaml-fd-send-recv
-Source0:        git://github.com/xapi-project/ocaml-fd-send-recv
+Source0:        https://github.com/xapi-project/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 
@@ -26,7 +22,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 ocaml setup.ml -configure

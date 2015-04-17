@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %define debug_package %{nil}
 
 Name:           ocaml-crc
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        CRC implementation for OCaml
 License:        ISC
 URL:            https://github.com/xapi-project/ocaml-crc/
-Source0:        git://github.com/xapi-project/ocaml-crc
+Source0:        https://github.com/xapi-project/ocaml-crc/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib
