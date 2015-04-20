@@ -1,13 +1,10 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           xenops-cli
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.1
+Release:        2%{?dist}
 Summary:        CLI for xenopsd, the xapi toolstack domain manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenops-cli
-Source0:        git://github.com/xapi-project/xenops-cli
+Source0:        https://github.com/xapi-project/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cmdliner-devel
@@ -19,7 +16,7 @@ BuildRequires:  ocaml-xcp-idl-devel
 Command-line interface for xenopsd, the xapi toolstack domain manager.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 make

@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-rrd
+Version:        0.9.0
+Release:        2%{?dist}
 Summary:        Round-Robin Datasources in OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrd
-Source0:        git://github.com/xapi-project/xcp-rrd
+Source0:        https://github.com/xapi-project/xcp-rrd/archive/v%{version}/xcp-rrd-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  oasis
 BuildRequires:  ocaml-camlp4-devel

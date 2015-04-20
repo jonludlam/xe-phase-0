@@ -1,17 +1,20 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           ocaml-camldm
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        OCaml bindings to device mapper
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
 URL:            http://github.com/xapi-project/camldm
-Source0:        git://github.com/jonludlam/camldm
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper device-mapper-devel ocaml-camlp4-devel
-Requires:       ocaml ocaml-findlib device-mapper
+Source0:        https://github.com/xapi-project/camldm/archive/v%{version}/camldm-%{version}.tar.gz
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-rpc-devel
+BuildRequires:  device-mapper
+BuildRequires:  device-mapper-devel
+BuildRequires:  ocaml-camlp4-devel
+Requires:       ocaml
+Requires:       ocaml-findlib
+Requires:       device-mapper
 
 %description
 OCaml bindings to libdevicemapper.
@@ -46,25 +49,30 @@ make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
 %clean
 rm -rf %{buildroot}
 
-%files devel
-%defattr(-,root,root)
+%files
 %doc ChangeLog README.md
-
-%{_libdir}/ocaml/camldm/META
-%{_libdir}/ocaml/camldm/camldm.a
-%{_libdir}/ocaml/camldm/camldm.cma
-%{_libdir}/ocaml/camldm/camldm.cmi
-%{_libdir}/ocaml/camldm/camldm.cmx
-%{_libdir}/ocaml/camldm/camldm.cmxa
-%{_libdir}/ocaml/camldm/camldm.cmxs
-%{_libdir}/ocaml/camldm/camldm.mli
-%{_libdir}/ocaml/camldm/libcamldm_stubs.a
+%{_libdir}/ocaml/camldm
+%exclude %{_libdir}/ocaml/camldm/*.a
+%exclude %{_libdir}/ocaml/camldm/*.cmxa
+%exclude %{_libdir}/ocaml/camldm/*.cmx
+%exclude %{_libdir}/ocaml/camldm/*.mli
 %{_libdir}/ocaml/stublibs/dllcamldm_stubs.so
 %{_libdir}/ocaml/stublibs/dllcamldm_stubs.so.owner
+
+%files devel
+%defattr(-,root,root)
+%{_libdir}/ocaml/camldm/*.a
+%{_libdir}/ocaml/camldm/*.cmx
+%{_libdir}/ocaml/camldm/camldm.cmxa
+%{_libdir}/ocaml/camldm/camldm.mli
+
 
 
 
 %changelog
+* Sat Apr 18 2015 Jon Ludlam <jonathan.ludlam@citrix.com>
+- Layout fixes
+
 * Mon Nov 18 2013 Jon Ludlam <jonathan.ludlam@eu.citrix.com>
 - Initial package
 

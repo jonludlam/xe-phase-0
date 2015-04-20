@@ -1,14 +1,11 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.2
+Release:        1%{?dist}
 
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
 URL:            https://github.com/xapi-project/forkexecd
-Source0:        git://github.com/xapi-project/forkexecd
+Source0:        https://github.com/xapi-project/forkexecd/archive/%{version}/forkexecd-%{version}.tar.gz
 Source1:        forkexecd-init
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib

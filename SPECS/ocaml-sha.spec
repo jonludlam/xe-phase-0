@@ -1,14 +1,10 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 Name:           ocaml-sha
+Version:        1.9
+Release:        2%{?dist}
 Summary:        OCaml SHA
 License:        LGPL2.1
 URL:            https://github.com/vincenthz/ocaml-sha
-Source0:        git://github.com/xapi-project/ocaml-sha#trunk-ring3
+Source0:        https://github.com/vincenthz/ocaml-sha/archive/ocaml-sha-v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 
@@ -24,7 +20,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 make

@@ -4,3 +4,8 @@ targets.mk
 SOURCES/*.tar.*
 SOURCES/*.tbz
 SOURCES/*.pdf
+_build
+RPMS
+SRPMS
+PINS
+.planex-cache
