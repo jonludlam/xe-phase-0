@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xenstore
+Version:        1.2.4
+Release:        2%{?dist}
 Summary:        Xenstore protocol implementation in OCaml
 License:        LGPL
 URL:            https://github.com/mirage/ocaml-xenstore
-Source0:        git://github.com/xapi-project/ocaml-xenstore
+Source0:        https://github.com/mirage/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cstruct-devel

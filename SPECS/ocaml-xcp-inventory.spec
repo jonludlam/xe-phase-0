@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-inventory
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        OCaml library to read and write the XCP inventory file
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/xcp-inventory
-Source0:        git://github.com/xapi-project/xcp-inventory
+Source0:        https://github.com/xapi-project/xcp-inventory/archive/v%{version}/xcp-inventory-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-findlib-devel

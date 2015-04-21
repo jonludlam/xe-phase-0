@@ -1,9 +1,6 @@
-%define planex_version 0.1
-%define planex_release 1
-
 Name:           ocaml-backtrace
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.1
+Release:        1%{?dist}
 Summary:        Library for processing backtraces across hosts/processes/languages
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/backtrace
@@ -59,16 +56,3 @@ ocaml setup.ml -install
 %changelog
 * Sun Nov 2 2014 David Scott <dave.scott@citrix.com> - 0.1-1
 - Initial package
-
-* Tue Apr 1 2014 Euan Harris <euan.harris@citrix.com> - 0.7.0-1
-- Update to 0.7.0
-
-* Thu Nov 21 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.4-1
-- Update to 0.6.4
-
-* Wed Oct 30 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.1-1
-- Update to 0.6.1
-
-* Wed Oct 02 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.0-1
-- Initial package
-

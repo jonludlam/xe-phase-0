@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-vhd
+Version:        0.7.2
+Release:        1%{?dist}
 Summary:        Pure OCaml library for reading, writing, streaming, converting vhd format files
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/djs55/ocaml-vhd
-Source0:        git://github.com/xapi-project/ocaml-vhd#trunk-ring3
+Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cstruct-devel
@@ -84,6 +80,9 @@ ocaml setup.ml -install
 
 
 %changelog
+* Thu Oct 2 2014 David Scott <dave.scott@citrix.com> - 0.7.2-1
+- Update to 0.7.2
+
 * Tue Apr 1 2014 Euan Harris <euan.harris@citrix.com> - 0.7.0-1
 - Update to 0.7.0
 

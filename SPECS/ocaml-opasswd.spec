@@ -1,17 +1,13 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 Name:           ocaml-opasswd
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        OCaml interface to the glibc passwd/shadow password functions
 License:        ISC
 URL:            https://github.com/xapi-project/ocaml-opasswd
-Source0:        git://github.com/xapi-project/ocaml-opasswd
+Source0:        https://github.com/xapi-project/ocaml-opasswd/archive/%{version}/%{name}-%{version}.tar.gz
 #Patch0:         ocaml-opasswd-ocaml-4.00.1.patch
 BuildRequires:  ocaml 
-BuildRequires:  ocaml-findlib 
+BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ctypes-devel 
 BuildRequires:  libffi-devel
 
