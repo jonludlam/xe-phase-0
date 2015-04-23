@@ -1,0 +1,26 @@
+# mock is in both /usr/sbin and /usr/bin, but it is the version in /usr/bin that should 
+# executed. The build system has /usr/sbin first in the path which leads to permission
+# problems.
+PATH:=/usr/bin:$(PATH)
+FETCH_EXTRA_FLAGS=--mirror file:///distfiles/ocaml2
+
+.PHONY: buildrpms ocaml
+
+ocaml: buildrpms /output/ocaml/SOURCES/MANIFEST 
+
+/output/ocaml/SOURCES/MANIFEST: buildrpms
+	mkdir /output/ocaml/SOURCES
+	for i in $(shell /bin/ls -1 SRPMS/*.rpm); do \
+		path=$${i}; \
+		echo -n "ocaml "; \
+		rpm --qf %{License} -qp $${path} | sed -e 's/ /_/g'; \
+		echo " file $${path}"; \
+	done > /tmp/MANIFEST
+	mv -f /tmp/MANIFEST $@
+
+buildrpms:
+	make -f Makefile
+	cp -r _build/RPMS /output/ocaml/
+	rm -rf /output/ocaml/RPMS/repodata
+	cp -r _build/SRPMS /output/ocaml/
+

@@ -1,0 +1,2 @@
+#!/bin/bash
+xenvm lvextend -L ${1}B ${2}

@@ -1,5 +1,5 @@
 Name:           ocaml-camldm
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 Summary:        OCaml bindings to device mapper
 License:        LGPL2.1 + OCaml linking exception
@@ -9,11 +9,18 @@ Source0:        https://github.com/xapi-project/camldm/archive/v%{version}/camld
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-rpc-devel
+BuildRequires:  ocaml-sexplib-devel
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-ctypes-devel
+BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-stringext-devel
+BuildRequires:  libffi-devel
 BuildRequires:  device-mapper
 BuildRequires:  device-mapper-devel
 BuildRequires:  ocaml-camlp4-devel
-Requires:       ocaml
-Requires:       ocaml-findlib
+BuildRequires:  oasis
 Requires:       device-mapper
 
 %description
@@ -24,7 +31,7 @@ device-mapper module
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Other
-#Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -50,26 +57,28 @@ make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
 rm -rf %{buildroot}
 
 %files
-%doc ChangeLog README.md
-%{_libdir}/ocaml/camldm
-%exclude %{_libdir}/ocaml/camldm/*.a
-%exclude %{_libdir}/ocaml/camldm/*.cmxa
-%exclude %{_libdir}/ocaml/camldm/*.cmx
-%exclude %{_libdir}/ocaml/camldm/*.mli
-%{_libdir}/ocaml/stublibs/dllcamldm_stubs.so
-%{_libdir}/ocaml/stublibs/dllcamldm_stubs.so.owner
+%doc CHANGES README.md
+%{_libdir}/ocaml/devmapper
+%exclude %{_libdir}/ocaml/devmapper/*.a
+%exclude %{_libdir}/ocaml/devmapper/*.cmxa
+%exclude %{_libdir}/ocaml/devmapper/*.cmx
+%exclude %{_libdir}/ocaml/devmapper/*.mli
+%{_libdir}/ocaml/stublibs/dlldevmapper_stubs.so
+%{_libdir}/ocaml/stublibs/dlldevmapper_stubs.so.owner
 
 %files devel
-%defattr(-,root,root)
-%{_libdir}/ocaml/camldm/*.a
-%{_libdir}/ocaml/camldm/*.cmx
-%{_libdir}/ocaml/camldm/camldm.cmxa
-%{_libdir}/ocaml/camldm/camldm.mli
+%{_libdir}/ocaml/devmapper/*.a
+%{_libdir}/ocaml/devmapper/*.cmx
+%{_libdir}/ocaml/devmapper/devmapper.cmxa
+%{_libdir}/ocaml/devmapper/devmapper.mli
 
 
 
 
 %changelog
+* Tue Apr 21 2015 Jon Ludlam <jonathan.ludlam@citrix.com>
+- New upstream release
+
 * Sat Apr 18 2015 Jon Ludlam <jonathan.ludlam@citrix.com>
 - Layout fixes
 
