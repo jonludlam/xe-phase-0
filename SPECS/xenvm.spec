@@ -26,7 +26,7 @@ BuildRequires:  libffi-devel
 BuildRequires:  oasis
 
 %description
-A compatible replacement for LVM supporting thinly provisioned volumes
+A compatible replacement for LVM supporting thinly provisioned volumes.
 
 %prep
 %setup -q -n xenvm-%{version}
@@ -37,13 +37,18 @@ make
 %install
 mkdir -p %{buildroot}/%{_sbindir}
 install xenvmd.native %{buildroot}/%{_sbindir}/xenvmd
-
+mkdir -p %{buildroot}/%{_bindir}
+install xenvm.native %{buildroot}/%{_bindir}/xenvm
 
 %files
-%doc README.md
+%doc README.md 
 %{_sbindir}/xenvmd
+%{_bindir}/xenvm
 
 %changelog
+* Wed Apr 22 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.1.0-2
+- Add xenvm CLI
+
 * Mon Apr 20 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.1.0-1
 - Initial package
 
