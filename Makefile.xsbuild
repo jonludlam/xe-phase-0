@@ -9,8 +9,9 @@ FETCH_EXTRA_FLAGS=--mirror file:///distfiles/ocaml2
 ocaml: buildrpms /output/ocaml/SOURCES/MANIFEST 
 
 /output/ocaml/SOURCES/MANIFEST: buildrpms
-	for i in $(shell /bin/ls -1 SRPMS); do \
-		path=SRPMS/$${i}; \
+	mkdir /output/ocaml/SOURCES
+	for i in $(shell /bin/ls -1 SRPMS/*.rpm); do \
+		path=$${i}; \
 		echo -n "ocaml "; \
 		rpm --qf %{License} -qp $${path} | sed -e 's/ /_/g'; \
 		echo " file $${path}"; \
