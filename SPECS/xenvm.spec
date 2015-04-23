@@ -1,10 +1,12 @@
 Name:           xenvm
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A compatible replace for LVM supporting thinly provisioned volumes
 License:        LGPL
 URL:            https://github.com/xapi-project/xenvm
 Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:        refresh-demo
+Source2:        resize-demo
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cmdliner-devel
@@ -39,13 +41,23 @@ mkdir -p %{buildroot}/%{_sbindir}
 install xenvmd.native %{buildroot}/%{_sbindir}/xenvmd
 mkdir -p %{buildroot}/%{_bindir}
 install xenvm.native %{buildroot}/%{_bindir}/xenvm
+install local_allocator.native %{buildroot}/%{_bindir}/xenvm-local-allocator
+mkdir -p %{buildroot}/opt/xensource/sm
+cp %{SOURCE1} %{buildroot}/opt/xensource/sm
+cp %{SOURCE2} %{buildroot}/opt/xensource/sm
 
 %files
 %doc README.md 
 %{_sbindir}/xenvmd
 %{_bindir}/xenvm
+%{_bindir}/xenvm-local-allocator
+/opt/xensource/sm/refresh-demo
+/opt/xensource/sm/resize-demo
 
 %changelog
+* Thu Apr 23 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.1.0-3
+- Add local allocator
+
 * Wed Apr 22 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.1.0-2
 - Add xenvm CLI
 
