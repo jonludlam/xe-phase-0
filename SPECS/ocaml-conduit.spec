@@ -1,16 +1,17 @@
 Name:           ocaml-conduit
-Version:        0.7.2
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        OCaml network conduit library
 License:        Unknown 
 Group:          Development/Libraries
 URL:            https://github.com/mirage/ocaml-conduit
 Source0:        https://github.com/mirage/ocaml-conduit/archive/v%{version}/ocaml-conduit-%{version}.tar.gz
-
+Patch0:         ocaml-conduit-acf42817ab5810e040b6481996b8221fa74db1a1.patch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-async-devel
 BuildRequires:  ocaml-stringext-devel
 BuildRequires:  ocaml-uri-devel
 BuildRequires:  ocaml-cstruct-devel
@@ -27,6 +28,7 @@ Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:  ocaml-sexplib-devel
 Requires:  ocaml-lwt-devel
+Requires:  ocaml-async-devel
 Requires:  ocaml-stringext-devel
 Requires:  ocaml-uri-devel
 Requires:  ocaml-cstruct-devel
@@ -39,7 +41,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
+%patch0 -p1
 
 %build
 make all
@@ -62,6 +64,10 @@ make install
 %{_libdir}/ocaml/conduit/*.cmxa
 
 %changelog
+* Fri Apr 24 2015 David Scott <dave.scott@citrix.com> - 0.8.2-1
+- Update to 0.8.2
+- Backport fix for Unix domain sockets
+
 * Thu Apr  2 2015 David Scott <dave.scott@citrix.com> - 0.7.2-1
 - Update to 0.7.2
 
