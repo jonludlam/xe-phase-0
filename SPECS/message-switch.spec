@@ -17,7 +17,8 @@ BuildRequires: ocaml-rpc-devel
 BuildRequires: ocaml-async-devel
 BuildRequires: ocaml-shared-block-ring-devel
 BuildRequires: ocaml-mtime-devel
-Requires:      redhat-lsb-core
+# Not available in the build chroot
+#Requires:      redhat-lsb-core
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts
