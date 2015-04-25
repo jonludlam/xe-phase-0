@@ -6,6 +6,7 @@ License:        FreeBSD
 URL:            https://github.com/djs55/message-switch
 Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        message-switch-init
+Source2:        message-switch-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -29,6 +30,7 @@ A store and forward message switch for OCaml.
 %prep
 %setup -q
 cp %{SOURCE1} message-switch-init
+cp %{SOURCE2} message-switch-conf
 
 %build
 ocaml setup.ml -configure
@@ -43,12 +45,13 @@ install switch_main.native %{buildroot}/%{_sbindir}/message-switch
 install main.native %{buildroot}/%{_sbindir}/message-cli
 mkdir -p %{buildroot}/%{_sysconfdir}/init.d
 install -m 0755 message-switch-init %{buildroot}%{_sysconfdir}/init.d/message-switch
-
+install -m 0644 message-switch-conf %{buildroot}/etc/message-switch.conf
 
 %files
 %{_sbindir}/message-switch
 %{_sbindir}/message-cli
 %{_sysconfdir}/init.d/message-switch
+%config(noreplace) /etc/message-switch.conf
 
 %post
 /sbin/chkconfig --add message-switch

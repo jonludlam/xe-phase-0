@@ -42,7 +42,7 @@ start() {
 	umask 077
 
         echo -n $"Starting message switch: "
-        daemon --pidfile="$PIDFILE" $exec -pidfile "$PIDFILE" -daemon $MESSAGE_SWITCH_OPTIONS
+        daemon --pidfile="$PIDFILE" $exec --config /etc/message-switch.conf --pidfile "$PIDFILE" --daemon $MESSAGE_SWITCH_OPTIONS
         RETVAL=$?
         echo
         [ $RETVAL -eq 0 ] && touch $lockfile
