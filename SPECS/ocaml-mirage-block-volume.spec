@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           ocaml-mirage-block-volume
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 Summary:        Mirage volume library compatible with LVM
 License:        ISC
@@ -74,5 +74,8 @@ make install
 %{_libdir}/ocaml/lvm_internal/*.cmxa
 
 %changelog
+* Mon Apr 27 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.2-1
+- New upstream release
+
 * Sun Apr 12 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.1-1
 - Initial package
