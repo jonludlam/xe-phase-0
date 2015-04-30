@@ -1,13 +1,14 @@
 %define debug_package %{nil}
 
 Name:           ocaml-shared-block-ring
-Version:        1.1.1
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        OCaml implementation of shared block rings
 License:        ISC
 URL:            https://github.com/mirage/shared-block-ring/
 Source0:        https://github.com/mirage/shared-block-ring/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
+BuildRequires:  oasis
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -61,6 +62,9 @@ make install
 %{_libdir}/ocaml/shared-block-ring/*.mli
 
 %changelog
+* Thu Apr 30 2015 David Scott <dave.scott@citrix.com> - 2.0.0-1
+- Update to 2.0.0
+
 * Sun Apr 12 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.1.1-1
 - Initial package
 
