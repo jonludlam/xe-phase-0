@@ -88,6 +88,7 @@ make install
 
 %files bin
 %{_prefix}/bin/cohttp-server-lwt
+%{_prefix}/bin/cohttp-server-async
 %{_prefix}/bin/cohttp-curl-lwt
 
 %changelog

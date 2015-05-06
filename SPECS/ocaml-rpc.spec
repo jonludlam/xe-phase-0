@@ -5,8 +5,8 @@ Version:        1.5.3
 Release:        1%{?dist}
 Summary:        An RPC library for OCaml
 License:        LGPL
-URL:            https://github.com/mirage/ocaml-rpc
-Source0:        https://github.com/mirage/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/samoht/ocaml-rpc
+Source0:        https://github.com/samoht/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
