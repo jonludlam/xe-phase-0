@@ -21,6 +21,7 @@ ocaml: buildrpms /output/ocaml/SOURCES/MANIFEST
 buildrpms:
 	make -f Makefile
 	cp -r _build/RPMS /output/ocaml/
+	rm -rf /output/ocaml/RPMS/x86_64/*.src.rpm
 	rm -rf /output/ocaml/RPMS/repodata
 	cp -r _build/SRPMS /output/ocaml/
 
