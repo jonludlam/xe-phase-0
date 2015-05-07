@@ -7,7 +7,6 @@ URL:            https://github.com/xapi-project/xenvm
 Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        refresh-demo
 Source2:        resize-demo
-Source3:        xenvm-nobisect.patch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cmdliner-devel
@@ -33,7 +32,6 @@ A compatible replacement for LVM supporting thinly provisioned volumes.
 
 %prep
 %setup -q -n xenvm-%{version}
-patch -p1 -N < %{SOURCE3} || (patch -R -p1 < %{SOURCE3} && patch -p1 < %{SOURCE3})
 
 %build
 make
