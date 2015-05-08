@@ -1,5 +1,5 @@
 Name:           ocaml-pci
-Version:        0.1.0
+Version:        0.1.1
 Release:        1%{?dist}
 Summary:        OCaml bindings to libpci
 License:        LGPL2.1 + OCaml linking exception
@@ -10,7 +10,6 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-ctypes-devel
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  pciutils-devel
-Requires:       pciutils
 
 %description
 OCaml bindings to libpci.
@@ -20,6 +19,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       libffi%{?_isa}
 Requires:       ocaml-ctypes-devel%{?_isa}
+Requires:       pciutils-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -53,5 +53,8 @@ make install
 %{_libdir}/ocaml/pci/*.mli
 
 %changelog
+* Fri May  8 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.1-1
+- Update to 0.1.1
+
 * Fri May  1 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.0-1
 - Initial package
