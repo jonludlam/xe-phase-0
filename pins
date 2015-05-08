@@ -19,9 +19,6 @@
   "SPECS/ocaml-opasswd.spec": {
     "0": "/repos/ocaml-opasswd#master"
   },
-  "SPECS/ocaml-pci.spec": {
-    "0": "/repos/ocaml-pci#master"
-  },
   "SPECS/ocaml-qmp.spec": {
     "0": "/repos/ocaml-qmp#master"
   },
