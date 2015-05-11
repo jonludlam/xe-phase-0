@@ -59,7 +59,7 @@ make install
 
 
 %changelog
-* Mon May 11 Si Beaumont <simon.beaumont@citrix.com> - 0.1.3-1
+* Mon May 11 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.3-1
 - Update to 0.1.3
 
 * Fri May  8 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.2-1
