@@ -1,5 +1,5 @@
 Name:           ocaml-pci
-Version:        0.1.4
+Version:        0.1.5
 Release:        1%{?dist}
 Summary:        OCaml bindings to libpci
 License:        LGPL2.1 + OCaml linking exception
@@ -59,8 +59,8 @@ make install
 
 
 %changelog
-* Mon May 11 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.4-1
-- Update to 0.1.4
+* Tue May 12 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.5-1
+- Update to 0.1.5
 
 * Fri May  8 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.1.2-1
 - Update to 0.1.2
