@@ -2,60 +2,60 @@
 # Do not edit directly, instead use planex-pin {add,list,remove}
 {
   "SPECS/forkexecd.spec": {
-    "0": "/repos/forkexecd#master"
+    "0": "/repos/forkexecd#HEAD"
   },
   "SPECS/ocaml-cdrom.spec": {
-    "0": "/repos/cdrom#master"
+    "0": "/repos/cdrom#HEAD"
   },
   "SPECS/ocaml-crc.spec": {
-    "0": "/repos/ocaml-crc#master"
+    "0": "/repos/ocaml-crc#HEAD"
   },
   "SPECS/ocaml-fd-send-recv.spec": {
-    "0": "/repos/ocaml-fd-send-recv#master"
+    "0": "/repos/ocaml-fd-send-recv#HEAD"
   },
   "SPECS/ocaml-netdev.spec": {
-    "0": "/repos/netdev#master"
+    "0": "/repos/netdev#HEAD"
   },
   "SPECS/ocaml-opasswd.spec": {
-    "0": "/repos/ocaml-opasswd#master"
+    "0": "/repos/ocaml-opasswd#HEAD"
   },
   "SPECS/ocaml-qmp.spec": {
-    "0": "/repos/ocaml-qmp#master"
+    "0": "/repos/ocaml-qmp#HEAD"
   },
   "SPECS/ocaml-sha.spec": {
-    "0": "/repos/ocaml-sha#master"
+    "0": "/repos/ocaml-sha#HEAD"
   },
   "SPECS/ocaml-stdext.spec": {
-    "0": "/repos/stdext#master"
+    "0": "/repos/stdext#HEAD"
   },
   "SPECS/ocaml-tapctl.spec": {
-    "0": "/repos/tapctl#master"
+    "0": "/repos/tapctl#HEAD"
   },
   "SPECS/ocaml-tar.spec": {
-    "0": "/repos/ocaml-tar#master"
+    "0": "/repos/ocaml-tar#HEAD"
   },
   "SPECS/ocaml-vhd.spec": {
-    "0": "/repos/ocaml-vhd#master"
+    "0": "/repos/ocaml-vhd#HEAD"
   },
   "SPECS/ocaml-xcp-idl.spec": {
-    "0": "/repos/xcp-idl#master"
+    "0": "/repos/xcp-idl#HEAD"
   },
   "SPECS/ocaml-xcp-inventory.spec": {
-    "0": "/repos/xcp-inventory#master"
+    "0": "/repos/xcp-inventory#HEAD"
   },
   "SPECS/ocaml-xcp-rrd.spec": {
-    "0": "/repos/xcp-rrd#master"
+    "0": "/repos/xcp-rrd#HEAD"
   },
   "SPECS/ocaml-xen-api-client.spec": {
-    "0": "/repos/xen-api-client#master"
+    "0": "/repos/xen-api-client#HEAD"
   },
   "SPECS/ocaml-xenstore.spec": {
-    "0": "/repos/ocaml-xenstore#master"
+    "0": "/repos/ocaml-xenstore#HEAD"
   },
   "SPECS/sm-cli.spec": {
-    "0": "/repos/sm-cli#master"
+    "0": "/repos/sm-cli#HEAD"
   },
   "SPECS/xenops-cli.spec": {
-    "0": "/repos/xenops-cli#master"
+    "0": "/repos/xenops-cli#HEAD"
   }
 }
