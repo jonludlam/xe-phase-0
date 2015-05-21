@@ -10,7 +10,7 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-ctypes-devel
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ounit-devel
-BuildRequires:  pciutils-devel
+BuildRequires:  pciutils-devel >= 3.2.0
 
 %description
 OCaml bindings to libpci.
@@ -20,7 +20,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       libffi%{?_isa}
 Requires:       ocaml-ctypes-devel%{?_isa}
-Requires:       pciutils-devel%{?_isa}
+Requires:       pciutils-devel%{?_isa} >= 3.2.0
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
