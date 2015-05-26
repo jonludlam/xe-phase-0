@@ -1,5 +1,5 @@
 Name:           ocaml-camldm
-Version:        0.9.2
+Version:        0.10
 Release:        1%{?dist}
 Summary:        OCaml bindings to device mapper
 License:        LGPL2.1 + OCaml linking exception
@@ -70,12 +70,15 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/devmapper/*.a
 %{_libdir}/ocaml/devmapper/*.cmx
 %{_libdir}/ocaml/devmapper/devmapper.cmxa
-%{_libdir}/ocaml/devmapper/devmapper.mli
+%{_libdir}/ocaml/devmapper/*.mli
 
 
 
 
 %changelog
+* Tue May 26 2015 David Scott <dave.scott@citrix.com>
+- New upstream release
+
 * Tue Apr 21 2015 Jon Ludlam <jonathan.ludlam@citrix.com>
 - New upstream release
 
