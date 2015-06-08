@@ -1,7 +1,7 @@
 Summary: An SSL-encrypting socket wrapper
-Name: stunnel
+Name: stunnel_xs
 Version: 4.56
-Release: 4%{?dist}
+Release: 4%{?dist}.xs1
 License: GPLv2
 Group: Applications/Internet
 URL: http://www.stunnel.org/
@@ -15,6 +15,7 @@ Source5: pop3-redirect.xinetd
 Source6: stunnel-pop3s-client.conf
 Patch0: stunnel-4-authpriv.patch
 Patch1: stunnel-4-sample.patch
+Patch2: pollhup.patch
 Buildroot: %{_tmppath}/stunnel-root
 # util-linux is needed for rename
 BuildRequires: openssl-devel, pkgconfig, tcp_wrappers-devel, util-linux
@@ -29,9 +30,10 @@ Layer) support to ordinary applications. For example, it can be used
 in conjunction with imapd to create an SSL secure IMAP server.
 
 %prep
-%setup -q
+%setup -q -n stunnel-%{version}
 %patch0 -p1 -b .authpriv
 %patch1 -p1 -b .sample
+%patch2 -p1
 
 iconv -f iso-8859-1 -t utf-8 < doc/stunnel.fr.8 > doc/stunnel.fr.8_
 mv doc/stunnel.fr.8_ doc/stunnel.fr.8
@@ -77,13 +79,18 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_datadir}/doc/stunnel
 %{_libdir}/stunnel
 %exclude %{_libdir}/stunnel/libstunnel.la
-%{_mandir}/man8/stunnel.8*
-%lang(fr) %{_mandir}/fr/man8/stunnel.8*
-%lang(pl) %{_mandir}/pl/man8/stunnel.8*
-%dir %{_sysconfdir}/%{name}
+%exclude %{_mandir}/man8/stunnel.8*
+%exclude %lang(fr) %{_mandir}/fr/man8/stunnel.8*
+%exclude %lang(pl) %{_mandir}/pl/man8/stunnel.8*
+%exclude %dir %{_sysconfdir}/%{name}
 %exclude %{_sysconfdir}/stunnel/*
 
 %changelog
+* Fri Jun 05 2015 Thomas Sanders <thomas.sanders@citrix.com> - 4.56-4.xs1
+- Rename package to stunnel_xs
+- Add pollhup.patch from Ross Lagerwall
+- Avoid conflict with stunnel 4.15 by %excluding man-pages and config-dir
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 4.56-4
 - Mass rebuild 2014-01-24
 
