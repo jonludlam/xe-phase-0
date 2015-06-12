@@ -1,12 +1,13 @@
 Name:           message-switch
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A store and forward message switch
 License:        FreeBSD
 URL:            https://github.com/djs55/message-switch
 Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        message-switch-init
 Source2:        message-switch-conf
+Patch0:         message-switch-7a385e7487d2d7a4fd8731891a3b93c8f8ca7382.patch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -29,6 +30,7 @@ A store and forward message switch for OCaml.
 
 %prep
 %setup -q
+%patch0 -p1
 cp %{SOURCE1} message-switch-init
 cp %{SOURCE2} message-switch-conf
 
@@ -78,6 +80,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
+* Fri Jun 12 2015 David Scott <dave.scott@citrix.com> - 0.11.0-2
+- Add tail-recursion fix
+
 * Thu Apr 23 2015 David Scott <dave.scott@citrix.com> - 0.11.0-1
 - Update to 0.11.0
 
