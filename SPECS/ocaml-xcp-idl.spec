@@ -8,6 +8,7 @@ License:        LGPL
 URL:            https://github.com/xapi-project/xcp-idl
 Source0:        https://github.com/xapi-project/xcp-idl/archive/v%{version}/xcp-idl-%{version}.tar.gz
 BuildRequires:  ocaml
+BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-findlib
