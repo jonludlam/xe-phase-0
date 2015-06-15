@@ -1,0 +1,128 @@
+commit 0229af6a9880c7ae1461ae2315490b22e60f9842
+Author: David Scott <dave.scott@citrix.com>
+Date:   Mon Jun 15 17:56:36 2015 +0000
+
+    Delete the old waiting code, which was broken
+    
+    The events would be generated and threads woken up as soon as someone
+    had created a shadow copy of the queues which had a new message in it.
+    The woken threads would not find the update in the global queues binding,
+    since it has not been updated yet.
+    
+    Signed-off-by: David Scott <dave.scott@citrix.com>
+
+diff --git a/switch/q.ml b/switch/q.ml
+index 765e601..6ec8cab 100644
+--- a/switch/q.ml
++++ b/switch/q.ml
+@@ -46,8 +46,6 @@ end
+ 
+ type waiter = {
+   mutable next_id: int64;
+-  c: unit Lwt_condition.t;
+-  m: Lwt_mutex.t
+ } with sexp
+ 
+ type t = {
+@@ -74,8 +72,6 @@ let get_owner t = t.owner
+ let make owner name =
+   let waiter = {
+     next_id = 0L;
+-    c = Lwt_condition.create ();
+-    m = Lwt_mutex.create ();
+  } in {
+   q = Int64Map.empty;
+   name = name;
+@@ -136,30 +132,10 @@ end
+ 
+ module Internal = struct
+ module Directory = struct
+-  let waiters = Hashtbl.create 128
+-
+-  let wait_for name =
+-    let t, u = Lwt.task () in
+-    let existing = if Hashtbl.mem waiters name then Hashtbl.find waiters name else [] in
+-    Hashtbl.replace waiters name (u :: existing);
+-    Lwt.on_cancel t
+-      (fun () ->
+-         if Hashtbl.mem waiters name then begin
+-           let existing = Hashtbl.find waiters name in
+-           Hashtbl.replace waiters name (List.filter (fun x -> x <> u) existing)
+-         end
+-      );
+-    t
+-
+   let exists queues name = StringMap.mem name queues.queues
+ 
+   let add queues ?owner name =
+     if not(exists queues name) then begin
+-      if Hashtbl.mem waiters name then begin
+-        let threads = Hashtbl.find waiters name in
+-        Hashtbl.remove waiters name;
+-        List.iter (fun u -> Lwt.wakeup_later u ()) threads
+-      end;
+       let queues' = StringMap.add name (make owner name) queues.queues in
+       let by_owner = match owner with
+         | None -> queues.by_owner
+@@ -225,7 +201,6 @@ let send queues origin name id data =
+                 q = Int64Map.add id (Protocol.Entry.make (ns ()) origin data) q.q
+               } in
+      let queues = { queues with queues = StringMap.add name q' queues.queues } in
+-     Lwt_condition.broadcast q.waiter.c ();
+      queues
+   end else queues
+ 
+@@ -272,38 +247,6 @@ let do_op queues = function
+   | Op.Send (origin, name, id, body) ->
+     Internal.send queues origin name id body
+ 
+-let wait_one queues from name =
+-  if Internal.Directory.exists queues name then begin
+-    (* Wait for some messages to turn up *)
+-    let q = Internal.Directory.find queues name in
+-    Lwt_mutex.with_lock q.waiter.m
+-      (fun () ->
+-        let rec loop () =
+-          (* q.next_id - 1 is the last id in use *)
+-          if from < (Int64.pred q.waiter.next_id)
+-          then return ()
+-          else begin
+-            Lwt_condition.wait ~mutex:q.waiter.m q.waiter.c
+-            >>= fun () ->
+-            loop ()
+-          end in
+-        loop ()
+-      )
+-  end else begin
+-    (* Wait for the queue to be created *)
+-    Internal.Directory.wait_for name;
+-  end
+-
+-let wait queues from timeout names =
+-  let start = Clock.s () in 
+-  let remaining_timeout = max 0. (start +. timeout -. (Clock.s ())) in
+-  if remaining_timeout <= 0.
+-  then return ()
+-  else
+-    let timeout = Lwt_unix.sleep remaining_timeout in
+-    let more = List.map (wait_one queues from) names in
+-    Lwt.pick (timeout :: more)
+-
+ let contents q = Internal.(Int64Map.fold (fun i e acc -> ((q.name, i), e) :: acc) q.q [])
+ 
+ module Directory = struct
+diff --git a/switch/q.mli b/switch/q.mli
+index 02fc458..f32c569 100644
+--- a/switch/q.mli
++++ b/switch/q.mli
+@@ -70,10 +70,6 @@ val transfer: queues -> int64 -> string list -> (Protocol.message_id * Protocol.
+ (** [transfer from names] returns all messages which are newer
+     than [from] from all queues in [names] *)
+ 
+-val wait: queues -> int64 -> float -> string list -> unit Lwt.t
+-(** [wait queues from timeout names] returns a thread which blocks until a message
+-    newer than [from] is added to any of the queues with names [names]. *)
+-
+ val entry: queues -> Protocol.message_id -> Protocol.Entry.t option
+ (** [entry id] returns the entry containing message id [id] *)
+ 
