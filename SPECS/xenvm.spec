@@ -1,6 +1,6 @@
 Name:           xenvm
-Version:        0.1.0
-Release:        3%{?dist}
+Version:        0.2.0
+Release:        2%{?dist}
 Summary:        A compatible replace for LVM supporting thinly provisioned volumes
 License:        LGPL
 URL:            https://github.com/xapi-project/xenvm
@@ -45,16 +45,24 @@ install local_allocator.native %{buildroot}/%{_bindir}/xenvm-local-allocator
 mkdir -p %{buildroot}/opt/xensource/sm
 cp %{SOURCE1} %{buildroot}/opt/xensource/sm
 cp %{SOURCE2} %{buildroot}/opt/xensource/sm
+mkdir -p %{buildroot}/etc/xenvm.d
 
 %files
 %doc README.md 
 %{_sbindir}/xenvmd
 %{_bindir}/xenvm
 %{_bindir}/xenvm-local-allocator
+/etc/xenvm.d
 /opt/xensource/sm/refresh-demo
 /opt/xensource/sm/resize-demo
 
 %changelog
+* Fri May 15 2015 David Scott <dave.scott@citrix.com> - 0.2.0-2
+- Create /etc/xenvm.d
+
+* Tue Apr 28 2015 David Scott <dave.scott@citrix.com> - 0.2.0-1
+- Update to 0.2.0-1
+
 * Thu Apr 23 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.1.0-3
 - Add local allocator
 

@@ -4,6 +4,9 @@
   "SPECS/forkexecd.spec": {
     "0": "/repos/forkexecd#HEAD"
   },
+  "SPECS/ocaml-mirage-block-volume.spec": {
+    "0": "/repos/mirage-block-volume#HEAD"
+  },
   "SPECS/ocaml-cdrom.spec": {
     "0": "/repos/cdrom#HEAD"
   },
@@ -52,10 +55,16 @@
   "SPECS/ocaml-xenstore.spec": {
     "0": "/repos/ocaml-xenstore#HEAD"
   },
+  "SPECS/ocaml-shared-block-ring.spec": {
+    "0": "/repos/shared-block-ring#HEAD"
+  },
   "SPECS/sm-cli.spec": {
     "0": "/repos/sm-cli#HEAD"
   },
   "SPECS/xenops-cli.spec": {
     "0": "/repos/xenops-cli#HEAD"
+  },
+  "SPECS/xenvm.spec": {
+    "0": "/repos/xenvm#HEAD"
   }
 }

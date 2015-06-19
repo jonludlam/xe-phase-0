@@ -1,13 +1,14 @@
 %define debug_package %{nil}
 
 Name:           ocaml-mirage-block-volume
-Version:        0.9.1
+Version:        0.11.0
 Release:        1%{?dist}
 Summary:        Mirage volume library compatible with LVM
 License:        ISC
 URL:            https://github.com/mirage/mirage-block-volume/
 Source0:        https://github.com/mirage/mirage-block-volume/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
+BuildRequires:  oasis
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib-devel
@@ -74,5 +75,14 @@ make install
 %{_libdir}/ocaml/lvm_internal/*.cmxa
 
 %changelog
+* Thu Apr 30 2015 David Scott <dave.scott@citrix.com> - 0.11.0-1
+- Update to 0.11.0
+
+* Tue Apr 28 2015 David Scott <dave.scott@citrix.com> - 0.10.0-1
+- Update to 0.10.0
+
+* Mon Apr 27 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.2-1
+- New upstream release
+
 * Sun Apr 12 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.1-1
 - Initial package
