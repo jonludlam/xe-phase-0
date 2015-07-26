@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-rpc
-Version:        1.5.4
+Version:        1.5.5
 Release:        1%{?dist}
 Summary:        An RPC library for OCaml
 License:        LGPL
@@ -50,6 +50,9 @@ make install DESTDIR=${buildroot}
 %{_libdir}/ocaml/rpclib/*.cmx
 
 %changelog
+* Thu Jul 23 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.5.5-1
+- Update to 1.5.5
+
 * Thu Jun 11 2015 John Else <john.else@citrix.com> - 1.5.4-1
 - Update to 1.5.4, fixing upgrade of records with option type fields
 
