@@ -46,6 +46,7 @@ mkdir -p %{buildroot}/opt/xensource/sm
 cp %{SOURCE1} %{buildroot}/opt/xensource/sm
 cp %{SOURCE2} %{buildroot}/opt/xensource/sm
 mkdir -p %{buildroot}/etc/xenvm.d
+mkdir -p %{buildroot}/var/lib/xenvmd
 
 %files
 %doc README.md 
@@ -55,8 +56,12 @@ mkdir -p %{buildroot}/etc/xenvm.d
 /etc/xenvm.d
 /opt/xensource/sm/refresh-demo
 /opt/xensource/sm/resize-demo
+/var/lib/xenvmd
 
 %changelog
+* Mon Jul 27 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.2.0-3
+- Create /var/lib/xenvmd
+
 * Fri May 15 2015 David Scott <dave.scott@citrix.com> - 0.2.0-2
 - Create /etc/xenvm.d
 
