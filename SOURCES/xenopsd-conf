@@ -1,0 +1,41 @@
+# Configuration file for xenopsd
+
+search-path=/usr/lib/xen/bin:/usr/libexec/xenopsd:/usr/lib/xen/boot
+
+# Number of threads which will service the VM operation queues
+worker-pool-size=16
+
+# Omit some sources of log-spam by default
+disable-logging-for=http
+
+# We don't run the hotplug scripts ourself until the netback is fixed (breaks windows PV drivers)
+run_hotplug_scripts=false
+
+network-conf=/etc/xensource/network.conf
+
+vif-script=vif
+vif-xl-script=vif
+vbd-script=block
+vbd-xl-script=block
+qemu-system-i386=/bin/false
+
+pygrub=/usr/bin/pygrub
+sockets-group=wheel
+
+eliloader=/usr/bin/eliloader
+
+# use-switch=true
+
+# After starting vgpu, xenopsd will wait this many seconds for vgpu to signal
+# via xenstore that it has started successfully. If xenopsd does not see the
+# signal within this time the VM startup sequence will be aborted.
+#vgpu-ready-timeout=30
+
+# When suspending vgpu, xenopsd sends it a SIGHUP and waits this many seconds
+# for vgpu to write its statefile and exit. If vgpu has not exited after this
+# time, xenopsd will send vgpu a SIGTERM and abort the VM suspend sequence.
+#vgpu-suspend-timeout=60
+
+default-vbd-backend-kind=vbd3
+
+ca-140252-workaround=true

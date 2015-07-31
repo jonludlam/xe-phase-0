@@ -4,9 +4,6 @@
   "SPECS/forkexecd.spec": {
     "0": "/repos/forkexecd#HEAD"
   },
-  "SPECS/ocaml-mirage-block-volume.spec": {
-    "0": "/repos/mirage-block-volume#HEAD"
-  },
   "SPECS/ocaml-cdrom.spec": {
     "0": "/repos/cdrom#HEAD"
   },
@@ -15,6 +12,9 @@
   },
   "SPECS/ocaml-fd-send-recv.spec": {
     "0": "/repos/ocaml-fd-send-recv#HEAD"
+  },
+  "SPECS/ocaml-mirage-block-volume.spec": {
+    "0": "/repos/mirage-block-volume#HEAD"
   },
   "SPECS/ocaml-netdev.spec": {
     "0": "/repos/netdev#HEAD"
@@ -27,6 +27,9 @@
   },
   "SPECS/ocaml-sha.spec": {
     "0": "/repos/ocaml-sha#HEAD"
+  },
+  "SPECS/ocaml-shared-block-ring.spec": {
+    "0": "/repos/shared-block-ring#HEAD"
   },
   "SPECS/ocaml-stdext.spec": {
     "0": "/repos/stdext#HEAD"
@@ -55,9 +58,6 @@
   "SPECS/ocaml-xenstore.spec": {
     "0": "/repos/ocaml-xenstore#HEAD"
   },
-  "SPECS/ocaml-shared-block-ring.spec": {
-    "0": "/repos/shared-block-ring#HEAD"
-  },
   "SPECS/sm-cli.spec": {
     "0": "/repos/sm-cli#HEAD"
   },
@@ -66,5 +66,45 @@
   },
   "SPECS/xenvm.spec": {
     "0": "/repos/xenvm#HEAD"
+  },
+  "SPECS/xen.spec": {
+    "0": "/repos/xen-4.5#HEAD",
+    "1": "/repos/xen-4.5.pg#HEAD",
+    "2": "/repos/ipxe#HEAD",
+    "3": "/repos/ipxe.pg#HEAD"
+  },
+  "SPECS/ocaml-libvhd.spec": {
+    "0": "/repos/libvhd#HEAD"
+  },
+  "SPECS/ocaml-rrd-transport.spec": {
+    "0": "/repos/rrd-transport#HEAD"
+  },
+  "SPECS/ocaml-rrdd-plugin.spec": {
+    "0": "/repos/ocaml-rrdd-plugin#HEAD"
+  },
+  "SPECS/ocaml-xen-api-libs-transitional.spec": {
+    "0": "/repos/xen-api-libs-transitional#HEAD"
+  },
+  "SPECS/ocaml-xenops.spec": {
+    "0": "/repos/xenops#HEAD"
+  },
+  "SPECS/ocaml-xenstore-clients.spec": {
+    "0": "/repos/ocaml-xenstore-clients#HEAD"
+  },
+  "SPECS/squeezed.spec": {
+    "0": "/repos/squeezed#HEAD"
+  },
+  "SPECS/vhd-tool.spec": {
+    "0": "/repos/vhd-tool#HEAD"
+  },
+  "SPECS/xcp-networkd.spec": {
+    "0": "/repos/xcp-networkd#HEAD"
+  },
+  "SPECS/xcp-rrdd.spec": {
+    "0": "/repos/xcp-rrdd#HEAD"
+  },
+  "SPECS/xenopsd.spec": {
+    "0": "/repos/xenopsd#HEAD"
   }
+
 }

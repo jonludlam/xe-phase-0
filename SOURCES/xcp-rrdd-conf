@@ -1,0 +1,4 @@
+# The xcp-rrdd config file
+
+disable-logging-for = http
+

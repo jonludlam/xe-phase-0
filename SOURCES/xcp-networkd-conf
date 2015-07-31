@@ -1,0 +1,13 @@
+# Default paths to search for binaries
+# search-path=
+
+# The location of the inventory file
+inventory = /etc/xensource-inventory
+
+# True to use the message switch; false for direct Unix domain socket
+# comms
+# use-switch = true
+
+brctl=/usr/sbin/brctl
+network-conf=/etc/xensource/network.conf
+
